@@ -10,8 +10,7 @@
 
 **Idea Proposal**
 
-* A food delivery app where a person can pick up food that will be thrown away at the end of the day at local restaurants and can deliver that food to a nearby
-* homeless shelter or food pantry. 
+* A food delivery app where a person can pick up food that will be thrown away at the end of the day at local restaurants and can deliver that food to a nearby homeless shelter or food pantry. 
 
 **Calendar**
 
