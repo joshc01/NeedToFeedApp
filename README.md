@@ -8,7 +8,7 @@
 
 **App description**
 
-**Idea Proposal**
+**[Idea Proposal](https://docs.google.com/document/d/1myNQ0vCv3csvUHNCxaGrRvblIJUP7GrtdO9Pc5oIWsI/edit?usp=sharing)**
 
 *  Idea Proposal 
 
