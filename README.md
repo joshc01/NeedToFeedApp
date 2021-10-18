@@ -12,6 +12,8 @@
 
 **App description**
 
+**[Requirements](https://docs.google.com/document/d/1fByUMj14SOC8yyaslVtjSOXiJ0X6Pju5OcWudXjzSLQ/edit)**
+
 **[Idea Proposal](https://docs.google.com/document/d/1myNQ0vCv3csvUHNCxaGrRvblIJUP7GrtdO9Pc5oIWsI/edit?usp=sharing)**
 
 **[Calendar](https://calendar.google.com/calendar/u/0/r?cid=aXZoMmU3NjhzMjRkdGlxZWYwcXZvbzhxcjBAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ)**
