@@ -11,7 +11,8 @@
 * Joshua Comia, Michael Dadi, Godday Hornsby, Aiet Isenaj
 
 **App description**
-
+* This app allows every day people to be a food deliverer for hire. The food being delivered will be leftovers from nearby restaurants that are throwing away their excess food at the end of the day. The main recipients of the food will be local food pantries and homeless shelters that place orders from the restaurants at a discounted price. Every day people can be customers as well and have food deliverd to them. 
+*
 **[Requirements](https://docs.google.com/document/d/1fByUMj14SOC8yyaslVtjSOXiJ0X6Pju5OcWudXjzSLQ/edit)**
 
 **[Idea Proposal](https://docs.google.com/document/d/1myNQ0vCv3csvUHNCxaGrRvblIJUP7GrtdO9Pc5oIWsI/edit?usp=sharing)**
