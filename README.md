@@ -2,12 +2,9 @@
 
 <img width="1004" alt="09406D52-6BCB-4DC5-B4F4-E7A1AA662192" src="https://user-images.githubusercontent.com/56610578/137247893-6b83ab34-b91b-40ed-a22d-10a98d452561.png">
 
-**App name**
-* NeedToFeed
+**App name: NeedToFeed**
 
-**Team** 
-
-* 4
+**Team 4**
 * Joshua Comia, Michael Dadi, Godday Hornsby, Aiet Isenaj
 
 **App description**
