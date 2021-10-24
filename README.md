@@ -5,10 +5,10 @@
 **App name: NeedToFeed**
 
 **Team 4**
-* Joshua Comia, Michael Dadi, Godday Hornsby, Aiet Isenaj
+Joshua Comia, Michael Dadi, Godday Hornsby, Aiet Isenaj
 
 **App description**
-* This app allows every day people to be a food deliverer for hire. The food being delivered will be leftovers from nearby restaurants that are throwing away their excess food at the end of the day. The main recipients of the food will be local food pantries and homeless shelters that place orders from the restaurants at a discounted price. Every day people can be customers as well and have food deliverd to them. 
+This app allows every day people to be a food deliverer for hire. The food being delivered will be leftovers from nearby restaurants that are throwing away their excess food at the end of the day. The main recipients of the food will be local food pantries and homeless shelters that place orders from the restaurants at a discounted price. Every day people can be customers as well and have food deliverd to them. 
 
 **[Requirements](https://docs.google.com/document/d/1fByUMj14SOC8yyaslVtjSOXiJ0X6Pju5OcWudXjzSLQ/edit)**
 
@@ -18,7 +18,7 @@
 
 **[Product Backlog](https://docs.google.com/spreadsheets/d/18TeZD5kjH-MdaVyieT838qLmpDBPZzqjcP_K8N54koc/edit#gid=8)**
 
-**Architecture & Design**
+**[Architecture & Design](https://docs.google.com/document/d/1fU9g1XKIAkZ-jqyQeuH9UI0rQuGLT99j6csM69s62YI/edit)**
 
 **Content**
 
