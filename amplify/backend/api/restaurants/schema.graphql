@@ -1,0 +1,13 @@
+type Restaurant @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  items: [Item] @connection(keyName: "byRestaurant", fields: ["id"])
+}
+
+type Item @model @key(name: "byRestaurant", fields: ["restaurantID"]) @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  restaurantID: ID
+  restaurant: Restaurant @connection
+}
+ 

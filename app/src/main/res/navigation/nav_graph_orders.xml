@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_orders"
+    app:startDestination="@id/navigate_orders">
+
+    <fragment
+        android:id="@+id/navigate_orders"
+        android:name="com.cs389team4.needtofeed.ui.orders.OrderItemFragment"
+        android:label="@string/title_orders"
+        tools:layout="@layout/fragment_order_item_list"/>
+
+</navigation>
