@@ -24,7 +24,7 @@ This app allows every day people to be a food deliverer for hire. The food being
 
 **Sprint 1**
 
-* Sprint planning
+* [Sprint planning](https://docs.google.com/document/d/160EMU8goBun1mPfV3bpYywHnhNzQFNsKMDnZ8jmwB6g/edit)
 * Scrums
 * Sprint demo - video and apk (or equivalent)
 * Spring retrospective
