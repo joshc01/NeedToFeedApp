@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigate_home"
-        android:name="com.cs389team4.needtofeed.ui.home.FoodItemFragment"
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_food_item_list"/>
+        tools:layout="@layout/fragment_restaurant_list"/>
 </navigation>
