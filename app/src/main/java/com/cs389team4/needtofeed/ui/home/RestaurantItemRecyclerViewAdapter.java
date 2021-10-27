@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cs389team4.needtofeed.databinding.FragmentRestaurantItemBinding;
 import com.cs389team4.needtofeed.ui.home.placeholder.PlaceholderContent.PlaceholderItem;
-import com.cs389team4.needtofeed.ui.home.databinding.FragmentRestaurantItemBinding;
 
 import java.util.List;
 
