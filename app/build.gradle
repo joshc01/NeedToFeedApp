@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.cs389team4.needtofeed"
-        minSdk 23
+        minSdk 24
         targetSdk 30
         versionCode 1
         versionName "1.0"
