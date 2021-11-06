@@ -36,4 +36,6 @@
     <string name="lbl_reset_password">Reset Password</string>
     <string name="hint_new_password">New Password</string>
     <string name="reset_password_confirm_prompt">A password reset link has been\nsent to your email.\n\nPlease verify your account and enter your new password below</string>
+
+    <string name="restaurants_unavailable">Oh no!\nNo restaurants available near you</string>
 </resources>

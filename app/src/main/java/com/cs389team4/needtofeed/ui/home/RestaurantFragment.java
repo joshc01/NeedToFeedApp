@@ -1,72 +1,58 @@
 package com.cs389team4.needtofeed.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.amplifyframework.datastore.generated.model.Restaurant;
+import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
+import com.cs389team4.needtofeed.models.RestaurantViewModel;
+import com.cs389team4.needtofeed.utils.ListFragment;
+import com.cs389team4.needtofeed.utils.ViewModel;
 
-import com.cs389team4.needtofeed.R;
-import com.cs389team4.needtofeed.ui.home.placeholder.PlaceholderContent;
+import java.util.UUID;
 
-/**
- * A fragment representing a list of Items.
- */
-public class RestaurantFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public RestaurantFragment() {
+public class RestaurantFragment extends ListFragment<Restaurant> {
+    @NonNull
+    @Override
+    public Restaurant createModel() {
+        return Restaurant.builder()
+                .name("a name")
+                .category("a category")
+                .location("a location")
+                .timeOpen(null)
+                .timeClose(null)
+                .image(null)
+                .build();
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static RestaurantFragment newInstance(int columnCount) {
-        RestaurantFragment fragment = new RestaurantFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    @NonNull
+    @Override
+    public Restaurant updateModel(Restaurant model) {
+        return model.copyOfBuilder()
+                .name(UUID.randomUUID().toString())
+                .build();
+    }
+
+    @NonNull
+    @Override
+    public Class<? extends Restaurant> getModelClass() {
+        return Restaurant.class;
+    }
+
+    @NonNull
+    @Override
+    public ViewModel<Restaurant> getViewModel(@NonNull Restaurant model) {
+        return new RestaurantViewModel(model);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+    public void onClick(Restaurant item) {
+        // On list item click
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_restaurant_list, container, false);
-
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new RestaurantRecyclerViewAdapter(PlaceholderContent.ITEMS));
-        }
-        return view;
+    public boolean onLongClick(Restaurant item) {
+        return false;
     }
 }

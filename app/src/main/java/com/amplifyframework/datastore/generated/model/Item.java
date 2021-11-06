@@ -29,12 +29,16 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 public final class Item implements Model {
   public static final QueryField ID = field("Item", "id");
   public static final QueryField TITLE = field("Item", "title");
-  public static final QueryField RESTAURANT_ID = field("Item", "restaurantID");
+  public static final QueryField PRICE = field("Item", "price");
   public static final QueryField RESTAURANT = field("Item", "itemRestaurantId");
+  public static final QueryField RESTAURANT_ID = field("Item", "restaurantID");
+  public static final QueryField IMAGE = field("Item", "image");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
-  private final @ModelField(targetType="ID") String restaurantID;
+  private final @ModelField(targetType="Float", isRequired = true) Double price;
   private final @ModelField(targetType="Restaurant") @BelongsTo(targetName = "itemRestaurantId", type = Restaurant.class) Restaurant restaurant;
+  private final @ModelField(targetType="ID") String restaurantID;
+  private final @ModelField(targetType="AWSURL") String image;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -45,12 +49,20 @@ public final class Item implements Model {
       return title;
   }
   
-  public String getRestaurantId() {
-      return restaurantID;
+  public Double getPrice() {
+      return price;
   }
   
   public Restaurant getRestaurant() {
       return restaurant;
+  }
+  
+  public String getRestaurantId() {
+      return restaurantID;
+  }
+  
+  public String getImage() {
+      return image;
   }
   
   public Temporal.DateTime getCreatedAt() {
@@ -61,11 +73,13 @@ public final class Item implements Model {
       return updatedAt;
   }
   
-  private Item(String id, String title, String restaurantID, Restaurant restaurant) {
+  private Item(String id, String title, Double price, Restaurant restaurant, String restaurantID, String image) {
     this.id = id;
     this.title = title;
-    this.restaurantID = restaurantID;
+    this.price = price;
     this.restaurant = restaurant;
+    this.restaurantID = restaurantID;
+    this.image = image;
   }
   
   @Override
@@ -78,8 +92,10 @@ public final class Item implements Model {
       Item item = (Item) obj;
       return ObjectsCompat.equals(getId(), item.getId()) &&
               ObjectsCompat.equals(getTitle(), item.getTitle()) &&
-              ObjectsCompat.equals(getRestaurantId(), item.getRestaurantId()) &&
+              ObjectsCompat.equals(getPrice(), item.getPrice()) &&
               ObjectsCompat.equals(getRestaurant(), item.getRestaurant()) &&
+              ObjectsCompat.equals(getRestaurantId(), item.getRestaurantId()) &&
+              ObjectsCompat.equals(getImage(), item.getImage()) &&
               ObjectsCompat.equals(getCreatedAt(), item.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), item.getUpdatedAt());
       }
@@ -90,8 +106,10 @@ public final class Item implements Model {
     return new StringBuilder()
       .append(getId())
       .append(getTitle())
-      .append(getRestaurantId())
+      .append(getPrice())
       .append(getRestaurant())
+      .append(getRestaurantId())
+      .append(getImage())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -104,8 +122,10 @@ public final class Item implements Model {
       .append("Item {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("title=" + String.valueOf(getTitle()) + ", ")
-      .append("restaurantID=" + String.valueOf(getRestaurantId()) + ", ")
+      .append("price=" + String.valueOf(getPrice()) + ", ")
       .append("restaurant=" + String.valueOf(getRestaurant()) + ", ")
+      .append("restaurantID=" + String.valueOf(getRestaurantId()) + ", ")
+      .append("image=" + String.valueOf(getImage()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -129,6 +149,8 @@ public final class Item implements Model {
       id,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -136,27 +158,37 @@ public final class Item implements Model {
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
       title,
+      price,
+      restaurant,
       restaurantID,
-      restaurant);
+      image);
   }
   public interface TitleStep {
-    BuildStep title(String title);
+    PriceStep title(String title);
+  }
+  
+
+  public interface PriceStep {
+    BuildStep price(Double price);
   }
   
 
   public interface BuildStep {
     Item build();
     BuildStep id(String id);
-    BuildStep restaurantId(String restaurantId);
     BuildStep restaurant(Restaurant restaurant);
+    BuildStep restaurantId(String restaurantId);
+    BuildStep image(String image);
   }
   
 
-  public static class Builder implements TitleStep, BuildStep {
+  public static class Builder implements TitleStep, PriceStep, BuildStep {
     private String id;
     private String title;
-    private String restaurantID;
+    private Double price;
     private Restaurant restaurant;
+    private String restaurantID;
+    private String image;
     @Override
      public Item build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -164,14 +196,29 @@ public final class Item implements Model {
         return new Item(
           id,
           title,
+          price,
+          restaurant,
           restaurantID,
-          restaurant);
+          image);
     }
     
     @Override
-     public BuildStep title(String title) {
+     public PriceStep title(String title) {
         Objects.requireNonNull(title);
         this.title = title;
+        return this;
+    }
+    
+    @Override
+     public BuildStep price(Double price) {
+        Objects.requireNonNull(price);
+        this.price = price;
+        return this;
+    }
+    
+    @Override
+     public BuildStep restaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
         return this;
     }
     
@@ -182,8 +229,8 @@ public final class Item implements Model {
     }
     
     @Override
-     public BuildStep restaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+     public BuildStep image(String image) {
+        this.image = image;
         return this;
     }
     
@@ -199,11 +246,13 @@ public final class Item implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String restaurantId, Restaurant restaurant) {
+    private CopyOfBuilder(String id, String title, Double price, Restaurant restaurant, String restaurantId, String image) {
       super.id(id);
       super.title(title)
+        .price(price)
+        .restaurant(restaurant)
         .restaurantId(restaurantId)
-        .restaurant(restaurant);
+        .image(image);
     }
     
     @Override
@@ -212,13 +261,23 @@ public final class Item implements Model {
     }
     
     @Override
-     public CopyOfBuilder restaurantId(String restaurantId) {
-      return (CopyOfBuilder) super.restaurantId(restaurantId);
+     public CopyOfBuilder price(Double price) {
+      return (CopyOfBuilder) super.price(price);
     }
     
     @Override
      public CopyOfBuilder restaurant(Restaurant restaurant) {
       return (CopyOfBuilder) super.restaurant(restaurant);
+    }
+    
+    @Override
+     public CopyOfBuilder restaurantId(String restaurantId) {
+      return (CopyOfBuilder) super.restaurantId(restaurantId);
+    }
+    
+    @Override
+     public CopyOfBuilder image(String image) {
+      return (CopyOfBuilder) super.image(image);
     }
   }
   

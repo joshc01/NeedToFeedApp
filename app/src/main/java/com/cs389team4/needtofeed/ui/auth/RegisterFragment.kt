@@ -53,7 +53,7 @@ class RegisterFragment : Fragment() {
             // Build Amplify user attributes
             val options = AuthSignUpOptions.builder()
                 .userAttribute(AuthUserAttributeKey.name(), name)
-                .userAttribute(AuthUserAttributeKey.email(), email)
+//                .userAttribute(AuthUserAttributeKey.email(), email)
                 .build()
 
             // Register with Amplify Auth
