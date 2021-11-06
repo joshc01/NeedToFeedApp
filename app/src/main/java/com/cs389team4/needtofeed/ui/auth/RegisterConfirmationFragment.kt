@@ -13,12 +13,16 @@ import com.cs389team4.needtofeed.utils.Utils
 
 class RegisterConfirmationFragment: Fragment() {
     private lateinit var binding: FragmentRegisterConfirmationBinding
+    lateinit var email: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
+        val bundle = this.arguments
+        email = bundle!!.getString("email").toString()
+
         binding = FragmentRegisterConfirmationBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -26,9 +30,6 @@ class RegisterConfirmationFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val btnConfirm = binding.btnRegisterConfirm
-
-        val bundle = this.arguments
-        val email = bundle!!.getString("email")
 
         btnConfirm.setOnClickListener {
             val confirmCode = binding.registerConfirmInputCode.text.toString()

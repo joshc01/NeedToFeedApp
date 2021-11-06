@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="250dp"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp"
+    android:layout_margin="16dp"
+    android:padding="8dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/restaurant_list_item_banner"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"/>
+
+        <View android:background="#808080"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/restaurant_list_item_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/restaurant_list_item_name"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/restaurant_list_item_category"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/restaurant_list_item_location"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/restaurant_list_item_hours"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
