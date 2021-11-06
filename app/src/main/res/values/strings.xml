@@ -19,4 +19,23 @@
     <string name="title_home">Home</string>
     <string name="title_orders">Orders</string>
     <string name="title_profile">Profile</string>
+    <string name="welcome_screen_subtitle">Save · Eat · Repeat</string>
+    <string name="lbl_register">Register</string>
+    <string name="lbl_log_in">Log In</string>
+    <string name="hint_full_name">Full Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="terms_privacy_agreement"><![CDATA[By registering, you agree to our <a href="https://www.termsfeed.com/live/192616dc-455a-44ca-9d2b-c2f9f299b2b5">Terms & Conditions</a> and <a href="https://www.termsfeed.com/live/244ef7f2-8a96-4e3f-9db6-5058825e1b6d">Privacy Policy</a>.]]></string>
+    <string name="lbl_forgot_password">Forgot Password? Click Here</string>
+    <string name="title_register_confirm">Confirm Registration</string>
+    <string name="register_confirm_prompt">Please enter the verification code sent to the email address you provided to complete your account registration</string>
+    <string name="hint_verification_code">Verification Code</string>
+    <string name="lbl_register_confirm">Confirm</string>
+    <string name="title_reset_password">Reset Password</string>
+    <string name="reset_password_prompt">Enter the email associated with your account to receive a password reset code</string>
+    <string name="lbl_reset_password">Reset Password</string>
+    <string name="hint_new_password">New Password</string>
+    <string name="reset_password_confirm_prompt">A password reset link has been\nsent to your email.\n\nPlease verify your account and enter your new password below</string>
+
+    <string name="restaurants_unavailable">Oh no!\nNo restaurants available near you</string>
 </resources>

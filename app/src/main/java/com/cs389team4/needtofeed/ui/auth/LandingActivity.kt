@@ -9,6 +9,7 @@ class LandingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Inflate activity layout
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
