@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.10227087649541987" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/drawable/ic_baseline_receipt_long_24.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/fragment_restaurant_menu.xml" value="0.16770833333333332" />
       </map>
     </option>
   </component>
