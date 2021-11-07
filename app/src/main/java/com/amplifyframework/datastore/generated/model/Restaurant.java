@@ -28,9 +28,19 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 public final class Restaurant implements Model {
   public static final QueryField ID = field("Restaurant", "id");
   public static final QueryField NAME = field("Restaurant", "name");
+  public static final QueryField CATEGORY = field("Restaurant", "category");
+  public static final QueryField IMAGE = field("Restaurant", "image");
+  public static final QueryField LOCATION = field("Restaurant", "location");
+  public static final QueryField TIME_OPEN = field("Restaurant", "timeOpen");
+  public static final QueryField TIME_CLOSE = field("Restaurant", "timeClose");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String name;
   private final @ModelField(targetType="Item") @HasMany(associatedWith = "restaurantID", type = Item.class) List<Item> items = null;
+  private final @ModelField(targetType="String", isRequired = true) String category;
+  private final @ModelField(targetType="AWSURL") String image;
+  private final @ModelField(targetType="String", isRequired = true) String location;
+  private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time timeOpen;
+  private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time timeClose;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -45,6 +55,26 @@ public final class Restaurant implements Model {
       return items;
   }
   
+  public String getCategory() {
+      return category;
+  }
+  
+  public String getImage() {
+      return image;
+  }
+  
+  public String getLocation() {
+      return location;
+  }
+  
+  public Temporal.Time getTimeOpen() {
+      return timeOpen;
+  }
+  
+  public Temporal.Time getTimeClose() {
+      return timeClose;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -53,9 +83,14 @@ public final class Restaurant implements Model {
       return updatedAt;
   }
   
-  private Restaurant(String id, String name) {
+  private Restaurant(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose) {
     this.id = id;
     this.name = name;
+    this.category = category;
+    this.image = image;
+    this.location = location;
+    this.timeOpen = timeOpen;
+    this.timeClose = timeClose;
   }
   
   @Override
@@ -68,6 +103,11 @@ public final class Restaurant implements Model {
       Restaurant restaurant = (Restaurant) obj;
       return ObjectsCompat.equals(getId(), restaurant.getId()) &&
               ObjectsCompat.equals(getName(), restaurant.getName()) &&
+              ObjectsCompat.equals(getCategory(), restaurant.getCategory()) &&
+              ObjectsCompat.equals(getImage(), restaurant.getImage()) &&
+              ObjectsCompat.equals(getLocation(), restaurant.getLocation()) &&
+              ObjectsCompat.equals(getTimeOpen(), restaurant.getTimeOpen()) &&
+              ObjectsCompat.equals(getTimeClose(), restaurant.getTimeClose()) &&
               ObjectsCompat.equals(getCreatedAt(), restaurant.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), restaurant.getUpdatedAt());
       }
@@ -78,6 +118,11 @@ public final class Restaurant implements Model {
     return new StringBuilder()
       .append(getId())
       .append(getName())
+      .append(getCategory())
+      .append(getImage())
+      .append(getLocation())
+      .append(getTimeOpen())
+      .append(getTimeClose())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -90,6 +135,11 @@ public final class Restaurant implements Model {
       .append("Restaurant {")
       .append("id=" + String.valueOf(getId()) + ", ")
       .append("name=" + String.valueOf(getName()) + ", ")
+      .append("category=" + String.valueOf(getCategory()) + ", ")
+      .append("image=" + String.valueOf(getImage()) + ", ")
+      .append("location=" + String.valueOf(getLocation()) + ", ")
+      .append("timeOpen=" + String.valueOf(getTimeOpen()) + ", ")
+      .append("timeClose=" + String.valueOf(getTimeClose()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -111,41 +161,116 @@ public final class Restaurant implements Model {
   public static Restaurant justId(String id) {
     return new Restaurant(
       id,
+      null,
+      null,
+      null,
+      null,
+      null,
       null
     );
   }
   
   public CopyOfBuilder copyOfBuilder() {
     return new CopyOfBuilder(id,
-      name);
+      name,
+      category,
+      image,
+      location,
+      timeOpen,
+      timeClose);
   }
   public interface NameStep {
-    BuildStep name(String name);
+    CategoryStep name(String name);
+  }
+  
+
+  public interface CategoryStep {
+    LocationStep category(String category);
+  }
+  
+
+  public interface LocationStep {
+    TimeOpenStep location(String location);
+  }
+  
+
+  public interface TimeOpenStep {
+    TimeCloseStep timeOpen(Temporal.Time timeOpen);
+  }
+  
+
+  public interface TimeCloseStep {
+    BuildStep timeClose(Temporal.Time timeClose);
   }
   
 
   public interface BuildStep {
     Restaurant build();
     BuildStep id(String id);
+    BuildStep image(String image);
   }
   
 
-  public static class Builder implements NameStep, BuildStep {
+  public static class Builder implements NameStep, CategoryStep, LocationStep, TimeOpenStep, TimeCloseStep, BuildStep {
     private String id;
     private String name;
+    private String category;
+    private String location;
+    private Temporal.Time timeOpen;
+    private Temporal.Time timeClose;
+    private String image;
     @Override
      public Restaurant build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
         
         return new Restaurant(
           id,
-          name);
+          name,
+          category,
+          image,
+          location,
+          timeOpen,
+          timeClose);
     }
     
     @Override
-     public BuildStep name(String name) {
+     public CategoryStep name(String name) {
         Objects.requireNonNull(name);
         this.name = name;
+        return this;
+    }
+    
+    @Override
+     public LocationStep category(String category) {
+        Objects.requireNonNull(category);
+        this.category = category;
+        return this;
+    }
+    
+    @Override
+     public TimeOpenStep location(String location) {
+        Objects.requireNonNull(location);
+        this.location = location;
+        return this;
+    }
+    
+    @Override
+     public TimeCloseStep timeOpen(Temporal.Time timeOpen) {
+        Objects.requireNonNull(timeOpen);
+        this.timeOpen = timeOpen;
+        return this;
+    }
+    
+    @Override
+     public BuildStep timeClose(Temporal.Time timeClose) {
+        Objects.requireNonNull(timeClose);
+        this.timeClose = timeClose;
+        return this;
+    }
+    
+    @Override
+     public BuildStep image(String image) {
+        this.image = image;
         return this;
     }
     
@@ -161,14 +286,44 @@ public final class Restaurant implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String name) {
+    private CopyOfBuilder(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose) {
       super.id(id);
-      super.name(name);
+      super.name(name)
+        .category(category)
+        .location(location)
+        .timeOpen(timeOpen)
+        .timeClose(timeClose)
+        .image(image);
     }
     
     @Override
      public CopyOfBuilder name(String name) {
       return (CopyOfBuilder) super.name(name);
+    }
+    
+    @Override
+     public CopyOfBuilder category(String category) {
+      return (CopyOfBuilder) super.category(category);
+    }
+    
+    @Override
+     public CopyOfBuilder location(String location) {
+      return (CopyOfBuilder) super.location(location);
+    }
+    
+    @Override
+     public CopyOfBuilder timeOpen(Temporal.Time timeOpen) {
+      return (CopyOfBuilder) super.timeOpen(timeOpen);
+    }
+    
+    @Override
+     public CopyOfBuilder timeClose(Temporal.Time timeClose) {
+      return (CopyOfBuilder) super.timeClose(timeClose);
+    }
+    
+    @Override
+     public CopyOfBuilder image(String image) {
+      return (CopyOfBuilder) super.image(image);
     }
   }
   
