@@ -22,7 +22,6 @@ public class ItemViewModel extends ViewModel<Item> {
     public String getCategory() { return "";
     }
 
-    @NonNull
     public double getPrice() { return item.getPrice();
     }
 
