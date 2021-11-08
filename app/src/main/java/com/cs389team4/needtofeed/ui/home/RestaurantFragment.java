@@ -8,6 +8,7 @@ import com.amplifyframework.datastore.generated.model.Restaurant;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 import com.cs389team4.needtofeed.models.RestaurantViewModel;
 import com.cs389team4.needtofeed.utils.ListFragment;
+import com.cs389team4.needtofeed.utils.Utils;
 import com.cs389team4.needtofeed.utils.ViewModel;
 
 import java.util.UUID;
@@ -48,7 +49,8 @@ public class RestaurantFragment extends ListFragment<Restaurant> {
 
     @Override
     public void onClick(Restaurant item) {
-        // On list item click
+        Utils util = new Utils();
+        util.showMessage(getContext(), "Item clicked");
     }
 
     @Override
