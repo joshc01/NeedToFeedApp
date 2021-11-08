@@ -15,17 +15,15 @@ public class ItemViewModel extends ViewModel<Item> {
     }
 
     @NonNull
-    public String getTitle() {
-        return item.getTitle();
+    public String getTitle() { return item.getTitle();
     }
 
     @NonNull
-    public String getCategory() {
-        return "";
+    public String getCategory() { return "";
     }
 
-    public double getPrice() {
-        return item.getPrice();
+    @NonNull
+    public double getPrice() { return item.getPrice();
     }
 
     @NonNull
@@ -34,8 +32,7 @@ public class ItemViewModel extends ViewModel<Item> {
     }
 
     @NonNull
-    public String getLocation() {
-        return "";
+    public String getLocation() { return "";
     }
 
     @NonNull

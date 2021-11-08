@@ -10,9 +10,8 @@ import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 import com.cs389team4.needtofeed.models.RestaurantViewModel;
 import com.cs389team4.needtofeed.utils.ListFragment;
-import com.cs389team4.needtofeed.utils.ViewModel;
-
 import com.cs389team4.needtofeed.utils.Utils;
+import com.cs389team4.needtofeed.utils.ViewModel;
 
 import java.util.UUID;
 
@@ -51,7 +50,7 @@ public class RestaurantListFragment extends ListFragment<Restaurant> {
     }
 
     @Override
-    public void onClick(@NonNull Restaurant item) {
+    public void onClick(Restaurant item) {
         Navigation.findNavController(getView()).navigate(R.id.action_navigate_home_to_restaurantMenuFragment);
     }
 
