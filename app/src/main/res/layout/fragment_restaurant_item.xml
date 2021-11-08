@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
 
-    <androidx.fragment.app.FragmentContainerView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Restaurant_Menu_Fragment"
-        android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuListFragment"
-        />
+        app:cardCornerRadius="35dp">
+
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

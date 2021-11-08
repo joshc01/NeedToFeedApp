@@ -1,28 +1,58 @@
 package com.cs389team4.needtofeed.ui.home;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.amplifyframework.datastore.generated.model.Restaurant;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
+import com.cs389team4.needtofeed.models.RestaurantViewModel;
+import com.cs389team4.needtofeed.utils.ListFragment;
+import com.cs389team4.needtofeed.utils.ViewModel;
 
-public class RestaurantFragment extends Fragment {
-    private FragmentRestaurantBinding binding = null;
+import java.util.UUID;
 
-    @Nullable
+public class RestaurantFragment extends ListFragment<Restaurant> {
+    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentRestaurantBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+    public Restaurant createModel() {
+        return Restaurant.builder()
+                .name("a name")
+                .category("a category")
+                .location("a location")
+                .timeOpen(null)
+                .timeClose(null)
+                .image(null)
+                .build();
+    }
+
+    @NonNull
+    @Override
+    public Restaurant updateModel(Restaurant model) {
+        return model.copyOfBuilder()
+                .name(UUID.randomUUID().toString())
+                .build();
+    }
+
+    @NonNull
+    @Override
+    public Class<? extends Restaurant> getModelClass() {
+        return Restaurant.class;
+    }
+
+    @NonNull
+    @Override
+    public ViewModel<Restaurant> getViewModel(@NonNull Restaurant model) {
+        return new RestaurantViewModel(model);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onClick(Restaurant item) {
+        // On list item click
+    }
+
+    @Override
+    public boolean onLongClick(Restaurant item) {
+        return false;
     }
 }

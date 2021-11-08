@@ -36,7 +36,7 @@ public final class Item implements Model {
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="Float", isRequired = true) Double price;
-  private final @ModelField(targetType="Restaurant", isRequired = true) @BelongsTo(targetName = "itemRestaurantId", type = Restaurant.class) Restaurant restaurant;
+  private final @ModelField(targetType="Restaurant") @BelongsTo(targetName = "itemRestaurantId", type = Restaurant.class) Restaurant restaurant;
   private final @ModelField(targetType="ID") String restaurantID;
   private final @ModelField(targetType="AWSURL") String image;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
@@ -169,24 +169,20 @@ public final class Item implements Model {
   
 
   public interface PriceStep {
-    RestaurantStep price(Double price);
-  }
-  
-
-  public interface RestaurantStep {
-    BuildStep restaurant(Restaurant restaurant);
+    BuildStep price(Double price);
   }
   
 
   public interface BuildStep {
     Item build();
     BuildStep id(String id);
+    BuildStep restaurant(Restaurant restaurant);
     BuildStep restaurantId(String restaurantId);
     BuildStep image(String image);
   }
   
 
-  public static class Builder implements TitleStep, PriceStep, RestaurantStep, BuildStep {
+  public static class Builder implements TitleStep, PriceStep, BuildStep {
     private String id;
     private String title;
     private Double price;
@@ -214,7 +210,7 @@ public final class Item implements Model {
     }
     
     @Override
-     public RestaurantStep price(Double price) {
+     public BuildStep price(Double price) {
         Objects.requireNonNull(price);
         this.price = price;
         return this;
@@ -222,7 +218,6 @@ public final class Item implements Model {
     
     @Override
      public BuildStep restaurant(Restaurant restaurant) {
-        Objects.requireNonNull(restaurant);
         this.restaurant = restaurant;
         return this;
     }
