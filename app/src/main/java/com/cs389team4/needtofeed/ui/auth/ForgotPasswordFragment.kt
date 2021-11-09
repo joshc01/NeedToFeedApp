@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import com.amplifyframework.core.Amplify
-import com.cs389team4.needtofeed.R
 import com.cs389team4.needtofeed.databinding.FragmentForgotPasswordBinding
 import com.cs389team4.needtofeed.utils.Utils
 
@@ -29,7 +27,7 @@ class ForgotPasswordFragment : Fragment() {
         val btnBack = binding.btnResetPasswordBack
         btnBack.setOnClickListener {
             // Navigate back
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         val btnResetPassword = binding.btnResetPassword
@@ -41,10 +39,8 @@ class ForgotPasswordFragment : Fragment() {
                 // Sending password reset email successful
                 {
                     // Navigate to password reset confirmation fragment
-                    parentFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace<ForgotPasswordConfirmationFragment>(R.id.welcome_fragment_container)
-                    }
+                    findNavController().navigate(ForgotPasswordFragmentDirections
+                        .actionForgotPasswordFragmentToForgotPasswordConfirmationFragment(email))
                 },
                 // Sending password reset email unsuccessful
                 {

@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
+import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.Amplify
@@ -39,7 +39,7 @@ class RegisterFragment : Fragment() {
         val btnBack = binding.btnRegisterBack
         btnBack.setOnClickListener {
             // Navigate back
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         val btnRegister = binding.btnRegister
@@ -52,19 +52,18 @@ class RegisterFragment : Fragment() {
             bundle.putString("email", email)
             // Build Amplify user attributes
             val options = AuthSignUpOptions.builder()
-                .userAttribute(AuthUserAttributeKey.name(), name)
-//                .userAttribute(AuthUserAttributeKey.email(), email)
+                .userAttributes(mutableListOf(
+                    AuthUserAttribute(AuthUserAttributeKey.name(), name),
+                    AuthUserAttribute(AuthUserAttributeKey.email(), email)
+                ))
                 .build()
 
             // Register with Amplify Auth
             Amplify.Auth.signUp(email, password, options,
                 // Registration successful
                 {
-                    parentFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        arguments = bundle
-                        replace<RegisterConfirmationFragment>(R.id.welcome_fragment_container)
-                    }
+                    findNavController().navigate(RegisterFragmentDirections
+                        .actionRegisterFragmentToRegisterConfirmationFragment(email))
                 },
                 // Registration error
                 {

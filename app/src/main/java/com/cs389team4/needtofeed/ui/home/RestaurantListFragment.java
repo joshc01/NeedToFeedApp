@@ -51,7 +51,15 @@ public class RestaurantListFragment extends ListFragment<Restaurant> {
 
     @Override
     public void onClick(Restaurant item) {
-        Navigation.findNavController(getView()).navigate(R.id.action_navigate_home_to_restaurantMenuFragment);
+        Navigation.findNavController(getView())
+                .navigate(RestaurantFragmentDirections
+                        .actionNavigateHomeToRestaurantMenuFragment(
+                                item.getName(),
+                                item.getCategory(),
+                                item.getImage(),
+                                "",
+                                0,
+                                ""));
     }
 
     @Override

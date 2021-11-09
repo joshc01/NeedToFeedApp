@@ -40,8 +40,12 @@ public class RestaurantViewModel extends ViewModel<Restaurant> {
         return restaurant.getTimeOpen() + "-" + restaurant.getTimeClose();
     }
 
-    @NonNull
-    public double getPrice() {
+    public float getPrice() {
         return 0;
+    }
+
+    @NonNull
+    public Restaurant getRestaurant() {
+        return Restaurant.justId("");
     }
 }
