@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantMenuBinding;
 
 public class RestaurantMenuFragment extends Fragment {
