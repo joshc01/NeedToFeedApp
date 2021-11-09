@@ -2,45 +2,45 @@ package com.cs389team4.needtofeed.models;
 
 import androidx.annotation.NonNull;
 
+import com.amplifyframework.datastore.generated.model.Item;
 import com.amplifyframework.datastore.generated.model.Restaurant;
-
 import com.cs389team4.needtofeed.utils.ViewModel;
 
-public class RestaurantViewModel extends ViewModel<Restaurant> {
-    private final Restaurant restaurant;
+public class ItemViewModel extends ViewModel<Item> {
+    private final Item item;
 
-    public RestaurantViewModel(@NonNull Restaurant model) {
+    public ItemViewModel(@NonNull Item model) {
         super(model);
 
-        this.restaurant = model;
+        this.item = model;
     }
 
     @NonNull
     public String getTitle() {
-        return restaurant.getName();
+        return item.getTitle();
     }
 
     @NonNull
     public String getCategory() {
-        return restaurant.getCategory();
+        return "";
+    }
+
+    public double getPrice() {
+        return item.getPrice();
     }
 
     @NonNull
     public String getImage() {
-        return restaurant.getImage();
+        return item.getImage();
     }
 
     @NonNull
     public String getLocation() {
-        return restaurant.getLocation();
+        return "";
     }
 
     @NonNull
     public String getHours() {
-        return restaurant.getTimeOpen() + "-" + restaurant.getTimeClose();
-    }
-
-    public double getPrice() {
-        return 0;
+        return "";
     }
 }

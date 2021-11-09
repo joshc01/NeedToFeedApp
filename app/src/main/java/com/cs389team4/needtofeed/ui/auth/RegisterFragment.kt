@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.Amplify
@@ -52,8 +53,10 @@ class RegisterFragment : Fragment() {
             bundle.putString("email", email)
             // Build Amplify user attributes
             val options = AuthSignUpOptions.builder()
-                .userAttribute(AuthUserAttributeKey.name(), name)
-//                .userAttribute(AuthUserAttributeKey.email(), email)
+                .userAttributes(mutableListOf(
+                    AuthUserAttribute(AuthUserAttributeKey.name(), name),
+                    AuthUserAttribute(AuthUserAttributeKey.email(), email)
+                ))
                 .build()
 
             // Register with Amplify Auth
