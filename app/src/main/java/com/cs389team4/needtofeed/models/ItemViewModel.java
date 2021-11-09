@@ -25,8 +25,8 @@ public class ItemViewModel extends ViewModel<Item> {
         return "";
     }
 
-    public double getPrice() {
-        return item.getPrice();
+    public float getPrice() {
+        return item.getPrice().floatValue();
     }
 
     @NonNull
@@ -42,5 +42,10 @@ public class ItemViewModel extends ViewModel<Item> {
     @NonNull
     public String getHours() {
         return "";
+    }
+
+    @NonNull
+    public Restaurant getRestaurant() {
+        return item.getRestaurant();
     }
 }

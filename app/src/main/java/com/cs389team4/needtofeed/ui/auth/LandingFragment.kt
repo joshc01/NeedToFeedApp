@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.cs389team4.needtofeed.R
 import com.cs389team4.needtofeed.databinding.FragmentLandingBinding
@@ -38,21 +37,13 @@ class LandingFragment : Fragment() {
         val btnRegister = binding.btnGotoRegister
         btnRegister.setOnClickListener {
             // Navigate to registration fragment
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0)
-                replace<RegisterFragment>(R.id.welcome_fragment_container).addToBackStack(null)
-            }
+            findNavController().navigate(R.id.action_landingFragment_to_registerFragment)
         }
 
         val btnLogin = binding.btnGotoLogin
         btnLogin.setOnClickListener {
             // Navigate to login fragment
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0)
-                replace<LoginFragment>(R.id.welcome_fragment_container).addToBackStack(null)
-            }
+            findNavController().navigate(R.id.action_landingFragment_to_loginFragment)
         }
     }
 }

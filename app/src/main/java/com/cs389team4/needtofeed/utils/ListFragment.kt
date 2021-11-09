@@ -113,7 +113,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
                     query()
                 }
                 DataStoreChannelEventName.NETWORK_STATUS -> {
-                    showNetworkStatusIndicator((it.data as NetworkStatusEvent).active)
+//                    showNetworkStatusIndicator((it.data as NetworkStatusEvent).active)
                 }
                 else -> { }
             }

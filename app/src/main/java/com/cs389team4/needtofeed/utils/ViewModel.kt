@@ -18,5 +18,6 @@ abstract class ViewModel<T : Model>(val model: T) {
     abstract fun getLocation(): String
     abstract fun getHours(): String
 
-    abstract fun getPrice(): Double
+    abstract fun getPrice(): Float
+    abstract fun getRestaurant(): Restaurant
 }
