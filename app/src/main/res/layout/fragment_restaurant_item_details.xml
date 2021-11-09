@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.home.RestaurantItemDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/item_details_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="350dp" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_details_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_details_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/item_details_quantity_string"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_details_quantity" />
+
+    <NumberPicker
+        android:id="@+id/item_details_quantity_number"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:textAlignment="viewStart" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/item_details_add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_to_cart_string"/>
+
+</LinearLayout>

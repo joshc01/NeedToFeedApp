@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigate_home"
-        android:name="com.cs389team4.needtofeed.ui.home.RestaurantListFragment"
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_restaurant_item">
         <action
@@ -17,5 +17,14 @@
     <fragment
         android:id="@+id/restaurantMenuFragment"
         android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuFragment"
-        android:label="RestaurantMenuFragment" />
+        android:label="RestaurantMenuFragment" >
+        <action
+            android:id="@+id/action_restaurantMenuFragment_to_restaurantItemDetailsFragment"
+            app:destination="@id/restaurantItemDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantItemDetailsFragment"
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantItemDetailsFragment"
+        android:label="fragment_restaurant_item_details"
+        tools:layout="@layout/fragment_restaurant_item_details" />
 </navigation>
