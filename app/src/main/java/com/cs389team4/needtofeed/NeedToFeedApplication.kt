@@ -8,7 +8,6 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.datastore.AWSDataStorePlugin
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin
-import com.stripe.android.PaymentConfiguration
 
 class NeedToFeedApplication : Application() {
     override fun onCreate() {
@@ -25,11 +24,5 @@ class NeedToFeedApplication : Application() {
         } catch (error: AmplifyException) {
             Log.e("NeedToFeedApplication", "Could not initialize Amplify", error)
         }
-
-        // Stripe config
-        PaymentConfiguration.init(
-            applicationContext,
-            "pk_test_51JSLHXBOGDvmFaAC9zb0sYlMY2yVUq53MfuJj2dfNGd9J2mQlEpCYrxRrqks0LU751yc9Lbemo7IYGVRwkGD04Jg00sxhwBVop"
-        )
     }
 }
