@@ -2,65 +2,76 @@ package com.cs389team4.needtofeed.ui.home;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.cs389team4.needtofeed.R;
+import com.bumptech.glide.Glide;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RestaurantItemDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.cs389team4.needtofeed.databinding.FragmentRestaurantItemDetailsBinding;
+
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class RestaurantItemDetailsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public RestaurantItemDetailsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RestaurantItemDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RestaurantItemDetailsFragment newInstance(String param1, String param2) {
-        RestaurantItemDetailsFragment fragment = new RestaurantItemDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private FragmentRestaurantItemDetailsBinding binding = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restaurant_item_details, container, false);
+        binding = FragmentRestaurantItemDetailsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ImageView imageViewItem = binding.itemDetailsImage;
+
+        TextView textViewItemName = binding.itemDetailsName;
+        TextView textViewItemPrice = binding.itemDetailsPrice;
+
+        RestaurantItemDetailsFragmentArgs args = RestaurantItemDetailsFragmentArgs.fromBundle(getArguments());
+
+        String itemImage = args.getItemImage();
+        Glide.with(view).load(itemImage).centerCrop().into(imageViewItem);
+
+        String itemName = args.getItemName();
+        textViewItemName.setText(itemName);
+
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setCurrency(Currency.getInstance("USD"));
+        String itemPrice = format.format(args.getItemPrice());
+        textViewItemPrice.setText(itemPrice);
+
+        Button btnAddToCart = binding.itemDetailsAddButton;
+
+        ImageButton btnQuantityAdd = binding.btnQuantityIncrease;
+        ImageButton btnQuantityRemove = binding.btnQuantityDecrease;
+        TextView textViewQuantity = binding.lblQuantity;
+
+        AtomicInteger quantity = new AtomicInteger(1);
+
+        btnQuantityAdd.setOnClickListener(v -> {
+            quantity.getAndIncrement();
+            textViewQuantity.setText(quantity.toString());
+        });
+        btnQuantityRemove.setOnClickListener(v -> {
+            if (quantity.get() > 1) {
+                quantity.getAndDecrement();
+                textViewQuantity.setText(quantity.toString());
+            }
+        });
     }
 }

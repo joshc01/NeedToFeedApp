@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.amplifyframework.core.Amplify
 
 import com.cs389team4.needtofeed.MainActivity
 import com.cs389team4.needtofeed.R
@@ -15,10 +14,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-//        Amplify.DataStore.clear({},{})
-
-
-        //Delaying 3 seconds to start MainActivity
+        // Delaying 3 seconds to start MainActivity
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
             finish()

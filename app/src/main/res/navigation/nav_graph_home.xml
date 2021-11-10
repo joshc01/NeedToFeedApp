@@ -9,5 +9,42 @@
         android:id="@+id/navigate_home"
         android:name="com.cs389team4.needtofeed.ui.home.RestaurantFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_restaurant_item"/>
+        tools:layout="@layout/fragment_restaurant">
+        <argument android:name="restaurantName" app:argType="string" />
+        <argument android:name="restaurantCategory" app:argType="string" />
+        <argument android:name="restaurantImage" app:argType="string" />
+        <action
+            android:id="@+id/action_navigate_home_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantMenuFragment"
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuFragment"
+        android:label="Menu"
+        tools:layout="@layout/fragment_restaurant_menu">
+        <argument android:name="restaurantName" app:argType="string" />
+        <argument android:name="restaurantCategory" app:argType="string" />
+        <argument android:name="restaurantImage" app:argType="string" />
+
+        <argument android:name="itemName" app:argType="string" />
+        <argument android:name="itemPrice" app:argType="float" />
+        <argument android:name="itemImage" app:argType="string" />
+        <action
+            android:id="@+id/action_restaurantMenuFragment_to_restaurantItemDetailsFragment"
+            app:destination="@id/restaurantItemDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantItemDetailsFragment"
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantItemDetailsFragment"
+        android:label="Menu Item"
+        tools:layout="@layout/fragment_restaurant_item_details" >
+        <argument android:name="itemName" app:argType="string" />
+        <argument android:name="itemPrice" app:argType="float" />
+        <argument android:name="itemImage" app:argType="string" />
+    </fragment>
+    <activity
+        android:id="@+id/checkoutActivity"
+        android:name="com.cs389team4.needtofeed.ui.home.CheckoutActivity"
+        android:label="CheckoutActivity"
+        tools:layout="@layout/activity_checkout"/>
 </navigation>

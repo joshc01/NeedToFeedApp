@@ -1,6 +1,7 @@
 package com.cs389team4.needtofeed.utils
 
 import com.amplifyframework.core.model.Model
+import com.amplifyframework.datastore.generated.model.Restaurant
 
 abstract class ViewModel<T : Model>(val model: T) {
     fun getId(): String {
@@ -16,5 +17,7 @@ abstract class ViewModel<T : Model>(val model: T) {
     abstract fun getImage(): String
     abstract fun getLocation(): String
     abstract fun getHours(): String
-    abstract fun getPrice(): Double
+
+    abstract fun getPrice(): Float
+    abstract fun getRestaurant(): Restaurant
 }

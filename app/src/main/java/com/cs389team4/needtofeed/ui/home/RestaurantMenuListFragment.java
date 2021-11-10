@@ -3,12 +3,11 @@ package com.cs389team4.needtofeed.ui.home;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 import com.amplifyframework.datastore.generated.model.Item;
-import com.amplifyframework.datastore.generated.model.Restaurant;
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
+import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.models.ItemViewModel;
-import com.cs389team4.needtofeed.models.RestaurantViewModel;
 import com.cs389team4.needtofeed.utils.ListFragment;
 import com.cs389team4.needtofeed.utils.ViewModel;
 
@@ -49,7 +48,8 @@ public class RestaurantMenuListFragment extends ListFragment<Item> {
 
     @Override
     public void onClick(Item item) {
-        // On list item click
+        Navigation.findNavController(getView()).navigate(RestaurantMenuFragmentDirections
+                .actionRestaurantMenuFragmentToRestaurantItemDetailsFragment(item.getTitle(), item.getPrice().floatValue(), item.getImage()));
     }
 
     @Override
