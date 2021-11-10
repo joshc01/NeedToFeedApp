@@ -14,6 +14,7 @@ import com.cs389team4.needtofeed.databinding.ActivityMainBinding
 import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
+import android.view.Menu
 
 class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             initBottomNavigation()
         }
 
-        fetchIdentityId()
+        //fetchIdentityId()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -58,6 +59,12 @@ class MainActivity : AppCompatActivity() {
                 Utils().showMessage(applicationContext, error.toString())
             }
         )
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.restaurant_search_menu,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     // Initialize bottom navigation
