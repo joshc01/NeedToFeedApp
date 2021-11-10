@@ -39,4 +39,9 @@ public class RestaurantViewModel extends ViewModel<Restaurant> {
     public String getHours() {
         return restaurant.getTimeOpen() + "-" + restaurant.getTimeClose();
     }
+
+    @NonNull
+    public double getPrice() {
+        return 0;
+    }
 }

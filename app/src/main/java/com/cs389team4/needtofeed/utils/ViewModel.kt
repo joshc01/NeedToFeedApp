@@ -16,4 +16,5 @@ abstract class ViewModel<T : Model>(val model: T) {
     abstract fun getImage(): String
     abstract fun getLocation(): String
     abstract fun getHours(): String
+    abstract fun getPrice(): Double
 }
