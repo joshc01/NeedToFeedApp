@@ -1,0 +1,2676 @@
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\n    <string name=\"app_name\">NeedToFeed</string>\n    <!-- TODO: Remove or change this placeholder text -->\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\n    <!-- Preference Titles -->\n    <string name=\"messages_header\">Messages</string>\n    <string name=\"sync_header\">Sync</string>\n\n    <!-- Messages Preferences -->\n    <string name=\"signature_title\">Your signature</string>\n    <string name=\"reply_title\">Default reply action</string>\n\n    <!-- Sync Preferences -->\n    <string name=\"sync_title\">Sync email periodically</string>\n    <string name=\"attachment_title\">Download incoming attachments</string>\n    <string name=\"attachment_summary_on\">Automatically download attachments for incoming emails\n    </string>\n    <string name=\"attachment_summary_off\">Only download attachments when manually requested</string>\n    <string name=\"title_home\">Home</string>\n    <string name=\"title_orders\">Orders</string>\n    <string name=\"title_profile\">Profile</string>\n    <string name=\"welcome_screen_subtitle\">Save · Eat · Repeat</string>\n    <string name=\"lbl_register\">Register</string>\n    <string name=\"lbl_log_in\">Log In</string>\n    <string name=\"hint_full_name\">Full Name</string>\n    <string name=\"hint_email\">Email</string>\n    <string name=\"hint_password\">Password</string>\n    <string name=\"terms_privacy_agreement\"><![CDATA[By registering, you agree to our <a href=\"https://www.termsfeed.com/live/192616dc-455a-44ca-9d2b-c2f9f299b2b5\">Terms & Conditions</a> and <a href=\"https://www.termsfeed.com/live/244ef7f2-8a96-4e3f-9db6-5058825e1b6d\">Privacy Policy</a>.]]></string>\n    <string name=\"lbl_forgot_password\">Forgot Password? Click Here</string>\n    <string name=\"title_register_confirm\">Confirm Registration</string>\n    <string name=\"register_confirm_prompt\">Please enter the verification code sent to the email address you provided to complete your account registration</string>\n    <string name=\"hint_verification_code\">Verification Code</string>\n    <string name=\"lbl_register_confirm\">Confirm</string>\n    <string name=\"title_reset_password\">Reset Password</string>\n    <string name=\"reset_password_prompt\">Enter the email associated with your account to receive a password reset code</string>\n    <string name=\"lbl_reset_password\">Reset Password</string>\n    <string name=\"hint_new_password\">New Password</string>\n    <string name=\"reset_password_confirm_prompt\">A password reset link has been\\nsent to your email.\\n\\nPlease verify your account and enter your new password below</string>\n</resources>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	
+@@ -36,4 +36,5 @@
+     <string name="lbl_reset_password">Reset Password</string>
+     <string name="hint_new_password">New Password</string>
+     <string name="reset_password_confirm_prompt">A password reset link has been\nsent to your email.\n\nPlease verify your account and enter your new password below</string>
++    <string name="searchHint">Search Restaurants</string>
+ </resources>
+Index: amplify/backend/backend-config.json
+===================================================================
+diff --git a/amplify/backend/backend-config.json b/amplify/backend/backend-config.json
+deleted file mode 100644
+--- a/amplify/backend/backend-config.json	
++++ /dev/null	
+@@ -1,64 +0,0 @@
+-{
+-  "auth": {
+-    "needtofeedae53688e": {
+-      "service": "Cognito",
+-      "providerPlugin": "awscloudformation",
+-      "dependsOn": [],
+-      "customAuth": false,
+-      "frontendAuthConfig": {
+-        "loginMechanisms": [
+-          "EMAIL"
+-        ],
+-        "signupAttributes": [
+-          "EMAIL",
+-          "NAME"
+-        ],
+-        "passwordProtectionSettings": {
+-          "passwordPolicyMinLength": 8,
+-          "passwordPolicyCharacters": []
+-        },
+-        "mfaConfiguration": "OFF",
+-        "mfaTypes": [
+-          "SMS"
+-        ],
+-        "verificationMechanisms": [
+-          "EMAIL"
+-        ]
+-      }
+-    }
+-  },
+-  "storage": {
+-    "s3475e3a0f": {
+-      "service": "S3",
+-      "providerPlugin": "awscloudformation"
+-    }
+-  },
+-  "api": {
+-    "restaurants": {
+-      "service": "AppSync",
+-      "providerPlugin": "awscloudformation",
+-      "output": {
+-        "authConfig": {
+-          "defaultAuthentication": {
+-            "authenticationType": "API_KEY",
+-            "apiKeyConfig": {
+-              "apiKeyExpirationDays": 30,
+-              "description": "api key description"
+-            }
+-          },
+-          "additionalAuthenticationProviders": [
+-            {
+-              "authenticationType": "AWS_IAM"
+-            },
+-            {
+-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+-              "userPoolConfig": {
+-                "userPoolId": "authneedtofeedae53688e"
+-              }
+-            }
+-          ]
+-        }
+-      }
+-    }
+-  }
+-}
+\ No newline at end of file
+Index: amplify/backend/storage/s3475e3a0f/storage-params.json
+===================================================================
+diff --git a/amplify/backend/storage/s3475e3a0f/storage-params.json b/amplify/backend/storage/s3475e3a0f/storage-params.json
+deleted file mode 100644
+--- a/amplify/backend/storage/s3475e3a0f/storage-params.json	
++++ /dev/null	
+@@ -1,1 +0,0 @@
+-{}
+\ No newline at end of file
+Index: amplify/backend/auth/needtofeedae53688e/needtofeedae53688e-cloudformation-template.yml
+===================================================================
+diff --git a/amplify/backend/auth/needtofeedae53688e/needtofeedae53688e-cloudformation-template.yml b/amplify/backend/auth/needtofeedae53688e/needtofeedae53688e-cloudformation-template.yml
+deleted file mode 100644
+--- a/amplify/backend/auth/needtofeedae53688e/needtofeedae53688e-cloudformation-template.yml	
++++ /dev/null	
+@@ -1,854 +0,0 @@
+-
+-AWSTemplateFormatVersion: 2010-09-09
+-
+-Parameters:
+-  env:
+-    Type: String
+-  authRoleArn:
+-    Type: String
+-  unauthRoleArn:
+-    Type: String
+-
+-  
+-
+-    
+-  identityPoolName:
+-    Type: String
+-  
+-            
+-  
+-  allowUnauthenticatedIdentities:
+-    Type: String
+-            
+-  resourceNameTruncated:
+-    Type: String
+-  
+-            
+-  userPoolName:
+-    Type: String
+-  
+-            
+-        
+-  autoVerifiedAttributes:
+-    Type: CommaDelimitedList
+-      
+-  mfaConfiguration:
+-    Type: String
+-  
+-            
+-        
+-  mfaTypes:
+-    Type: CommaDelimitedList
+-      
+-  smsAuthenticationMessage:
+-    Type: String
+-  
+-            
+-  smsVerificationMessage:
+-    Type: String
+-  
+-            
+-  emailVerificationSubject:
+-    Type: String
+-  
+-            
+-  emailVerificationMessage:
+-    Type: String
+-  
+-            
+-  
+-  defaultPasswordPolicy:
+-    Type: String
+-            
+-    
+-  passwordPolicyMinLength:
+-    Type: Number
+-          
+-        
+-  passwordPolicyCharacters:
+-    Type: CommaDelimitedList
+-      
+-        
+-  requiredAttributes:
+-    Type: CommaDelimitedList
+-      
+-        
+-  aliasAttributes:
+-    Type: CommaDelimitedList
+-      
+-  
+-  userpoolClientGenerateSecret:
+-    Type: String
+-            
+-    
+-  userpoolClientRefreshTokenValidity:
+-    Type: Number
+-          
+-        
+-  userpoolClientWriteAttributes:
+-    Type: CommaDelimitedList
+-      
+-        
+-  userpoolClientReadAttributes:
+-    Type: CommaDelimitedList
+-      
+-  userpoolClientLambdaRole:
+-    Type: String
+-  
+-            
+-  
+-  userpoolClientSetAttributes:
+-    Type: String
+-            
+-  sharedId:
+-    Type: String
+-  
+-            
+-  resourceName:
+-    Type: String
+-  
+-            
+-  authSelections:
+-    Type: String
+-  
+-            
+-            
+-            
+-  useDefault:
+-    Type: String
+-  
+-            
+-  
+-  hostedUI:
+-    Type: String
+-            
+-        
+-  usernameAttributes:
+-    Type: CommaDelimitedList
+-      
+-  triggers:
+-    Type: String
+-  
+-            
+-  hostedUIDomainName:
+-    Type: String
+-  
+-            
+-        
+-  authProvidersUserPool:
+-    Type: CommaDelimitedList
+-      
+-  hostedUIProviderMeta:
+-    Type: String
+-  
+-            
+-  hostedUIProviderCreds:
+-    Type: String
+-  
+-            
+-  oAuthMetadata:
+-    Type: String
+-  
+-            
+-        
+-  userPoolGroupList:
+-    Type: CommaDelimitedList
+-      
+-            
+-  serviceName:
+-    Type: String
+-  
+-            
+-  
+-  usernameCaseSensitive:
+-    Type: String
+-            
+-      
+-  parentStack:
+-    Type: String
+-        
+-  
+-  breakCircularDependency:
+-    Type: String
+-            
+-        
+-  permissions:
+-    Type: CommaDelimitedList
+-      
+-        
+-  dependsOn:
+-    Type: CommaDelimitedList
+-      
+-Conditions:
+-  ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
+-  
+-  ShouldOutputAppClientSecrets: !Equals [!Ref userpoolClientGenerateSecret, true ]
+-  
+-
+-Resources:
+-  
+-  
+-  # BEGIN SNS ROLE RESOURCE
+-  SNSRole:
+-  # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
+-    Type: AWS::IAM::Role
+-    Properties:
+-      RoleName: !If [ShouldNotCreateEnvResources, 'needtoae53688e_sns-role', !Join ['',[ 'sns', 'ae53688e', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+-      AssumeRolePolicyDocument:
+-        Version: "2012-10-17"
+-        Statement:
+-          - Sid: ""
+-            Effect: "Allow"
+-            Principal:
+-              Service: "cognito-idp.amazonaws.com"
+-            Action:
+-              - "sts:AssumeRole"
+-            Condition:
+-              StringEquals:
+-                sts:ExternalId: needtoae53688e_role_external_id
+-      Policies:
+-        -
+-          PolicyName: needtoae53688e-sns-policy
+-          PolicyDocument:
+-            Version: "2012-10-17"
+-            Statement:
+-              -
+-                Effect: "Allow"
+-                Action:
+-                  - "sns:Publish"
+-                Resource: "*"
+-  # BEGIN USER POOL RESOURCES
+-  UserPool:
+-  # Created upon user selection
+-  # Depends on SNS Role for Arn if MFA is enabled
+-    Type: AWS::Cognito::UserPool
+-    UpdateReplacePolicy: Retain
+-    Properties:
+-      UserPoolName: !If [ShouldNotCreateEnvResources, !Ref userPoolName, !Join ['',[!Ref userPoolName, '-', !Ref env]]]
+-      
+-      
+-      UsernameConfiguration:
+-        CaseSensitive: false
+-      
+-      Schema:
+-        
+-        -
+-          Name: email
+-          Required: true
+-          Mutable: true
+-        
+-        -
+-          Name: name
+-          Required: true
+-          Mutable: true
+-        
+-      
+-      
+-      
+-      AutoVerifiedAttributes:
+-      
+-        - email
+-      
+-      
+-      
+-      EmailVerificationMessage: !Ref emailVerificationMessage
+-      EmailVerificationSubject: !Ref emailVerificationSubject
+-      
+-      Policies:
+-        PasswordPolicy:
+-          MinimumLength: !Ref passwordPolicyMinLength
+-          RequireLowercase: false
+-          RequireNumbers: false
+-          RequireSymbols: false
+-          RequireUppercase: false
+-      
+-      UsernameAttributes: !Ref usernameAttributes
+-      
+-      
+-      MfaConfiguration: !Ref mfaConfiguration
+-      SmsVerificationMessage: !Ref smsVerificationMessage
+-      SmsAuthenticationMessage: !Ref smsAuthenticationMessage
+-      SmsConfiguration:
+-        SnsCallerArn: !GetAtt SNSRole.Arn
+-        ExternalId: needtoae53688e_role_external_id
+-    
+-  
+-  UserPoolClientWeb:
+-  # Created provide application access to user pool
+-  # Depends on UserPool for ID reference
+-    Type: "AWS::Cognito::UserPoolClient"
+-    Properties:
+-      ClientName: needtoae53688e_app_clientWeb
+-      
+-      RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
+-      UserPoolId: !Ref UserPool
+-    DependsOn: UserPool
+-  UserPoolClient:
+-  # Created provide application access to user pool
+-  # Depends on UserPool for ID reference
+-    Type: "AWS::Cognito::UserPoolClient"
+-    Properties:
+-      ClientName: needtoae53688e_app_client
+-      
+-      GenerateSecret: !Ref userpoolClientGenerateSecret
+-      RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
+-      UserPoolId: !Ref UserPool
+-    DependsOn: UserPool
+-  # BEGIN USER POOL LAMBDA RESOURCES
+-  UserPoolClientRole:
+-  # Created to execute Lambda which gets userpool app client config values
+-    Type: 'AWS::IAM::Role'
+-    Properties:
+-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', 'ae53688e', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+-      AssumeRolePolicyDocument:
+-        Version: '2012-10-17'
+-        Statement:
+-          - Effect: Allow
+-            Principal:
+-              Service:
+-                - lambda.amazonaws.com
+-            Action:
+-              - 'sts:AssumeRole'
+-    DependsOn: UserPoolClient
+-  UserPoolClientLambda:
+-  # Lambda which gets userpool app client config values
+-  # Depends on UserPool for id
+-  # Depends on UserPoolClientRole for role ARN
+-    Type: 'AWS::Lambda::Function'
+-    Properties:
+-      Code:
+-        ZipFile: !Join
+-          - |+
+-          - - 'const response = require(''cfn-response'');'
+-            - 'const aws = require(''aws-sdk'');'
+-            - 'const identity = new aws.CognitoIdentityServiceProvider();'
+-            - 'exports.handler = (event, context, callback) => {'
+-            - ' if (event.RequestType == ''Delete'') { '
+-            - '   response.send(event, context, response.SUCCESS, {})'
+-            - ' }'
+-            - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
+-            - '   const params = {'
+-            - '     ClientId: event.ResourceProperties.clientId,'
+-            - '     UserPoolId: event.ResourceProperties.userpoolId'
+-            - '   };'
+-            - '   identity.describeUserPoolClient(params).promise()'
+-            - '     .then((res) => {'
+-            - '       response.send(event, context, response.SUCCESS, {''appSecret'': res.UserPoolClient.ClientSecret});'
+-            - '     })'
+-            - '     .catch((err) => {'
+-            - '       response.send(event, context, response.FAILED, {err});'
+-            - '     });'
+-            - ' }'
+-            - '};'
+-      Handler: index.handler
+-      Runtime: nodejs12.x
+-      Timeout: 300
+-      Role: !GetAtt
+-        - UserPoolClientRole
+-        - Arn
+-    DependsOn: UserPoolClientRole
+-  UserPoolClientLambdaPolicy:
+-  # Sets userpool policy for the role that executes the Userpool Client Lambda
+-  # Depends on UserPool for Arn
+-  # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: needtoae53688e_userpoolclient_lambda_iam_policy
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: '2012-10-17'
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'cognito-idp:DescribeUserPoolClient'
+-            Resource: !GetAtt UserPool.Arn
+-    DependsOn: UserPoolClientLambda
+-  UserPoolClientLogPolicy:
+-  # Sets log policy for the role that executes the Userpool Client Lambda
+-  # Depends on UserPool for Arn
+-  # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: needtoae53688e_userpoolclient_lambda_log_policy
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: 2012-10-17
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'logs:CreateLogGroup'
+-              - 'logs:CreateLogStream'
+-              - 'logs:PutLogEvents'
+-            Resource: !Sub
+-              - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
+-              - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref UserPoolClientLambda}
+-    DependsOn: UserPoolClientLambdaPolicy
+-  UserPoolClientInputs:
+-  # Values passed to Userpool client Lambda
+-  # Depends on UserPool for Id
+-  # Depends on UserPoolClient for Id
+-  # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
+-    Type: 'Custom::LambdaCallout'
+-    Properties:
+-      ServiceToken: !GetAtt UserPoolClientLambda.Arn
+-      clientId: !Ref UserPoolClient
+-      userpoolId: !Ref UserPool
+-    DependsOn: UserPoolClientLogPolicy
+-  
+-  HostedUICustomResource:
+-    Type: 'AWS::Lambda::Function'
+-    Properties:
+-      Code:
+-        ZipFile: !Join
+-          - |+
+-          - - 'const response = require(''cfn-response'');'
+-            - 'const aws = require(''aws-sdk'');'
+-            - 'const identity = new aws.CognitoIdentityServiceProvider();'
+-            - 'exports.handler = (event, context, callback) => {'
+-            - ' const userPoolId = event.ResourceProperties.userPoolId;'
+-            - ' const inputDomainName = event.ResourceProperties.hostedUIDomainName;'
+-            - ' let deleteUserPoolDomain = (domainName) => {'
+-            - '   let params = { Domain: domainName, UserPoolId: userPoolId };'
+-            - '   return identity.deleteUserPoolDomain(params).promise();'
+-            - ' };'
+-            - ' if (event.RequestType == ''Delete'') {'
+-            - '   deleteUserPoolDomain(inputDomainName)'
+-            - '   .then(() => {response.send(event, context, response.SUCCESS, {})})'
+-            - '   .catch((err) => { console.log(err); response.send(event, context, response.FAILED, {err}) });'
+-            - ' }'
+-            - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
+-            - '  let checkDomainAvailability = (domainName) => {'
+-            - '  let params = { Domain: domainName };'
+-            - '  return identity.describeUserPoolDomain(params).promise().then((res) => {'
+-            - '   if (res.DomainDescription && res.DomainDescription.UserPool) {'
+-            - '    return false;'
+-            - '   }'
+-            - '   return true;'
+-            - '   }).catch((err) => { return false; });'
+-            - ' };'
+-            - ' let createUserPoolDomain = (domainName) => {'
+-            - '  let params = { Domain: domainName, UserPoolId: userPoolId };'
+-            - '   return identity.createUserPoolDomain(params).promise();'
+-            - ' };'
+-            - ' identity.describeUserPool({UserPoolId: userPoolId }).promise().then((result) => {'
+-            - '  if (inputDomainName) {'
+-            - '   if (result.UserPool.Domain === inputDomainName) {'
+-            - '    return;'
+-            - '    } else {'
+-            - '       if (!result.UserPool.Domain) {'
+-            - '         return checkDomainAvailability(inputDomainName).then((isDomainAvailable) => {'
+-            - '           if (isDomainAvailable) {'
+-            - '             return createUserPoolDomain(inputDomainName);'
+-            - '           } else {'
+-            - '               throw new Error(''Domain not available'');'
+-            - '           }'
+-            - '         });'
+-            - '       } else {'
+-            - '           return checkDomainAvailability(inputDomainName).then((isDomainAvailable) => {'
+-            - '             if (isDomainAvailable) {'
+-            - '               return deleteUserPoolDomain(result.UserPool.Domain).then(() => createUserPoolDomain(inputDomainName));'
+-            - '             } else {'
+-            - '                 throw new Error(''Domain not available'');'
+-            - '             }'
+-            - '           });'
+-            - '       }'
+-            - '     }'
+-            - '   } else {'
+-            - '       if (result.UserPool.Domain) {'
+-            - '         return deleteUserPoolDomain(result.UserPool.Domain);'
+-            - '       }'
+-            - '   }'
+-            - ' }).then(() => {response.send(event, context, response.SUCCESS, {})}).catch((err) => {'
+-            - ' console.log(err);  response.send(event, context, response.FAILED, {err});'
+-            - ' });'
+-            - '}}'
+-
+-
+-      Handler: index.handler
+-      Runtime: nodejs12.x
+-      Timeout: 300
+-      Role: !GetAtt
+-        - UserPoolClientRole
+-        - Arn
+-    DependsOn: UserPoolClientRole
+-
+-  HostedUICustomResourcePolicy:
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: !Join ['-',[!Ref UserPool, 'hostedUI']]
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: '2012-10-17'
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'cognito-idp:CreateUserPoolDomain'
+-              - 'cognito-idp:DescribeUserPool'
+-              - 'cognito-idp:DeleteUserPoolDomain'
+-            Resource: !GetAtt UserPool.Arn
+-          - Effect: Allow
+-            Action:
+-              - 'cognito-idp:DescribeUserPoolDomain'
+-            Resource: '*'
+-    DependsOn: HostedUICustomResource
+-  HostedUICustomResourceLogPolicy:
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: !Join ['-',[!Ref UserPool, 'hostedUILogPolicy']]
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: 2012-10-17
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'logs:CreateLogGroup'
+-              - 'logs:CreateLogStream'
+-              - 'logs:PutLogEvents'
+-            Resource: !Sub
+-              - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
+-              - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref HostedUICustomResource}
+-    DependsOn: HostedUICustomResourcePolicy
+-  HostedUICustomResourceInputs:
+-    Type: 'Custom::LambdaCallout'
+-    Properties:
+-      ServiceToken: !GetAtt HostedUICustomResource.Arn
+-      userPoolId: !Ref UserPool
+-      hostedUIDomainName: !If [ShouldNotCreateEnvResources, !Ref hostedUIDomainName, !Join ['-',[!Ref hostedUIDomainName, !Ref env]]]
+-    DependsOn: HostedUICustomResourceLogPolicy
+-  
+-
+-  
+-  HostedUIProvidersCustomResource:
+-    Type: 'AWS::Lambda::Function'
+-    Properties:
+-      Code:
+-        ZipFile: !Join
+-          - |+
+-          - - 'const response = require(''cfn-response'');'
+-            - 'const aws = require(''aws-sdk'');'
+-            - 'const identity = new aws.CognitoIdentityServiceProvider();'
+-            - 'exports.handler = (event, context, callback) => {'
+-            - 'try{'
+-            - ' const userPoolId = event.ResourceProperties.userPoolId;'
+-            - ' let hostedUIProviderMeta = JSON.parse(event.ResourceProperties.hostedUIProviderMeta);'
+-            - ' let hostedUIProviderCreds = JSON.parse(event.ResourceProperties.hostedUIProviderCreds);'
+-            - ' if(hostedUIProviderCreds.length === 0) {'
+-            - '  response.send(event, context, response.SUCCESS, {});'
+-            - ' }'
+-            - ' if (event.RequestType == ''Delete'') {'
+-            - '  response.send(event, context, response.SUCCESS, {});'
+-            - ' }'
+-            - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
+-            - '  let getRequestParams = (providerName) => {'
+-            - '   let providerMetaIndex = hostedUIProviderMeta.findIndex((provider) => provider.ProviderName === providerName);'
+-            - '   let providerMeta =  hostedUIProviderMeta[providerMetaIndex];'
+-            - '   let providerCredsIndex = hostedUIProviderCreds.findIndex((provider) => provider.ProviderName === providerName);'
+-            - '   let providerCreds = hostedUIProviderCreds[providerCredsIndex];'
+-            - '   let requestParams = {'
+-            - '    ProviderName: providerMeta.ProviderName,'
+-            - '    UserPoolId: userPoolId,'
+-            - '    AttributeMapping: providerMeta.AttributeMapping,'
+-            - '   };'
+-            - '   if (providerMeta.ProviderName === ''SignInWithApple'') {'
+-            - '     if (providerCreds.client_id && providerCreds.team_id && providerCreds.key_id && providerCreds.private_key) {'
+-            - '      requestParams.ProviderDetails = {'
+-            - '       ''client_id'': providerCreds.client_id,'
+-            - '       ''team_id'': providerCreds.team_id,'
+-            - '       ''key_id'': providerCreds.key_id,'
+-            - '       ''private_key'': providerCreds.private_key,'
+-            - '       ''authorize_scopes'': providerMeta.authorize_scopes,'
+-            - '      };'
+-            - '     } else {'
+-            - '       requestParams = null;'
+-            - '     }'
+-            - '   } else {'
+-            - '    requestParams.ProviderDetails = {'
+-            - '     ''client_id'': providerCreds.client_id,'
+-            - '     ''client_secret'': providerCreds.client_secret,'
+-            - '     ''authorize_scopes'': providerMeta.authorize_scopes,'
+-            - '    };'
+-            - '   }'
+-            - '   return requestParams;'
+-            - '  };'
+-            - '  let createIdentityProvider = (providerName) => {'
+-            - '   let requestParams = getRequestParams(providerName);'
+-            - '   if (!requestParams) {'
+-            - '     return Promise.resolve();'
+-            - '   }'
+-            - '   requestParams.ProviderType = requestParams.ProviderName;'
+-            - '   return identity.createIdentityProvider(requestParams).promise();'
+-            - '  };'
+-            - '  let updateIdentityProvider = (providerName) => {'
+-            - '   let requestParams = getRequestParams(providerName);'
+-            - '   if (!requestParams) {'
+-            - '     return Promise.resolve();'
+-            - '   }'
+-            - '   return identity.updateIdentityProvider(requestParams).promise();'
+-            - '  };'
+-            - '  let deleteIdentityProvider = (providerName) => {'
+-            - '   let params = {ProviderName: providerName, UserPoolId: userPoolId};'
+-            - '   return identity.deleteIdentityProvider(params).promise();'
+-            - '  };'
+-            - '  let providerPromises = [];'
+-            - '  identity.listIdentityProviders({UserPoolId: userPoolId, MaxResults: 60}).promise()'
+-            - '  .then((result) => {'
+-            - '   let providerList = result.Providers.map(provider => provider.ProviderName);'
+-            - '   let providerListInParameters = hostedUIProviderMeta.map(provider => provider.ProviderName);'
+-            - '   hostedUIProviderMeta.forEach((providerMetadata) => {'
+-            - '    if(providerList.indexOf(providerMetadata.ProviderName) > -1) {'
+-            - '     providerPromises.push(updateIdentityProvider(providerMetadata.ProviderName));'
+-            - '    } else {'
+-            - '     providerPromises.push(createIdentityProvider(providerMetadata.ProviderName));'
+-            - '    }'
+-            - '  });'
+-            - '  providerList.forEach((provider) => {'
+-            - '   if(providerListInParameters.indexOf(provider) < 0) {'
+-            - '    providerPromises.push(deleteIdentityProvider(provider));'
+-            - '   }'
+-            - '  });'
+-            - '  return Promise.all(providerPromises);'
+-            - ' }).then(() => {response.send(event, context, response.SUCCESS, {})}).catch((err) => {'
+-            - '   console.log(err.stack); response.send(event, context, response.FAILED, {err})'
+-            - ' });'
+-            - ' } '
+-            - ' } catch(err) { console.log(err.stack); response.send(event, context, response.FAILED, {err});};'
+-            - '} '
+-
+-      Handler: index.handler
+-      Runtime: nodejs12.x
+-      Timeout: 300
+-      Role: !GetAtt
+-        - UserPoolClientRole
+-        - Arn
+-    DependsOn: UserPoolClientRole
+-
+-  HostedUIProvidersCustomResourcePolicy:
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: !Join ['-',[!Ref UserPool, 'hostedUIProvider']]
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: '2012-10-17'
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'cognito-idp:CreateIdentityProvider'
+-              - 'cognito-idp:UpdateIdentityProvider'
+-              - 'cognito-idp:ListIdentityProviders'
+-              - 'cognito-idp:DeleteIdentityProvider'
+-            Resource: !GetAtt UserPool.Arn
+-    DependsOn: HostedUIProvidersCustomResource
+-
+-  HostedUIProvidersCustomResourceLogPolicy:
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: !Join ['-',[!Ref UserPool, 'hostedUIProviderLogPolicy']]
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: 2012-10-17
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'logs:CreateLogGroup'
+-              - 'logs:CreateLogStream'
+-              - 'logs:PutLogEvents'
+-            Resource: !Sub
+-              - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
+-              - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref HostedUIProvidersCustomResource}
+-    DependsOn: HostedUIProvidersCustomResourcePolicy
+-
+-  HostedUIProvidersCustomResourceInputs:
+-    Type: 'Custom::LambdaCallout'
+-    Properties:
+-      ServiceToken: !GetAtt HostedUIProvidersCustomResource.Arn
+-      userPoolId: !Ref UserPool
+-      hostedUIProviderMeta: !Ref hostedUIProviderMeta
+-      hostedUIProviderCreds: !Ref hostedUIProviderCreds
+-    DependsOn: HostedUIProvidersCustomResourceLogPolicy
+-  
+-  
+-  OAuthCustomResource:
+-    Type: 'AWS::Lambda::Function'
+-    Properties:
+-      Code:
+-        ZipFile: !Join
+-          - |+
+-          - - 'const response = require(''cfn-response'');'
+-            - 'const aws = require(''aws-sdk'');'
+-            - 'const identity = new aws.CognitoIdentityServiceProvider();'
+-            - 'exports.handler = (event, context, callback) => {'
+-            - 'try{'
+-            - ' const userPoolId = event.ResourceProperties.userPoolId;'
+-            - ' let webClientId = event.ResourceProperties.webClientId;'
+-            - ' let nativeClientId = event.ResourceProperties.nativeClientId;'
+-            - ' let hostedUIProviderMeta = JSON.parse(event.ResourceProperties.hostedUIProviderMeta);'
+-            - ' let oAuthMetadata = JSON.parse(event.ResourceProperties.oAuthMetadata);'
+-            - ' let providerList = hostedUIProviderMeta.map(provider => provider.ProviderName);'
+-            - ' providerList.push(''COGNITO'');'
+-            - ' if (event.RequestType == ''Delete'') {'
+-            - '  response.send(event, context, response.SUCCESS, {});'
+-            - ' }'
+-            - ' if (event.RequestType == ''Update'' || event.RequestType == ''Create'') {'
+-            - '  let params = {'
+-            - '   UserPoolId: userPoolId,'
+-            - '   AllowedOAuthFlows: oAuthMetadata.AllowedOAuthFlows,'
+-            - '   AllowedOAuthFlowsUserPoolClient: true,'
+-            - '   AllowedOAuthScopes: oAuthMetadata.AllowedOAuthScopes,'
+-            - '   CallbackURLs: oAuthMetadata.CallbackURLs,'
+-            - '   LogoutURLs: oAuthMetadata.LogoutURLs,'
+-            - '   SupportedIdentityProviders: providerList'
+-            - '  };'
+-            - '  let updateUserPoolClientPromises = [];'
+-            - '  params.ClientId = webClientId;'
+-            - '  updateUserPoolClientPromises.push(identity.updateUserPoolClient(params).promise());'
+-            - '  params.ClientId = nativeClientId;'
+-            - '  updateUserPoolClientPromises.push(identity.updateUserPoolClient(params).promise());'
+-            - '  Promise.all(updateUserPoolClientPromises)'
+-            - '  .then(() => {response.send(event, context, response.SUCCESS, {})}).catch((err) => {'
+-            - '    console.log(err.stack); response.send(event, context, response.FAILED, {err});'
+-            - '  });'
+-            - ' }'
+-            - '} catch(err) { console.log(err.stack); response.send(event, context, response.FAILED, {err});};'
+-            - '}'
+-
+-      Handler: index.handler
+-      Runtime: nodejs12.x
+-      Timeout: 300
+-      Role: !GetAtt
+-        - UserPoolClientRole
+-        - Arn
+-    DependsOn: HostedUIProvidersCustomResourceInputs
+-
+-  OAuthCustomResourcePolicy:
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: !Join ['-',[!Ref UserPool, 'OAuth']]
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: '2012-10-17'
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'cognito-idp:UpdateUserPoolClient'
+-            Resource: !GetAtt UserPool.Arn
+-    DependsOn: OAuthCustomResource
+-
+-  OAuthCustomResourceLogPolicy:
+-    Type: 'AWS::IAM::Policy'
+-    Properties:
+-      PolicyName: !Join ['-',[!Ref UserPool, 'OAuthLogPolicy']]
+-      Roles:
+-        - !Ref UserPoolClientRole
+-      PolicyDocument:
+-        Version: 2012-10-17
+-        Statement:
+-          - Effect: Allow
+-            Action:
+-              - 'logs:CreateLogGroup'
+-              - 'logs:CreateLogStream'
+-              - 'logs:PutLogEvents'
+-            Resource: !Sub
+-              - arn:aws:logs:${region}:${account}:log-group:/aws/lambda/${lambda}:log-stream:*
+-              - { region: !Ref "AWS::Region",  account: !Ref "AWS::AccountId", lambda: !Ref OAuthCustomResource}
+-    DependsOn: OAuthCustomResourcePolicy
+-
+-  OAuthCustomResourceInputs:
+-    Type: 'Custom::LambdaCallout'
+-    Properties:
+-      ServiceToken: !GetAtt OAuthCustomResource.Arn
+-      userPoolId: !Ref UserPool
+-      hostedUIProviderMeta: !Ref hostedUIProviderMeta
+-      oAuthMetadata: !Ref oAuthMetadata
+-      webClientId: !Ref 'UserPoolClientWeb'
+-      nativeClientId: !Ref 'UserPoolClient'
+-    DependsOn: OAuthCustomResourceLogPolicy
+-  
+-
+-  
+-    
+-  # BEGIN IDENTITY POOL RESOURCES
+-  
+-
+-  IdentityPool:
+-  # Always created
+-    Type: AWS::Cognito::IdentityPool
+-    Properties:
+-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'needtofeedae53688e_identitypool_ae53688e', !Join ['',['needtofeedae53688e_identitypool_ae53688e', '__', !Ref env]]]
+-      
+-      CognitoIdentityProviders:
+-        - ClientId:  !Ref UserPoolClient
+-          ProviderName: !Sub
+-            - cognito-idp.${region}.amazonaws.com/${client}
+-            - { region: !Ref "AWS::Region",  client: !Ref UserPool}
+-        - ClientId:  !Ref UserPoolClientWeb
+-          ProviderName: !Sub
+-            - cognito-idp.${region}.amazonaws.com/${client}
+-            - { region: !Ref "AWS::Region",  client: !Ref UserPool}
+-            
+-      AllowUnauthenticatedIdentities: !Ref allowUnauthenticatedIdentities
+-      
+-    
+-    DependsOn: UserPoolClientInputs
+-    
+-
+-  IdentityPoolRoleMap:
+-  # Created to map Auth and Unauth roles to the identity pool
+-  # Depends on Identity Pool for ID ref
+-    Type: AWS::Cognito::IdentityPoolRoleAttachment
+-    Properties:
+-      IdentityPoolId: !Ref IdentityPool
+-      Roles:
+-          unauthenticated: !Ref unauthRoleArn
+-          authenticated: !Ref authRoleArn
+-    DependsOn: IdentityPool
+-  
+-
+-Outputs :
+-  
+-  IdentityPoolId:
+-    Value: !Ref 'IdentityPool'
+-    Description:  Id for the identity pool
+-  IdentityPoolName:
+-    Value: !GetAtt IdentityPool.Name
+-  
+-  
+-  HostedUIDomain:
+-    Value: !If [ShouldNotCreateEnvResources, !Ref hostedUIDomainName, !Join ['-',[!Ref hostedUIDomainName, !Ref env]]]
+-  
+-  
+-  OAuthMetadata:
+-    Value: !Ref oAuthMetadata
+-  
+-  
+-  UserPoolId:
+-    Value: !Ref 'UserPool'
+-    Description:  Id for the user pool
+-  UserPoolArn:
+-    Value: !GetAtt UserPool.Arn
+-    Description:  Arn for the user pool
+-  UserPoolName:
+-    Value: !Ref userPoolName
+-  AppClientIDWeb:
+-    Value: !Ref 'UserPoolClientWeb'
+-    Description: The user pool app client id for web
+-  AppClientID:
+-    Value: !Ref 'UserPoolClient'
+-    Description: The user pool app client id
+-  AppClientSecret:
+-    Value: !GetAtt UserPoolClientInputs.appSecret
+-    Condition: ShouldOutputAppClientSecrets
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+-  
+Index: amplify/backend/tags.json
+===================================================================
+diff --git a/amplify/backend/tags.json b/amplify/backend/tags.json
+deleted file mode 100644
+--- a/amplify/backend/tags.json	
++++ /dev/null	
+@@ -1,10 +0,0 @@
+-[
+-  {
+-    "Key": "user:Stack",
+-    "Value": "{project-env}"
+-  },
+-  {
+-    "Key": "user:Application",
+-    "Value": "{project-name}"
+-  }
+-]
+\ No newline at end of file
+Index: amplify/backend/api/restaurants/parameters.json
+===================================================================
+diff --git a/amplify/backend/api/restaurants/parameters.json b/amplify/backend/api/restaurants/parameters.json
+deleted file mode 100644
+--- a/amplify/backend/api/restaurants/parameters.json	
++++ /dev/null	
+@@ -1,11 +0,0 @@
+-{
+-  "AppSyncApiName": "restaurants",
+-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+-  "DynamoDBEnableServerSideEncryption": false,
+-  "AuthCognitoUserPoolId": {
+-    "Fn::GetAtt": [
+-      "authneedtofeedae53688e",
+-      "Outputs.UserPoolId"
+-    ]
+-  }
+-}
+\ No newline at end of file
+Index: amplify/backend/storage/s3475e3a0f/parameters.json
+===================================================================
+diff --git a/amplify/backend/storage/s3475e3a0f/parameters.json b/amplify/backend/storage/s3475e3a0f/parameters.json
+deleted file mode 100644
+--- a/amplify/backend/storage/s3475e3a0f/parameters.json	
++++ /dev/null	
+@@ -1,33 +0,0 @@
+-{
+-  "bucketName": "needtofeed9f63d8bbb2874febb0dff7c39ca5fee8",
+-  "authPolicyName": "s3_amplify_475e3a0f",
+-  "unauthPolicyName": "s3_amplify_475e3a0f",
+-  "authRoleName": {
+-    "Ref": "AuthRoleName"
+-  },
+-  "unauthRoleName": {
+-    "Ref": "UnauthRoleName"
+-  },
+-  "selectedGuestPermissions": [
+-    "s3:GetObject",
+-    "s3:ListBucket"
+-  ],
+-  "selectedAuthenticatedPermissions": [
+-    "s3:GetObject",
+-    "s3:ListBucket"
+-  ],
+-  "s3PermissionsAuthenticatedPublic": "s3:GetObject",
+-  "s3PublicPolicy": "Public_policy_3252136e",
+-  "s3PermissionsAuthenticatedUploads": "DISALLOW",
+-  "s3UploadsPolicy": "Uploads_policy_3252136e",
+-  "s3PermissionsAuthenticatedProtected": "s3:GetObject",
+-  "s3ProtectedPolicy": "Protected_policy_3252136e",
+-  "s3PermissionsAuthenticatedPrivate": "s3:GetObject",
+-  "s3PrivatePolicy": "Private_policy_3252136e",
+-  "AuthenticatedAllowList": "ALLOW",
+-  "s3ReadPolicy": "read_policy_3252136e",
+-  "s3PermissionsGuestPublic": "DISALLOW",
+-  "s3PermissionsGuestUploads": "DISALLOW",
+-  "GuestAllowList": "DISALLOW",
+-  "triggerFunction": "NONE"
+-}
+\ No newline at end of file
+Index: amplify/backend/auth/needtofeedae53688e/parameters.json
+===================================================================
+diff --git a/amplify/backend/auth/needtofeedae53688e/parameters.json b/amplify/backend/auth/needtofeedae53688e/parameters.json
+deleted file mode 100644
+--- a/amplify/backend/auth/needtofeedae53688e/parameters.json	
++++ /dev/null	
+@@ -1,72 +0,0 @@
+-{
+-    "identityPoolName": "needtofeedae53688e_identitypool_ae53688e",
+-    "allowUnauthenticatedIdentities": false,
+-    "resourceNameTruncated": "needtoae53688e",
+-    "userPoolName": "needtofeedae53688e_userpool_ae53688e",
+-    "autoVerifiedAttributes": [
+-        "email"
+-    ],
+-    "mfaConfiguration": "OFF",
+-    "mfaTypes": [
+-        "SMS Text Message"
+-    ],
+-    "smsAuthenticationMessage": "Your authentication code is {####}",
+-    "smsVerificationMessage": "Your verification code is {####}",
+-    "emailVerificationSubject": "Your verification code",
+-    "emailVerificationMessage": "Your verification code is {####}",
+-    "defaultPasswordPolicy": false,
+-    "passwordPolicyMinLength": 8,
+-    "passwordPolicyCharacters": [],
+-    "requiredAttributes": [
+-        "email",
+-        "name"
+-    ],
+-    "aliasAttributes": [],
+-    "userpoolClientGenerateSecret": false,
+-    "userpoolClientRefreshTokenValidity": 30,
+-    "userpoolClientWriteAttributes": [
+-        "email"
+-    ],
+-    "userpoolClientReadAttributes": [
+-        "email"
+-    ],
+-    "userpoolClientLambdaRole": "needtoae53688e_userpoolclient_lambda_role",
+-    "userpoolClientSetAttributes": false,
+-    "sharedId": "ae53688e",
+-    "resourceName": "needtofeedae53688e",
+-    "authSelections": "identityPoolAndUserPool",
+-    "authRoleArn": {
+-        "Fn::GetAtt": [
+-            "AuthRole",
+-            "Arn"
+-        ]
+-    },
+-    "unauthRoleArn": {
+-        "Fn::GetAtt": [
+-            "UnauthRole",
+-            "Arn"
+-        ]
+-    },
+-    "useDefault": "defaultSocial",
+-    "hostedUI": true,
+-    "usernameAttributes": [
+-        "email"
+-    ],
+-    "triggers": "{}",
+-    "hostedUIDomainName": "needtofeedae53688e-ae53688e",
+-    "authProvidersUserPool": [
+-        "Facebook",
+-        "Google"
+-    ],
+-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
+-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
+-    "userPoolGroupList": [],
+-    "serviceName": "Cognito",
+-    "usernameCaseSensitive": false,
+-    "parentStack": {
+-        "Ref": "AWS::StackId"
+-    },
+-    "breakCircularDependency": true,
+-    "permissions": [],
+-    "dependsOn": []
+-}
+\ No newline at end of file
+Index: amplify/backend/api/restaurants/stacks/CustomResources.json
+===================================================================
+diff --git a/amplify/backend/api/restaurants/stacks/CustomResources.json b/amplify/backend/api/restaurants/stacks/CustomResources.json
+deleted file mode 100644
+--- a/amplify/backend/api/restaurants/stacks/CustomResources.json	
++++ /dev/null	
+@@ -1,58 +0,0 @@
+-{
+-  "AWSTemplateFormatVersion": "2010-09-09",
+-  "Description": "An auto-generated nested stack.",
+-  "Metadata": {},
+-  "Parameters": {
+-    "AppSyncApiId": {
+-      "Type": "String",
+-      "Description": "The id of the AppSync API associated with this project."
+-    },
+-    "AppSyncApiName": {
+-      "Type": "String",
+-      "Description": "The name of the AppSync API",
+-      "Default": "AppSyncSimpleTransform"
+-    },
+-    "env": {
+-      "Type": "String",
+-      "Description": "The environment name. e.g. Dev, Test, or Production",
+-      "Default": "NONE"
+-    },
+-    "S3DeploymentBucket": {
+-      "Type": "String",
+-      "Description": "The S3 bucket containing all deployment assets for the project."
+-    },
+-    "S3DeploymentRootKey": {
+-      "Type": "String",
+-      "Description": "An S3 key relative to the S3DeploymentBucket that points to the root\nof the deployment directory."
+-    }
+-  },
+-  "Resources": {
+-    "EmptyResource": {
+-      "Type": "Custom::EmptyResource",
+-      "Condition": "AlwaysFalse"
+-    }
+-  },
+-  "Conditions": {
+-    "HasEnvironmentParameter": {
+-      "Fn::Not": [
+-        {
+-          "Fn::Equals": [
+-            {
+-              "Ref": "env"
+-            },
+-            "NONE"
+-          ]
+-        }
+-      ]
+-    },
+-    "AlwaysFalse": {
+-      "Fn::Equals": ["true", "false"]
+-    }
+-  },
+-  "Outputs": {
+-    "EmptyOutput": {
+-      "Description": "An empty output. You may delete this if you have at least one resource above.",
+-      "Value": ""
+-    }
+-  }
+-}
+Index: amplify/backend/api/restaurants/transform.conf.json
+===================================================================
+diff --git a/amplify/backend/api/restaurants/transform.conf.json b/amplify/backend/api/restaurants/transform.conf.json
+deleted file mode 100644
+--- a/amplify/backend/api/restaurants/transform.conf.json	
++++ /dev/null	
+@@ -1,10 +0,0 @@
+-{
+-    "Version": 5,
+-    "ElasticsearchWarning": true,
+-    "ResolverConfig": {
+-        "project": {
+-            "ConflictHandler": "AUTOMERGE",
+-            "ConflictDetection": "VERSION"
+-        }
+-    }
+-}
+\ No newline at end of file
+Index: amplify/backend/storage/s3475e3a0f/s3-cloudformation-template.json
+===================================================================
+diff --git a/amplify/backend/storage/s3475e3a0f/s3-cloudformation-template.json b/amplify/backend/storage/s3475e3a0f/s3-cloudformation-template.json
+deleted file mode 100644
+--- a/amplify/backend/storage/s3475e3a0f/s3-cloudformation-template.json	
++++ /dev/null	
+@@ -1,657 +0,0 @@
+-{
+-	"AWSTemplateFormatVersion": "2010-09-09",
+-	"Description": "S3 resource stack creation using Amplify CLI",
+-	"Parameters": {
+-		"bucketName": {
+-			"Type": "String"
+-		},
+-		"authPolicyName": {
+-			"Type": "String"
+-		},
+-		"unauthPolicyName": {
+-			"Type": "String"
+-		},
+-		"authRoleName": {
+-			"Type": "String"
+-		},
+-		"unauthRoleName": {
+-			"Type": "String"
+-		},
+-		"s3PublicPolicy": {
+-			"Type": "String",
+-			"Default" : "NONE"
+-		},
+-		"s3PrivatePolicy": {
+-			"Type": "String",
+-			"Default" : "NONE"
+-		},
+-		"s3ProtectedPolicy": {
+-			"Type": "String",
+-			"Default" : "NONE"
+-		},
+-		"s3UploadsPolicy": {
+-			"Type": "String",
+-			"Default" : "NONE"
+-		},
+-		"s3ReadPolicy": {
+-			"Type": "String",
+-			"Default" : "NONE"
+-		},
+-		"s3PermissionsAuthenticatedPublic": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"s3PermissionsAuthenticatedProtected": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"s3PermissionsAuthenticatedPrivate": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"s3PermissionsAuthenticatedUploads": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"s3PermissionsGuestPublic": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"s3PermissionsGuestUploads": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"		},
+-		"AuthenticatedAllowList": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"GuestAllowList": {
+-			"Type": "String",
+-			"Default" : "DISALLOW"
+-		},
+-		"selectedGuestPermissions": {
+-			"Type": "CommaDelimitedList",
+-			"Default" : "NONE"
+-		},
+-		"selectedAuthenticatedPermissions": {
+-			"Type": "CommaDelimitedList",
+-			"Default" : "NONE"
+-		},
+-		"env": {
+-			"Type": "String"
+-		},
+-		"triggerFunction": {
+-			"Type": "String"
+-		}
+-	
+-
+-	},
+-	"Conditions": {
+-		"ShouldNotCreateEnvResources": {
+-			"Fn::Equals": [
+-				{
+-					"Ref": "env"
+-				},
+-				"NONE"
+-			]
+-		},
+-		"CreateAuthPublic": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "s3PermissionsAuthenticatedPublic"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"CreateAuthProtected": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "s3PermissionsAuthenticatedProtected"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"CreateAuthPrivate": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "s3PermissionsAuthenticatedPrivate"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"CreateAuthUploads": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "s3PermissionsAuthenticatedUploads"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"CreateGuestPublic": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "s3PermissionsGuestPublic"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"CreateGuestUploads": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "s3PermissionsGuestUploads"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"AuthReadAndList": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "AuthenticatedAllowList"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		},
+-		"GuestReadAndList": {
+-			"Fn::Not" : [{
+-				"Fn::Equals" : [
+-					 {"Ref" : "GuestAllowList"},
+-					 "DISALLOW"
+-				]
+-		 }]
+-		}
+-	},
+-	"Resources": {
+-		"S3Bucket": {
+-			"Type": "AWS::S3::Bucket",
+-		    
+-			"DeletionPolicy" : "Retain",
+-			"Properties": {
+-				"BucketName": {
+-                    "Fn::If": [
+-                        "ShouldNotCreateEnvResources",
+-                        {
+-                            "Ref": "bucketName"
+-                        },
+-                        {
+-                            "Fn::Join": [
+-                                "",
+-                                [
+-                                    {
+-                                        "Ref": "bucketName"
+-                                    },
+-                                    {
+-                                      "Fn::Select": [
+-                                          3,
+-                                          {
+-                                              "Fn::Split": [
+-                                                  "-",
+-                                                  {
+-                                                      "Ref": "AWS::StackName"
+-                                                  }
+-                                              ]
+-                                          }
+-                                      ]
+-                                    },
+-                                    "-",
+-                                    {
+-                                        "Ref": "env"
+-                                    }
+-                                ]
+-                            ]
+-                        }
+-                    ]
+-                },
+-                
+-				"CorsConfiguration": {
+-					"CorsRules": [
+-						{
+-							"AllowedHeaders": [
+-								"*"
+-							],
+-							"AllowedMethods": [
+-								"GET",
+-								"HEAD",
+-								"PUT",
+-								"POST",
+-								"DELETE"
+-							],
+-							"AllowedOrigins": [
+-								"*"
+-							],
+-							"ExposedHeaders": [
+-								"x-amz-server-side-encryption",
+-								"x-amz-request-id",
+-								"x-amz-id-2",
+-								"ETag"
+-							],
+-							"Id": "S3CORSRuleId1",
+-							"MaxAge": "3000"
+-						}
+-					]
+-				}
+-			}
+-		},
+-      
+-	    
+-		"S3AuthPublicPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "CreateAuthPublic",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3PublicPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "authRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": {
+-								"Fn::Split" : [ "," , {
+-									"Ref": "s3PermissionsAuthenticatedPublic"
+-								} ]
+-							},
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/public/*"
+-										]
+-									]
+-								}
+-							]
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3AuthProtectedPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "CreateAuthProtected",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3ProtectedPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "authRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": {
+-								"Fn::Split" : [ "," , {
+-									"Ref": "s3PermissionsAuthenticatedProtected"
+-								} ]
+-							},
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/protected/${cognito-identity.amazonaws.com:sub}/*"
+-										]
+-									]
+-								}
+-							]
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3AuthPrivatePolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "CreateAuthPrivate",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3PrivatePolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "authRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": {
+-								"Fn::Split" : [ "," , {
+-									"Ref": "s3PermissionsAuthenticatedPrivate"
+-								} ]
+-							},
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/private/${cognito-identity.amazonaws.com:sub}/*"
+-										]
+-									]
+-								}
+-							]
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3AuthUploadPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "CreateAuthUploads",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3UploadsPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "authRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": {
+-								"Fn::Split" : [ "," , {
+-									"Ref": "s3PermissionsAuthenticatedUploads"
+-								} ]
+-							},
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/uploads/*"
+-										]
+-									]
+-								}
+-							]
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3AuthReadPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "AuthReadAndList",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3ReadPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "authRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": [
+-								"s3:GetObject"
+-							],
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/protected/*"
+-										]
+-									]
+-								}
+-							]
+-						},
+-						{
+-							"Effect": "Allow",
+-							"Action": [
+-								"s3:ListBucket"
+-							],
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											}
+-										]
+-									]
+-								}
+-							],
+-							"Condition": {
+-								"StringLike": {
+-									"s3:prefix": [
+-										"public/",
+-										"public/*",
+-										"protected/",
+-										"protected/*",
+-										"private/${cognito-identity.amazonaws.com:sub}/",
+-										"private/${cognito-identity.amazonaws.com:sub}/*"
+-									]
+-								}
+-							}
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3GuestPublicPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "CreateGuestPublic",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3PublicPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "unauthRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": {
+-								"Fn::Split" : [ "," , {
+-									"Ref": "s3PermissionsGuestPublic"
+-								} ]
+-							},
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/public/*"
+-										]
+-									]
+-								}
+-							]
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3GuestUploadPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "CreateGuestUploads",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3UploadsPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "unauthRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": {
+-								"Fn::Split" : [ "," , {
+-									"Ref": "s3PermissionsGuestUploads"
+-								} ]
+-							},
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/uploads/*"
+-										]
+-									]
+-								}
+-							]
+-						}
+-					]
+-				}
+-			}
+-		},
+-		"S3GuestReadPolicy": {
+-			"DependsOn": [
+-				"S3Bucket"
+-			],
+-			"Condition": "GuestReadAndList",
+-			"Type": "AWS::IAM::Policy",
+-			"Properties": {
+-				"PolicyName": {
+-					"Ref": "s3ReadPolicy"
+-				},
+-				"Roles": [
+-					{
+-						"Ref": "unauthRoleName"
+-					}
+-				],
+-				"PolicyDocument": {
+-					"Version": "2012-10-17",
+-					"Statement": [
+-						{
+-							"Effect": "Allow",
+-							"Action": [
+-								"s3:GetObject"
+-							],
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											},
+-											"/protected/*"
+-										]
+-									]
+-								}
+-							]
+-						},
+-						{
+-							"Effect": "Allow",
+-							"Action": [
+-								"s3:ListBucket"
+-							],
+-							"Resource": [
+-								{
+-									"Fn::Join": [
+-										"",
+-										[
+-											"arn:aws:s3:::",
+-											{
+-												"Ref": "S3Bucket"
+-											}
+-										]
+-									]
+-								}
+-							],
+-							"Condition": {
+-								"StringLike": {
+-									"s3:prefix": [
+-										"public/",
+-										"public/*",
+-										"protected/",
+-										"protected/*"
+-									]
+-								}
+-							}
+-						}
+-					]
+-				}
+-			}
+-		}
+-	},
+-	"Outputs": {
+-		"BucketName": {
+-			"Value": {
+-				"Ref": "S3Bucket"
+-			},
+-			"Description": "Bucket name for the S3 bucket"
+-		},
+-		"Region": {
+-			"Value": {
+-				"Ref": "AWS::Region"
+-			}
+-		}
+-	}
+-}
+Index: app/src/main/java/com/cs389team4/needtofeed/utils/Utils.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cs389team4.needtofeed.utils;\n\nimport android.content.Context;\nimport android.os.Handler;\nimport android.os.Looper;\nimport android.widget.Toast;\n\npublic class Utils {\n    public void showMessage(Context context, String message) {\n        new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, message, Toast.LENGTH_LONG).show());\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/cs389team4/needtofeed/utils/Utils.java b/app/src/main/java/com/cs389team4/needtofeed/utils/Utils.java
+--- a/app/src/main/java/com/cs389team4/needtofeed/utils/Utils.java	
++++ b/app/src/main/java/com/cs389team4/needtofeed/utils/Utils.java	
+@@ -4,6 +4,7 @@
+ import android.os.Handler;
+ import android.os.Looper;
+ import android.widget.Toast;
++import android.text.TextUtils;
+ 
+ public class Utils {
+     public void showMessage(Context context, String message) {
+Index: amplify/team-provider-info.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\n  \"dev\": {\n    \"awscloudformation\": {\n      \"AuthRoleName\": \"amplify-needtofeed-dev-31050-authRole\",\n      \"UnauthRoleArn\": \"arn:aws:iam::480230309549:role/amplify-needtofeed-dev-31050-unauthRole\",\n      \"AuthRoleArn\": \"arn:aws:iam::480230309549:role/amplify-needtofeed-dev-31050-authRole\",\n      \"Region\": \"us-east-1\",\n      \"DeploymentBucketName\": \"amplify-needtofeed-dev-31050-deployment\",\n      \"UnauthRoleName\": \"amplify-needtofeed-dev-31050-unauthRole\",\n      \"StackName\": \"amplify-needtofeed-dev-31050\",\n      \"StackId\": \"arn:aws:cloudformation:us-east-1:480230309549:stack/amplify-needtofeed-dev-31050/b08d9a60-3562-11ec-8fa0-0ef636b25e3d\",\n      \"AmplifyAppId\": \"d3o38ixvcvayqc\"\n    },\n    \"categories\": {\n      \"auth\": {\n        \"needtofeedae53688e\": {}\n      }\n    }\n  }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/amplify/team-provider-info.json b/amplify/team-provider-info.json
+--- a/amplify/team-provider-info.json	
++++ b/amplify/team-provider-info.json	
+@@ -10,11 +10,6 @@
+       "StackName": "amplify-needtofeed-dev-31050",
+       "StackId": "arn:aws:cloudformation:us-east-1:480230309549:stack/amplify-needtofeed-dev-31050/b08d9a60-3562-11ec-8fa0-0ef636b25e3d",
+       "AmplifyAppId": "d3o38ixvcvayqc"
+-    },
+-    "categories": {
+-      "auth": {
+-        "needtofeedae53688e": {}
+-      }
+     }
+   }
+ }
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	
++++ b/.idea/.gitignore	
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: amplify/.config/project-config.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\n  \"projectName\": \"NeedToFeed\",\n  \"version\": \"3.1\",\n  \"frontend\": \"android\",\n  \"android\": {\n    \"config\": {\n      \"ResDir\": \"app/src/main/res\"\n    }\n  },\n  \"providers\": [\n    \"awscloudformation\"\n  ]\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/amplify/.config/project-config.json b/amplify/.config/project-config.json
+--- a/amplify/.config/project-config.json	
++++ b/amplify/.config/project-config.json	
+@@ -1,4 +1,7 @@
+ {
++  "providers": [
++    "awscloudformation"
++  ],
+   "projectName": "NeedToFeed",
+   "version": "3.1",
+   "frontend": "android",
+@@ -6,8 +9,5 @@
+     "config": {
+       "ResDir": "app/src/main/res"
+     }
+-  },
+-  "providers": [
+-    "awscloudformation"
+-  ]
++  }
+ }
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/compiler.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="11" />
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/java/com/amplifyframework/datastore/generated/model/Restaurant.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.amplifyframework.datastore.generated.model;\n\nimport com.amplifyframework.core.model.annotations.HasMany;\nimport com.amplifyframework.core.model.temporal.Temporal;\n\nimport java.util.List;\nimport java.util.UUID;\nimport java.util.Objects;\n\nimport androidx.core.util.ObjectsCompat;\n\nimport com.amplifyframework.core.model.AuthStrategy;\nimport com.amplifyframework.core.model.Model;\nimport com.amplifyframework.core.model.ModelOperation;\nimport com.amplifyframework.core.model.annotations.AuthRule;\nimport com.amplifyframework.core.model.annotations.Index;\nimport com.amplifyframework.core.model.annotations.ModelConfig;\nimport com.amplifyframework.core.model.annotations.ModelField;\nimport com.amplifyframework.core.model.query.predicate.QueryField;\n\nimport static com.amplifyframework.core.model.query.predicate.QueryField.field;\n\n/** This is an auto generated class representing the Restaurant type in your schema. */\n@SuppressWarnings(\"all\")\n@ModelConfig(pluralName = \"Restaurants\", authRules = {\n  @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })\n})\npublic final class Restaurant implements Model {\n  public static final QueryField ID = field(\"Restaurant\", \"id\");\n  public static final QueryField NAME = field(\"Restaurant\", \"name\");\n  private final @ModelField(targetType=\"ID\", isRequired = true) String id;\n  private final @ModelField(targetType=\"String\", isRequired = true) String name;\n  private final @ModelField(targetType=\"Item\") @HasMany(associatedWith = \"restaurantID\", type = Item.class) List<Item> items = null;\n  private @ModelField(targetType=\"AWSDateTime\", isReadOnly = true) Temporal.DateTime createdAt;\n  private @ModelField(targetType=\"AWSDateTime\", isReadOnly = true) Temporal.DateTime updatedAt;\n  public String getId() {\n      return id;\n  }\n  \n  public String getName() {\n      return name;\n  }\n  \n  public List<Item> getItems() {\n      return items;\n  }\n  \n  public Temporal.DateTime getCreatedAt() {\n      return createdAt;\n  }\n  \n  public Temporal.DateTime getUpdatedAt() {\n      return updatedAt;\n  }\n  \n  private Restaurant(String id, String name) {\n    this.id = id;\n    this.name = name;\n  }\n  \n  @Override\n   public boolean equals(Object obj) {\n      if (this == obj) {\n        return true;\n      } else if(obj == null || getClass() != obj.getClass()) {\n        return false;\n      } else {\n      Restaurant restaurant = (Restaurant) obj;\n      return ObjectsCompat.equals(getId(), restaurant.getId()) &&\n              ObjectsCompat.equals(getName(), restaurant.getName()) &&\n              ObjectsCompat.equals(getCreatedAt(), restaurant.getCreatedAt()) &&\n              ObjectsCompat.equals(getUpdatedAt(), restaurant.getUpdatedAt());\n      }\n  }\n  \n  @Override\n   public int hashCode() {\n    return new StringBuilder()\n      .append(getId())\n      .append(getName())\n      .append(getCreatedAt())\n      .append(getUpdatedAt())\n      .toString()\n      .hashCode();\n  }\n  \n  @Override\n   public String toString() {\n    return new StringBuilder()\n      .append(\"Restaurant {\")\n      .append(\"id=\" + String.valueOf(getId()) + \", \")\n      .append(\"name=\" + String.valueOf(getName()) + \", \")\n      .append(\"createdAt=\" + String.valueOf(getCreatedAt()) + \", \")\n      .append(\"updatedAt=\" + String.valueOf(getUpdatedAt()))\n      .append(\"}\")\n      .toString();\n  }\n  \n  public static NameStep builder() {\n      return new Builder();\n  }\n  \n  /** \n   * WARNING: This method should not be used to build an instance of this object for a CREATE mutation.\n   * This is a convenience method to return an instance of the object with only its ID populated\n   * to be used in the context of a parameter in a delete mutation or referencing a foreign key\n   * in a relationship.\n   * @param id the id of the existing item this instance will represent\n   * @return an instance of this model with only ID populated\n   */\n  public static Restaurant justId(String id) {\n    return new Restaurant(\n      id,\n      null\n    );\n  }\n  \n  public CopyOfBuilder copyOfBuilder() {\n    return new CopyOfBuilder(id,\n      name);\n  }\n  public interface NameStep {\n    BuildStep name(String name);\n  }\n  \n\n  public interface BuildStep {\n    Restaurant build();\n    BuildStep id(String id);\n  }\n  \n\n  public static class Builder implements NameStep, BuildStep {\n    private String id;\n    private String name;\n    @Override\n     public Restaurant build() {\n        String id = this.id != null ? this.id : UUID.randomUUID().toString();\n        \n        return new Restaurant(\n          id,\n          name);\n    }\n    \n    @Override\n     public BuildStep name(String name) {\n        Objects.requireNonNull(name);\n        this.name = name;\n        return this;\n    }\n    \n    /** \n     * @param id id\n     * @return Current Builder instance, for fluent method chaining\n     */\n    public BuildStep id(String id) {\n        this.id = id;\n        return this;\n    }\n  }\n  \n\n  public final class CopyOfBuilder extends Builder {\n    private CopyOfBuilder(String id, String name) {\n      super.id(id);\n      super.name(name);\n    }\n    \n    @Override\n     public CopyOfBuilder name(String name) {\n      return (CopyOfBuilder) super.name(name);\n    }\n  }\n  \n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/amplifyframework/datastore/generated/model/Restaurant.java b/app/src/main/java/com/amplifyframework/datastore/generated/model/Restaurant.java
+--- a/app/src/main/java/com/amplifyframework/datastore/generated/model/Restaurant.java	
++++ b/app/src/main/java/com/amplifyframework/datastore/generated/model/Restaurant.java	
+@@ -28,9 +28,19 @@
+ public final class Restaurant implements Model {
+   public static final QueryField ID = field("Restaurant", "id");
+   public static final QueryField NAME = field("Restaurant", "name");
++  public static final QueryField CATEGORY = field("Restaurant", "category");
++  public static final QueryField IMAGE = field("Restaurant", "image");
++  public static final QueryField LOCATION = field("Restaurant", "location");
++  public static final QueryField TIME_OPEN = field("Restaurant", "timeOpen");
++  public static final QueryField TIME_CLOSE = field("Restaurant", "timeClose");
+   private final @ModelField(targetType="ID", isRequired = true) String id;
+   private final @ModelField(targetType="String", isRequired = true) String name;
+   private final @ModelField(targetType="Item") @HasMany(associatedWith = "restaurantID", type = Item.class) List<Item> items = null;
++  private final @ModelField(targetType="String", isRequired = true) String category;
++  private final @ModelField(targetType="AWSURL") String image;
++  private final @ModelField(targetType="String", isRequired = true) String location;
++  private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time timeOpen;
++  private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time timeClose;
+   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
+   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
+   public String getId() {
+@@ -45,6 +55,26 @@
+       return items;
+   }
+   
++  public String getCategory() {
++      return category;
++  }
++  
++  public String getImage() {
++      return image;
++  }
++  
++  public String getLocation() {
++      return location;
++  }
++  
++  public Temporal.Time getTimeOpen() {
++      return timeOpen;
++  }
++  
++  public Temporal.Time getTimeClose() {
++      return timeClose;
++  }
++  
+   public Temporal.DateTime getCreatedAt() {
+       return createdAt;
+   }
+@@ -53,9 +83,14 @@
+       return updatedAt;
+   }
+   
+-  private Restaurant(String id, String name) {
++  private Restaurant(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose) {
+     this.id = id;
+     this.name = name;
++    this.category = category;
++    this.image = image;
++    this.location = location;
++    this.timeOpen = timeOpen;
++    this.timeClose = timeClose;
+   }
+   
+   @Override
+@@ -68,6 +103,11 @@
+       Restaurant restaurant = (Restaurant) obj;
+       return ObjectsCompat.equals(getId(), restaurant.getId()) &&
+               ObjectsCompat.equals(getName(), restaurant.getName()) &&
++              ObjectsCompat.equals(getCategory(), restaurant.getCategory()) &&
++              ObjectsCompat.equals(getImage(), restaurant.getImage()) &&
++              ObjectsCompat.equals(getLocation(), restaurant.getLocation()) &&
++              ObjectsCompat.equals(getTimeOpen(), restaurant.getTimeOpen()) &&
++              ObjectsCompat.equals(getTimeClose(), restaurant.getTimeClose()) &&
+               ObjectsCompat.equals(getCreatedAt(), restaurant.getCreatedAt()) &&
+               ObjectsCompat.equals(getUpdatedAt(), restaurant.getUpdatedAt());
+       }
+@@ -78,6 +118,11 @@
+     return new StringBuilder()
+       .append(getId())
+       .append(getName())
++      .append(getCategory())
++      .append(getImage())
++      .append(getLocation())
++      .append(getTimeOpen())
++      .append(getTimeClose())
+       .append(getCreatedAt())
+       .append(getUpdatedAt())
+       .toString()
+@@ -90,6 +135,11 @@
+       .append("Restaurant {")
+       .append("id=" + String.valueOf(getId()) + ", ")
+       .append("name=" + String.valueOf(getName()) + ", ")
++      .append("category=" + String.valueOf(getCategory()) + ", ")
++      .append("image=" + String.valueOf(getImage()) + ", ")
++      .append("location=" + String.valueOf(getLocation()) + ", ")
++      .append("timeOpen=" + String.valueOf(getTimeOpen()) + ", ")
++      .append("timeClose=" + String.valueOf(getTimeClose()) + ", ")
+       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
+       .append("}")
+@@ -111,44 +161,119 @@
+   public static Restaurant justId(String id) {
+     return new Restaurant(
+       id,
++      null,
++      null,
++      null,
++      null,
++      null,
+       null
+     );
+   }
+   
+   public CopyOfBuilder copyOfBuilder() {
+     return new CopyOfBuilder(id,
+-      name);
++      name,
++      category,
++      image,
++      location,
++      timeOpen,
++      timeClose);
+   }
+   public interface NameStep {
+-    BuildStep name(String name);
++    CategoryStep name(String name);
++  }
++  
++
++  public interface CategoryStep {
++    LocationStep category(String category);
++  }
++  
++
++  public interface LocationStep {
++    TimeOpenStep location(String location);
++  }
++  
++
++  public interface TimeOpenStep {
++    TimeCloseStep timeOpen(Temporal.Time timeOpen);
++  }
++  
++
++  public interface TimeCloseStep {
++    BuildStep timeClose(Temporal.Time timeClose);
+   }
+   
+ 
+   public interface BuildStep {
+     Restaurant build();
+     BuildStep id(String id);
++    BuildStep image(String image);
+   }
+   
+ 
+-  public static class Builder implements NameStep, BuildStep {
++  public static class Builder implements NameStep, CategoryStep, LocationStep, TimeOpenStep, TimeCloseStep, BuildStep {
+     private String id;
+     private String name;
++    private String category;
++    private String location;
++    private Temporal.Time timeOpen;
++    private Temporal.Time timeClose;
++    private String image;
+     @Override
+      public Restaurant build() {
+         String id = this.id != null ? this.id : UUID.randomUUID().toString();
+         
+         return new Restaurant(
+           id,
+-          name);
++          name,
++          category,
++          image,
++          location,
++          timeOpen,
++          timeClose);
+     }
+     
+     @Override
+-     public BuildStep name(String name) {
++     public CategoryStep name(String name) {
+         Objects.requireNonNull(name);
+         this.name = name;
+         return this;
+     }
+     
++    @Override
++     public LocationStep category(String category) {
++        Objects.requireNonNull(category);
++        this.category = category;
++        return this;
++    }
++    
++    @Override
++     public TimeOpenStep location(String location) {
++        Objects.requireNonNull(location);
++        this.location = location;
++        return this;
++    }
++    
++    @Override
++     public TimeCloseStep timeOpen(Temporal.Time timeOpen) {
++        Objects.requireNonNull(timeOpen);
++        this.timeOpen = timeOpen;
++        return this;
++    }
++    
++    @Override
++     public BuildStep timeClose(Temporal.Time timeClose) {
++        Objects.requireNonNull(timeClose);
++        this.timeClose = timeClose;
++        return this;
++    }
++    
++    @Override
++     public BuildStep image(String image) {
++        this.image = image;
++        return this;
++    }
++    
+     /** 
+      * @param id id
+      * @return Current Builder instance, for fluent method chaining
+@@ -161,15 +286,45 @@
+   
+ 
+   public final class CopyOfBuilder extends Builder {
+-    private CopyOfBuilder(String id, String name) {
++    private CopyOfBuilder(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose) {
+       super.id(id);
+-      super.name(name);
++      super.name(name)
++        .category(category)
++        .location(location)
++        .timeOpen(timeOpen)
++        .timeClose(timeClose)
++        .image(image);
+     }
+     
+     @Override
+      public CopyOfBuilder name(String name) {
+       return (CopyOfBuilder) super.name(name);
+     }
++    
++    @Override
++     public CopyOfBuilder category(String category) {
++      return (CopyOfBuilder) super.category(category);
++    }
++    
++    @Override
++     public CopyOfBuilder location(String location) {
++      return (CopyOfBuilder) super.location(location);
++    }
++    
++    @Override
++     public CopyOfBuilder timeOpen(Temporal.Time timeOpen) {
++      return (CopyOfBuilder) super.timeOpen(timeOpen);
++    }
++    
++    @Override
++     public CopyOfBuilder timeClose(Temporal.Time timeClose) {
++      return (CopyOfBuilder) super.timeClose(timeClose);
++    }
++    
++    @Override
++     public CopyOfBuilder image(String image) {
++      return (CopyOfBuilder) super.image(image);
++    }
+   }
+   
+ }
+Index: app/src/main/java/com/amplifyframework/datastore/generated/model/AmplifyModelProvider.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.amplifyframework.datastore.generated.model;\n\nimport com.amplifyframework.util.Immutable;\nimport com.amplifyframework.core.model.Model;\nimport com.amplifyframework.core.model.ModelProvider;\n\nimport java.util.Arrays;\nimport java.util.HashSet;\nimport java.util.Set;\n/** \n *  Contains the set of model classes that implement {@link Model}\n * interface.\n */\n\npublic final class AmplifyModelProvider implements ModelProvider {\n  private static final String AMPLIFY_MODEL_VERSION = \"3c9fea3637317be7d7f5a5882a0e2102\";\n  private static AmplifyModelProvider amplifyGeneratedModelInstance;\n  private AmplifyModelProvider() {\n    \n  }\n  \n  public static AmplifyModelProvider getInstance() {\n    if (amplifyGeneratedModelInstance == null) {\n      amplifyGeneratedModelInstance = new AmplifyModelProvider();\n    }\n    return amplifyGeneratedModelInstance;\n  }\n  \n  /** \n   * Get a set of the model classes.\n   * \n   * @return a set of the model classes.\n   */\n  @Override\n   public Set<Class<? extends Model>> models() {\n    final Set<Class<? extends Model>> modifiableSet = new HashSet<>(\n          Arrays.<Class<? extends Model>>asList(Restaurant.class, Item.class)\n        );\n    \n        return Immutable.of(modifiableSet);\n        \n  }\n  \n  /** \n   * Get the version of the models.\n   * \n   * @return the version string of the models.\n   */\n  @Override\n   public String version() {\n    return AMPLIFY_MODEL_VERSION;\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/amplifyframework/datastore/generated/model/AmplifyModelProvider.java b/app/src/main/java/com/amplifyframework/datastore/generated/model/AmplifyModelProvider.java
+--- a/app/src/main/java/com/amplifyframework/datastore/generated/model/AmplifyModelProvider.java	
++++ b/app/src/main/java/com/amplifyframework/datastore/generated/model/AmplifyModelProvider.java	
+@@ -13,7 +13,7 @@
+  */
+ 
+ public final class AmplifyModelProvider implements ModelProvider {
+-  private static final String AMPLIFY_MODEL_VERSION = "3c9fea3637317be7d7f5a5882a0e2102";
++  private static final String AMPLIFY_MODEL_VERSION = "f91d2bede3b9ac3ec2cce88a92a3abd7";
+   private static AmplifyModelProvider amplifyGeneratedModelInstance;
+   private AmplifyModelProvider() {
+     
+@@ -34,7 +34,7 @@
+   @Override
+    public Set<Class<? extends Model>> models() {
+     final Set<Class<? extends Model>> modifiableSet = new HashSet<>(
+-          Arrays.<Class<? extends Model>>asList(Restaurant.class, Item.class)
++          Arrays.<Class<? extends Model>>asList(Order.class, Restaurant.class, Item.class)
+         );
+     
+         return Immutable.of(modifiableSet);
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/gradle.xml	
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
++  <component name="GradleSettings">
++    <option name="linkedExternalProjectsSettings">
++      <GradleProjectSettings>
++        <option name="testRunner" value="GRADLE" />
++        <option name="distributionType" value="DEFAULT_WRAPPED" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$" />
++            <option value="$PROJECT_DIR$/app" />
++          </set>
++        </option>
++        <option name="resolveModulePerSourceSet" value="false" />
++      </GradleProjectSettings>
++    </option>
++  </component>
++</project>
+\ No newline at end of file
+Index: app/src/main/java/com/cs389team4/needtofeed/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.cs389team4.needtofeed\n\nimport android.content.Intent\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport android.util.Log\nimport androidx.lifecycle.LiveData\nimport androidx.navigation.NavController\nimport androidx.navigation.ui.setupWithNavController\nimport com.amplifyframework.auth.cognito.AWSCognitoAuthSession\nimport com.amplifyframework.auth.result.AuthSessionResult\nimport com.amplifyframework.core.Amplify\nimport com.cs389team4.needtofeed.databinding.ActivityMainBinding\nimport com.cs389team4.needtofeed.ui.auth.LandingActivity\nimport com.cs389team4.needtofeed.utils.Utils\nimport com.cs389team4.needtofeed.utils.setupWithNavController\n\nclass MainActivity : AppCompatActivity() {\n    private var currentNavController: LiveData<NavController>? = null\n    private lateinit var binding: ActivityMainBinding\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        binding = ActivityMainBinding.inflate(layoutInflater)\n        setContentView(binding.root)\n\n        if (savedInstanceState == null) {\n            initBottomNavigation()\n        }\n\n        fetchIdentityId()\n    }\n\n    override fun onRestoreInstanceState(savedInstanceState: Bundle) {\n        super.onRestoreInstanceState(savedInstanceState)\n        initBottomNavigation()\n    }\n\n    // Check if user is signed in\n    private fun fetchIdentityId() {\n        Amplify.Auth.fetchAuthSession(\n            { result ->\n                val cognitoAuthSession = result as AWSCognitoAuthSession\n                when (cognitoAuthSession.identityId.type) {\n                    // User signed in\n                    AuthSessionResult.Type.SUCCESS ->\n                        Log.i(\"MainActivity\", \"User signed in with identityId: \" + cognitoAuthSession.identityId.value)\n                    // User not signed in\n                    AuthSessionResult.Type.FAILURE -> {\n                        // Launch welcome screen\n                        startActivity(Intent(this, LandingActivity::class.java))\n                        finish()\n                    }\n                }\n            },\n            { error ->\n                // Display error fetching session\n                Utils().showMessage(applicationContext, error.toString())\n            }\n        )\n    }\n\n    // Initialize bottom navigation\n    private fun initBottomNavigation() {\n        val bottomNavigation = binding.navView\n        val navGraphIds = listOf(\n            R.navigation.nav_graph_home,\n            R.navigation.nav_graph_orders,\n            R.navigation.nav_graph_profile)\n\n        val controller = bottomNavigation.setupWithNavController(\n            navGraphIds = navGraphIds,\n            fragmentManager = supportFragmentManager,\n            containerId = R.id.nav_host_fragment,\n            intent = intent\n        )\n\n        controller.observe(this, { navController: NavController ->\n            setSupportActionBar(binding.toolbar)\n            binding.toolbar.setupWithNavController(navController)\n        })\n        currentNavController = controller\n    }\n\n    // Display up navigation when applicable\n    override fun onSupportNavigateUp(): Boolean {\n        return currentNavController?.value?.navigateUp() ?: false\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/cs389team4/needtofeed/MainActivity.kt b/app/src/main/java/com/cs389team4/needtofeed/MainActivity.kt
+--- a/app/src/main/java/com/cs389team4/needtofeed/MainActivity.kt	
++++ b/app/src/main/java/com/cs389team4/needtofeed/MainActivity.kt	
+@@ -12,8 +12,8 @@
+ import com.amplifyframework.core.Amplify
+ import com.cs389team4.needtofeed.databinding.ActivityMainBinding
+ import com.cs389team4.needtofeed.ui.auth.LandingActivity
+-import com.cs389team4.needtofeed.utils.Utils
+ import com.cs389team4.needtofeed.utils.setupWithNavController
++import com.cs389team4.needtofeed.utils.Utils
+ 
+ class MainActivity : AppCompatActivity() {
+     private var currentNavController: LiveData<NavController>? = null
+@@ -28,7 +28,7 @@
+             initBottomNavigation()
+         }
+ 
+-        fetchIdentityId()
++        //fetchIdentityId()
+     }
+ 
+     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+Index: app/src/main/java/com/amplifyframework/datastore/generated/model/Item.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.amplifyframework.datastore.generated.model;\n\nimport com.amplifyframework.core.model.annotations.BelongsTo;\nimport com.amplifyframework.core.model.temporal.Temporal;\n\nimport java.util.List;\nimport java.util.UUID;\nimport java.util.Objects;\n\nimport androidx.core.util.ObjectsCompat;\n\nimport com.amplifyframework.core.model.AuthStrategy;\nimport com.amplifyframework.core.model.Model;\nimport com.amplifyframework.core.model.ModelOperation;\nimport com.amplifyframework.core.model.annotations.AuthRule;\nimport com.amplifyframework.core.model.annotations.Index;\nimport com.amplifyframework.core.model.annotations.ModelConfig;\nimport com.amplifyframework.core.model.annotations.ModelField;\nimport com.amplifyframework.core.model.query.predicate.QueryField;\n\nimport static com.amplifyframework.core.model.query.predicate.QueryField.field;\n\n/** This is an auto generated class representing the Item type in your schema. */\n@SuppressWarnings(\"all\")\n@ModelConfig(pluralName = \"Items\", authRules = {\n  @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })\n})\n@Index(name = \"byRestaurant\", fields = {\"restaurantID\"})\npublic final class Item implements Model {\n  public static final QueryField ID = field(\"Item\", \"id\");\n  public static final QueryField TITLE = field(\"Item\", \"title\");\n  public static final QueryField RESTAURANT_ID = field(\"Item\", \"restaurantID\");\n  public static final QueryField RESTAURANT = field(\"Item\", \"itemRestaurantId\");\n  private final @ModelField(targetType=\"ID\", isRequired = true) String id;\n  private final @ModelField(targetType=\"String\", isRequired = true) String title;\n  private final @ModelField(targetType=\"ID\") String restaurantID;\n  private final @ModelField(targetType=\"Restaurant\") @BelongsTo(targetName = \"itemRestaurantId\", type = Restaurant.class) Restaurant restaurant;\n  private @ModelField(targetType=\"AWSDateTime\", isReadOnly = true) Temporal.DateTime createdAt;\n  private @ModelField(targetType=\"AWSDateTime\", isReadOnly = true) Temporal.DateTime updatedAt;\n  public String getId() {\n      return id;\n  }\n  \n  public String getTitle() {\n      return title;\n  }\n  \n  public String getRestaurantId() {\n      return restaurantID;\n  }\n  \n  public Restaurant getRestaurant() {\n      return restaurant;\n  }\n  \n  public Temporal.DateTime getCreatedAt() {\n      return createdAt;\n  }\n  \n  public Temporal.DateTime getUpdatedAt() {\n      return updatedAt;\n  }\n  \n  private Item(String id, String title, String restaurantID, Restaurant restaurant) {\n    this.id = id;\n    this.title = title;\n    this.restaurantID = restaurantID;\n    this.restaurant = restaurant;\n  }\n  \n  @Override\n   public boolean equals(Object obj) {\n      if (this == obj) {\n        return true;\n      } else if(obj == null || getClass() != obj.getClass()) {\n        return false;\n      } else {\n      Item item = (Item) obj;\n      return ObjectsCompat.equals(getId(), item.getId()) &&\n              ObjectsCompat.equals(getTitle(), item.getTitle()) &&\n              ObjectsCompat.equals(getRestaurantId(), item.getRestaurantId()) &&\n              ObjectsCompat.equals(getRestaurant(), item.getRestaurant()) &&\n              ObjectsCompat.equals(getCreatedAt(), item.getCreatedAt()) &&\n              ObjectsCompat.equals(getUpdatedAt(), item.getUpdatedAt());\n      }\n  }\n  \n  @Override\n   public int hashCode() {\n    return new StringBuilder()\n      .append(getId())\n      .append(getTitle())\n      .append(getRestaurantId())\n      .append(getRestaurant())\n      .append(getCreatedAt())\n      .append(getUpdatedAt())\n      .toString()\n      .hashCode();\n  }\n  \n  @Override\n   public String toString() {\n    return new StringBuilder()\n      .append(\"Item {\")\n      .append(\"id=\" + String.valueOf(getId()) + \", \")\n      .append(\"title=\" + String.valueOf(getTitle()) + \", \")\n      .append(\"restaurantID=\" + String.valueOf(getRestaurantId()) + \", \")\n      .append(\"restaurant=\" + String.valueOf(getRestaurant()) + \", \")\n      .append(\"createdAt=\" + String.valueOf(getCreatedAt()) + \", \")\n      .append(\"updatedAt=\" + String.valueOf(getUpdatedAt()))\n      .append(\"}\")\n      .toString();\n  }\n  \n  public static TitleStep builder() {\n      return new Builder();\n  }\n  \n  /** \n   * WARNING: This method should not be used to build an instance of this object for a CREATE mutation.\n   * This is a convenience method to return an instance of the object with only its ID populated\n   * to be used in the context of a parameter in a delete mutation or referencing a foreign key\n   * in a relationship.\n   * @param id the id of the existing item this instance will represent\n   * @return an instance of this model with only ID populated\n   */\n  public static Item justId(String id) {\n    return new Item(\n      id,\n      null,\n      null,\n      null\n    );\n  }\n  \n  public CopyOfBuilder copyOfBuilder() {\n    return new CopyOfBuilder(id,\n      title,\n      restaurantID,\n      restaurant);\n  }\n  public interface TitleStep {\n    BuildStep title(String title);\n  }\n  \n\n  public interface BuildStep {\n    Item build();\n    BuildStep id(String id);\n    BuildStep restaurantId(String restaurantId);\n    BuildStep restaurant(Restaurant restaurant);\n  }\n  \n\n  public static class Builder implements TitleStep, BuildStep {\n    private String id;\n    private String title;\n    private String restaurantID;\n    private Restaurant restaurant;\n    @Override\n     public Item build() {\n        String id = this.id != null ? this.id : UUID.randomUUID().toString();\n        \n        return new Item(\n          id,\n          title,\n          restaurantID,\n          restaurant);\n    }\n    \n    @Override\n     public BuildStep title(String title) {\n        Objects.requireNonNull(title);\n        this.title = title;\n        return this;\n    }\n    \n    @Override\n     public BuildStep restaurantId(String restaurantId) {\n        this.restaurantID = restaurantId;\n        return this;\n    }\n    \n    @Override\n     public BuildStep restaurant(Restaurant restaurant) {\n        this.restaurant = restaurant;\n        return this;\n    }\n    \n    /** \n     * @param id id\n     * @return Current Builder instance, for fluent method chaining\n     */\n    public BuildStep id(String id) {\n        this.id = id;\n        return this;\n    }\n  }\n  \n\n  public final class CopyOfBuilder extends Builder {\n    private CopyOfBuilder(String id, String title, String restaurantId, Restaurant restaurant) {\n      super.id(id);\n      super.title(title)\n        .restaurantId(restaurantId)\n        .restaurant(restaurant);\n    }\n    \n    @Override\n     public CopyOfBuilder title(String title) {\n      return (CopyOfBuilder) super.title(title);\n    }\n    \n    @Override\n     public CopyOfBuilder restaurantId(String restaurantId) {\n      return (CopyOfBuilder) super.restaurantId(restaurantId);\n    }\n    \n    @Override\n     public CopyOfBuilder restaurant(Restaurant restaurant) {\n      return (CopyOfBuilder) super.restaurant(restaurant);\n    }\n  }\n  \n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/amplifyframework/datastore/generated/model/Item.java b/app/src/main/java/com/amplifyframework/datastore/generated/model/Item.java
+--- a/app/src/main/java/com/amplifyframework/datastore/generated/model/Item.java	
++++ b/app/src/main/java/com/amplifyframework/datastore/generated/model/Item.java	
+@@ -26,15 +26,22 @@
+   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
+ })
+ @Index(name = "byRestaurant", fields = {"restaurantID"})
++@Index(name = "byOrder", fields = {"ordersID"})
+ public final class Item implements Model {
+   public static final QueryField ID = field("Item", "id");
+   public static final QueryField TITLE = field("Item", "title");
+-  public static final QueryField RESTAURANT_ID = field("Item", "restaurantID");
++  public static final QueryField PRICE = field("Item", "price");
+   public static final QueryField RESTAURANT = field("Item", "itemRestaurantId");
++  public static final QueryField RESTAURANT_ID = field("Item", "restaurantID");
++  public static final QueryField IMAGE = field("Item", "image");
++  public static final QueryField ORDERS_ID = field("Item", "ordersID");
+   private final @ModelField(targetType="ID", isRequired = true) String id;
+   private final @ModelField(targetType="String", isRequired = true) String title;
++  private final @ModelField(targetType="Float", isRequired = true) Double price;
++  private final @ModelField(targetType="Restaurant", isRequired = true) @BelongsTo(targetName = "itemRestaurantId", type = Restaurant.class) Restaurant restaurant;
+   private final @ModelField(targetType="ID") String restaurantID;
+-  private final @ModelField(targetType="Restaurant") @BelongsTo(targetName = "itemRestaurantId", type = Restaurant.class) Restaurant restaurant;
++  private final @ModelField(targetType="AWSURL") String image;
++  private final @ModelField(targetType="ID") String ordersID;
+   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
+   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
+   public String getId() {
+@@ -45,14 +52,26 @@
+       return title;
+   }
+   
+-  public String getRestaurantId() {
+-      return restaurantID;
++  public Double getPrice() {
++      return price;
+   }
+   
+   public Restaurant getRestaurant() {
+       return restaurant;
+   }
+   
++  public String getRestaurantId() {
++      return restaurantID;
++  }
++  
++  public String getImage() {
++      return image;
++  }
++  
++  public String getOrdersId() {
++      return ordersID;
++  }
++  
+   public Temporal.DateTime getCreatedAt() {
+       return createdAt;
+   }
+@@ -61,11 +80,14 @@
+       return updatedAt;
+   }
+   
+-  private Item(String id, String title, String restaurantID, Restaurant restaurant) {
++  private Item(String id, String title, Double price, Restaurant restaurant, String restaurantID, String image, String ordersID) {
+     this.id = id;
+     this.title = title;
++    this.price = price;
++    this.restaurant = restaurant;
+     this.restaurantID = restaurantID;
+-    this.restaurant = restaurant;
++    this.image = image;
++    this.ordersID = ordersID;
+   }
+   
+   @Override
+@@ -78,8 +100,11 @@
+       Item item = (Item) obj;
+       return ObjectsCompat.equals(getId(), item.getId()) &&
+               ObjectsCompat.equals(getTitle(), item.getTitle()) &&
+-              ObjectsCompat.equals(getRestaurantId(), item.getRestaurantId()) &&
++              ObjectsCompat.equals(getPrice(), item.getPrice()) &&
+               ObjectsCompat.equals(getRestaurant(), item.getRestaurant()) &&
++              ObjectsCompat.equals(getRestaurantId(), item.getRestaurantId()) &&
++              ObjectsCompat.equals(getImage(), item.getImage()) &&
++              ObjectsCompat.equals(getOrdersId(), item.getOrdersId()) &&
+               ObjectsCompat.equals(getCreatedAt(), item.getCreatedAt()) &&
+               ObjectsCompat.equals(getUpdatedAt(), item.getUpdatedAt());
+       }
+@@ -90,8 +115,11 @@
+     return new StringBuilder()
+       .append(getId())
+       .append(getTitle())
+-      .append(getRestaurantId())
++      .append(getPrice())
+       .append(getRestaurant())
++      .append(getRestaurantId())
++      .append(getImage())
++      .append(getOrdersId())
+       .append(getCreatedAt())
+       .append(getUpdatedAt())
+       .toString()
+@@ -104,8 +132,11 @@
+       .append("Item {")
+       .append("id=" + String.valueOf(getId()) + ", ")
+       .append("title=" + String.valueOf(getTitle()) + ", ")
++      .append("price=" + String.valueOf(getPrice()) + ", ")
++      .append("restaurant=" + String.valueOf(getRestaurant()) + ", ")
+       .append("restaurantID=" + String.valueOf(getRestaurantId()) + ", ")
+-      .append("restaurant=" + String.valueOf(getRestaurant()) + ", ")
++      .append("image=" + String.valueOf(getImage()) + ", ")
++      .append("ordersID=" + String.valueOf(getOrdersId()) + ", ")
+       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
+       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
+       .append("}")
+@@ -127,6 +158,9 @@
+   public static Item justId(String id) {
+     return new Item(
+       id,
++      null,
++      null,
++      null,
+       null,
+       null,
+       null
+@@ -136,11 +170,24 @@
+   public CopyOfBuilder copyOfBuilder() {
+     return new CopyOfBuilder(id,
+       title,
++      price,
++      restaurant,
+       restaurantID,
+-      restaurant);
++      image,
++      ordersID);
+   }
+   public interface TitleStep {
+-    BuildStep title(String title);
++    PriceStep title(String title);
++  }
++  
++
++  public interface PriceStep {
++    RestaurantStep price(Double price);
++  }
++  
++
++  public interface RestaurantStep {
++    BuildStep restaurant(Restaurant restaurant);
+   }
+   
+ 
+@@ -148,15 +195,19 @@
+     Item build();
+     BuildStep id(String id);
+     BuildStep restaurantId(String restaurantId);
+-    BuildStep restaurant(Restaurant restaurant);
++    BuildStep image(String image);
++    BuildStep ordersId(String ordersId);
+   }
+   
+ 
+-  public static class Builder implements TitleStep, BuildStep {
++  public static class Builder implements TitleStep, PriceStep, RestaurantStep, BuildStep {
+     private String id;
+     private String title;
+-    private String restaurantID;
++    private Double price;
+     private Restaurant restaurant;
++    private String restaurantID;
++    private String image;
++    private String ordersID;
+     @Override
+      public Item build() {
+         String id = this.id != null ? this.id : UUID.randomUUID().toString();
+@@ -164,16 +215,33 @@
+         return new Item(
+           id,
+           title,
++          price,
++          restaurant,
+           restaurantID,
+-          restaurant);
++          image,
++          ordersID);
+     }
+     
+     @Override
+-     public BuildStep title(String title) {
++     public PriceStep title(String title) {
+         Objects.requireNonNull(title);
+         this.title = title;
+         return this;
+     }
++    
++    @Override
++     public RestaurantStep price(Double price) {
++        Objects.requireNonNull(price);
++        this.price = price;
++        return this;
++    }
++    
++    @Override
++     public BuildStep restaurant(Restaurant restaurant) {
++        Objects.requireNonNull(restaurant);
++        this.restaurant = restaurant;
++        return this;
++    }
+     
+     @Override
+      public BuildStep restaurantId(String restaurantId) {
+@@ -182,8 +250,14 @@
+     }
+     
+     @Override
+-     public BuildStep restaurant(Restaurant restaurant) {
+-        this.restaurant = restaurant;
++     public BuildStep image(String image) {
++        this.image = image;
++        return this;
++    }
++    
++    @Override
++     public BuildStep ordersId(String ordersId) {
++        this.ordersID = ordersId;
+         return this;
+     }
+     
+@@ -199,11 +273,14 @@
+   
+ 
+   public final class CopyOfBuilder extends Builder {
+-    private CopyOfBuilder(String id, String title, String restaurantId, Restaurant restaurant) {
++    private CopyOfBuilder(String id, String title, Double price, Restaurant restaurant, String restaurantId, String image, String ordersId) {
+       super.id(id);
+       super.title(title)
++        .price(price)
++        .restaurant(restaurant)
+         .restaurantId(restaurantId)
+-        .restaurant(restaurant);
++        .image(image)
++        .ordersId(ordersId);
+     }
+     
+     @Override
+@@ -211,14 +288,29 @@
+       return (CopyOfBuilder) super.title(title);
+     }
+     
++    @Override
++     public CopyOfBuilder price(Double price) {
++      return (CopyOfBuilder) super.price(price);
++    }
++    
++    @Override
++     public CopyOfBuilder restaurant(Restaurant restaurant) {
++      return (CopyOfBuilder) super.restaurant(restaurant);
++    }
++    
+     @Override
+      public CopyOfBuilder restaurantId(String restaurantId) {
+       return (CopyOfBuilder) super.restaurantId(restaurantId);
+     }
+     
+     @Override
+-     public CopyOfBuilder restaurant(Restaurant restaurant) {
+-      return (CopyOfBuilder) super.restaurant(restaurant);
++     public CopyOfBuilder image(String image) {
++      return (CopyOfBuilder) super.image(image);
++    }
++    
++    @Override
++     public CopyOfBuilder ordersId(String ordersId) {
++      return (CopyOfBuilder) super.ordersId(ordersId);
+     }
+   }
+   
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/misc.xml	
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DesignSurface">
++    <option name="filePathToZoomLevelMap">
++      <map>
++        <entry key="app/src/main/res/layout/activity_landing.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
++        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.2515625" />
++        <entry key="app/src/main/res/layout/fragment_active_order.xml" value="0.12604166666666666" />
++        <entry key="app/src/main/res/layout/fragment_landing.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_order_item_list.xml" value="0.165" />
++        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.2515625" />
++        <entry key="app/src/main/res/layout/fragment_register_confirmation.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_restaurant.xml" value="0.12314814814814815" />
++        <entry key="app/src/main/res/layout/fragment_restaurant_item.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_restaurant_item_details.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_restaurant_item_list.xml" value="0.12864583333333332" />
++        <entry key="app/src/main/res/layout/fragment_restaurant_list.xml" value="0.25" />
++        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.375" />
++        <entry key="app/src/main/res/xml/root_preferences.xml" value="0.20475350798672887" />
++        <entry key="app/src/main/res/xml/searchable.xml" value="0.1671875" />
++      </map>
++    </option>
++  </component>
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
++    <output url="file://$PROJECT_DIR$/build/classes" />
++  </component>
++  <component name="ProjectType">
++    <option name="id" value="Android" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/vcs.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
