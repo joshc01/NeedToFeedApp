@@ -42,6 +42,6 @@ public class RestaurantMenuFragment extends Fragment {
         textViewRestaurantCategory.setText(restaurantCategory);
 
         String restaurantImage = args.getRestaurantImage();
-        Glide.with(view).load(restaurantImage).into(imageViewRestaurantImage);
+        Glide.with(view).load(restaurantImage).fitCenter().into(imageViewRestaurantImage);
     }
 }
