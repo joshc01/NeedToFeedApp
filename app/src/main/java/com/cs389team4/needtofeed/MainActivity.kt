@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             initBottomNavigation()
         }
 
-        //fetchIdentityId()
+        fetchIdentityId()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.restaurant_search_menu,menu)
+        menuInflater.inflate(R.menu.restaurant_search_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
