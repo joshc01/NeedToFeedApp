@@ -34,7 +34,8 @@
     <fragment
         android:id="@+id/registerConfirmationFragment"
         android:name="com.cs389team4.needtofeed.ui.auth.RegisterConfirmationFragment"
-        android:label="RegisterConfirmationFragment">
+        android:label="RegisterConfirmationFragment"
+        tools:layout="@layout/fragment_register_confirmation">
         <argument android:name="userEmail" app:argType="string" />
     </fragment>
     <fragment
@@ -51,7 +52,8 @@
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.cs389team4.needtofeed.ui.auth.ForgotPasswordFragment"
-        android:label="ForgotPasswordFragment" >
+        android:label="ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password">
         <argument android:name="userEmail" app:argType="string" />
         <action
             android:id="@+id/action_forgotPasswordFragment_to_forgotPasswordConfirmationFragment"
@@ -60,7 +62,8 @@
     <fragment
         android:id="@+id/forgotPasswordConfirmationFragment"
         android:name="com.cs389team4.needtofeed.ui.auth.ForgotPasswordConfirmationFragment"
-        android:label="ForgotPasswordConfirmationFragment">
+        android:label="ForgotPasswordConfirmationFragment"
+        tools:layout="@layout/fragment_forgot_password_confirmation">
         <argument android:name="userEmail" app:argType="string" />
     </fragment>
 </navigation>
