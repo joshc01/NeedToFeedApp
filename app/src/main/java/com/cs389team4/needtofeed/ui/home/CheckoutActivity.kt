@@ -1,26 +1,29 @@
 package com.cs389team4.needtofeed.ui.home
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.RelativeLayout
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.cs389team4.needtofeed.databinding.ActivityCheckoutBinding
 import com.cs389team4.needtofeed.utils.PaymentUtil
 import com.cs389team4.needtofeed.utils.Utils
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.wallet.AutoResolveHelper
-import com.google.android.gms.wallet.IsReadyToPayRequest
-import com.google.android.gms.wallet.PaymentData
-import com.google.android.gms.wallet.PaymentsClient
+import com.google.android.gms.wallet.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import kotlin.math.roundToLong
 
-class CheckoutActivity: Activity() {
+class CheckoutActivity: AppCompatActivity() {
     private lateinit var paymentsClient: PaymentsClient
 
     private lateinit var foodItemList: JSONArray
     private lateinit var selectedFoodItem: JSONObject
+
+    private lateinit var btnGooglePay: RelativeLayout
 
     private lateinit var binding: ActivityCheckoutBinding
 
@@ -37,6 +40,12 @@ class CheckoutActivity: Activity() {
         // Initialize Google Pay API client
         paymentsClient = PaymentUtil.createPaymentsClient(this)
 
+        showGooglePayButtonIfReady()
+
+        btnGooglePay = binding.checkoutBtnPlaceOrder.root
+        btnGooglePay.setOnClickListener {
+            requestPayment()
+        }
     }
 
     // Determine support for payment methods
@@ -57,38 +66,57 @@ class CheckoutActivity: Activity() {
     // Show payment button and hide text if available on device
     private fun setGooglePayAvailable(available: Boolean) {
         if (available) {
-
+            btnGooglePay.visibility = View.VISIBLE
         } else {
             Utils().showMessage(this, "Unfortunately, Google Pay is not available on this device")
         }
     }
 
     private fun requestPayment() {
+        btnGooglePay.isClickable = false
 
+        val orderSubtotal = 13.99
+        val deliveryFee = Utils().getDeliveryFee(orderSubtotal)
+        val priceCents = (orderSubtotal * PaymentUtil.CENTS.toLong()).roundToLong() + (deliveryFee * PaymentUtil.CENTS.toLong())
+
+        val paymentDataRequestJson = PaymentUtil.getPaymentDataRequest(priceCents.toLong())
+        if (paymentDataRequestJson == null) {
+            Log.e("RequestPayment", "Can't fetch payment data request")
+            return
+        }
+        val request = PaymentDataRequest.fromJson(paymentDataRequestJson.toString())
+
+        if (request != null) {
+            AutoResolveHelper.resolveTask(
+                paymentsClient.loadPaymentData(request),
+                this,
+                LOAD_PAYMENT_DATA_REQUEST_CODE
+            )
+        }
     }
 
     // Handle resolved activity from Google Pay payment sheet
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            LOAD_PAYMENT_DATA_REQUEST_CODE -> {
-                when (resultCode) {
-                    RESULT_OK ->
-                        data?.let { intent ->
-                            PaymentData.getFromIntent(intent)?.let(::handlePaymentSuccess)
-                        }
-                    RESULT_CANCELED -> {
-                        // User cancelled payment attempt
-                    }
+    val paymentSheetActivityResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) { result ->
 
-                    AutoResolveHelper.RESULT_ERROR -> {
-                        AutoResolveHelper.getStatusFromIntent(data)?.let {
-                            handleError(it.statusCode)
-                        }
-                    }
+        val data: Intent? = result.data
+
+        when (result.resultCode) {
+            RESULT_OK -> {
+                data?.let { intent ->
+                    PaymentData.getFromIntent(intent)?.let(::handlePaymentSuccess)
                 }
-
+            }
+            RESULT_CANCELED -> {
+                // User cancelled payment attempt
+            }
+            AutoResolveHelper.RESULT_ERROR -> {
+                AutoResolveHelper.getStatusFromIntent(data)?.let {
+                    handleError(it.statusCode)
+                }
             }
         }
+        btnGooglePay.isClickable = true
     }
 
     private fun handlePaymentSuccess(paymentData: PaymentData) {

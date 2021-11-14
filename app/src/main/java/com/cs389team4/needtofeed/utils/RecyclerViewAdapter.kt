@@ -44,6 +44,11 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
 
     override fun getItemCount(): Int = values.size
 
+    fun onSearchQuery(filteredList: List<ViewModel<T>>) {
+        this.values = filteredList
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.restaurant_list_item_name)
         val category: TextView = view.findViewById(R.id.restaurant_list_item_category)

@@ -15,8 +15,9 @@ import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
 import android.view.Menu
+import androidx.appcompat.widget.SearchView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
 
@@ -92,5 +93,24 @@ class MainActivity : AppCompatActivity() {
     // Display up navigation when applicable
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    private fun filter(list: List<Any>, query: String): List<Any>? {
+//        query = query.lowercase()
+
+        val filteredList: List<Any> = ArrayList()
+        for (item: Any in list) {
+
+        }
+
+        return null
     }
 }
