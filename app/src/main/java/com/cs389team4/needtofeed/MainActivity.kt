@@ -1,14 +1,9 @@
 package com.cs389team4.needtofeed
 
-import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
@@ -19,8 +14,10 @@ import com.cs389team4.needtofeed.databinding.ActivityMainBinding
 import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
+import android.view.Menu
+import androidx.appcompat.widget.SearchView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
 
@@ -65,6 +62,12 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.restaurant_search_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     // Initialize bottom navigation
     private fun initBottomNavigation() {
         val bottomNavigation = binding.navView
@@ -91,14 +94,23 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
-    // Display search menu
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.search_menu, menu)
-        val searchItem: MenuItem? = menu?.findItem(R.id.restaurant_search)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        //val searchView: SearchView? = searchItem?.actionView as SearchView
-       //searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        return super.onCreateOptionsMenu(menu)
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
     }
 
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    private fun filter(list: List<Any>, query: String): List<Any>? {
+//        query = query.lowercase()
+
+        val filteredList: List<Any> = ArrayList()
+        for (item: Any in list) {
+
+        }
+
+        return null
+    }
 }
