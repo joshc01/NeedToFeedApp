@@ -44,7 +44,7 @@ class ForgotPasswordFragment : Fragment() {
                 },
                 // Sending password reset email unsuccessful
                 {
-                    Utils().showMessage(activity, "Sending password reset email failed: ${it.message}")
+                    Utils.showMessage(activity, "Sending password reset email failed: ${it.message}")
                 }
             )
         }

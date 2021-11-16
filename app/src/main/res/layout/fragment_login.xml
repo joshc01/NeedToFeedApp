@@ -88,16 +88,18 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_login_google"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
             android:layout_marginEnd="100dp"
-            android:src="@drawable/common_google_signin_btn_icon_light_normal"
+            android:src="@drawable/google_logo"
             android:background="@null"/>
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_login_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/com_facebook_button_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/facebook_logo"
             android:background="@null"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
