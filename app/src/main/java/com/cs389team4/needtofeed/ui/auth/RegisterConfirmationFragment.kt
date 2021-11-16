@@ -40,11 +40,11 @@ class RegisterConfirmationFragment: Fragment() {
                         requireActivity().finish()
                         // Confirmation unsuccessful
                     } else {
-                        Utils().showMessage(activity, "Registration confirmation error")
+                        Utils.showMessage(activity, "Registration confirmation error")
                     }
                 },
                 // Confirmation error
-                { Utils().showMessage(activity, "Failed to confirm registration: ${it.message}") }
+                { Utils.showMessage(activity, "Failed to confirm registration: ${it.message}") }
             )
         }
     }

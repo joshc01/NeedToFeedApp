@@ -1,6 +1,7 @@
 package com.cs389team4.needtofeed
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -15,12 +16,15 @@ import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
 import android.view.Menu
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
+import com.amplifyframework.datastore.generated.model.Restaurant
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,6 +37,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         fetchIdentityId()
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         initBottomNavigation()
@@ -57,7 +62,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             },
             { error ->
                 // Display error fetching session
-                Utils().showMessage(applicationContext, error.toString())
+                Utils.showMessage(applicationContext, error.toString())
             }
         )
     }
@@ -69,6 +74,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     // Initialize bottom navigation
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun initBottomNavigation() {
         val bottomNavigation = binding.navView
         val navGraphIds = listOf(
@@ -103,11 +109,11 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         TODO("Not yet implemented")
     }
 
-    private fun filter(list: List<Any>, query: String): List<Any>? {
+    private fun filter(list: List<Restaurant>, query: String): List<Restaurant>? {
 //        query = query.lowercase()
 
-        val filteredList: List<Any> = ArrayList()
-        for (item: Any in list) {
+        val filteredList: List<Restaurant> = ArrayList()
+        for (item: Restaurant in list) {
 
         }
 

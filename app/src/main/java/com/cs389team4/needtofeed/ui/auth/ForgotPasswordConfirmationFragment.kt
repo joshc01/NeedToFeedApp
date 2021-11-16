@@ -40,7 +40,7 @@ class ForgotPasswordConfirmationFragment : Fragment() {
                 },
                 // Password reset unsuccessful
                 {
-                    Utils().showMessage(activity, "Password reset failed: ${it.message}")
+                    Utils.showMessage(activity, "Password reset failed: ${it.message}")
                 }
             )
         }

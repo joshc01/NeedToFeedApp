@@ -53,11 +53,11 @@ class LoginFragment : Fragment() {
                         requireActivity().finish()
                         // Sign in unsuccessful
                     } else {
-                        Utils().showMessage(activity, "Sign in failed")
+                        Utils.showMessage(activity, "Sign in failed")
                     }
                 },
                 // Sign in error
-                { Utils().showMessage(activity, "Sign in error: ${it.message}") }
+                { Utils.showMessage(activity, "Sign in error: ${it.message}") }
             )
         }
     }
