@@ -37,11 +37,19 @@ public class RestaurantViewModel extends ViewModel<Restaurant> {
 
     @NonNull
     public String getHours() {
-        return restaurant.getTimeOpen() + "-" + restaurant.getTimeClose();
+//        DateTimeFormatter formats = DateTimeFormatter.ofPattern("hh:mm a");
+        String timeOpen = restaurant.getTimeOpen().format();
+        String timeClose = restaurant.getTimeClose().format();
+
+        return timeOpen + "-" + timeClose;
+    }
+
+    public float getPrice() {
+        return 0;
     }
 
     @NonNull
-    public double getPrice() {
-        return 0;
+    public Restaurant getRestaurant() {
+        return Restaurant.justId("");
     }
 }

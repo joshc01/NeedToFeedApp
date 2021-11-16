@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread
 import com.amplifyframework.core.Amplify
 import com.amplifyframework.core.model.Model
+import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.datastore.DataStoreChannelEventName
 import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.events.NetworkStatusEvent
+import com.amplifyframework.datastore.generated.model.Item
+import com.amplifyframework.datastore.generated.model.Restaurant
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.SubscriptionToken
 import com.cs389team4.needtofeed.R
@@ -22,6 +25,8 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
     private var itemMap = linkedMapOf<String, T>()
     private var subscriptionTokens = mutableSetOf<SubscriptionToken>()
     private lateinit var networkStatusBar: Snackbar
+
+    private lateinit var restaurant: Restaurant
 
     private lateinit var binding: FragmentListBinding
 
@@ -67,19 +72,35 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
 
     private fun query() {
         LOG.info("Query")
-        Amplify.DataStore.query(getModelClass(),
-            { results ->
-                val itemsList = results.iterator().asSequence().toList()
-                val pairsList = itemsList.map {it.id to it}
-                val array = pairsList.toTypedArray()
-                itemMap = linkedMapOf(*array)
-                LOG.info("Query successful: ${itemMap.size} Items")
-                loadContent()
-            },
-            {
-                LOG.error("Query failed: ${it.message}", it)
-            }
-        )
+        if (getModelClass() == Item::class.java) {
+            Amplify.DataStore.query(getModelClass(),
+                { results ->
+                    val itemsList = results.iterator().asSequence().toList()
+                    val pairsList = itemsList.map { it.id to it }
+                    val array = pairsList.toTypedArray()
+                    itemMap = linkedMapOf(*array)
+                    LOG.info("Query successful: ${itemMap.size} Items")
+                    loadContent()
+                },
+                {
+                    LOG.error("Query failed: ${it.message}", it)
+                }
+            )
+        } else {
+            Amplify.DataStore.query(getModelClass(),
+                { results ->
+                    val itemsList = results.iterator().asSequence().toList()
+                    val pairsList = itemsList.map { it.id to it }
+                    val array = pairsList.toTypedArray()
+                    itemMap = linkedMapOf(*array)
+                    LOG.info("Query successful: ${itemMap.size} Items")
+                    loadContent()
+                },
+                {
+                    LOG.error("Query failed: ${it.message}", it)
+                }
+            )
+        }
     }
 
     private fun observe() {
@@ -113,7 +134,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
                     query()
                 }
                 DataStoreChannelEventName.NETWORK_STATUS -> {
-                    showNetworkStatusIndicator((it.data as NetworkStatusEvent).active)
+//                    showNetworkStatusIndicator((it.data as NetworkStatusEvent).active)
                 }
                 else -> { }
             }
@@ -154,5 +175,9 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
                 networkStatusBar.show()
             }
         }
+    }
+
+    fun setRestaurant(restaurant: Restaurant) {
+        this.restaurant = restaurant
     }
 }

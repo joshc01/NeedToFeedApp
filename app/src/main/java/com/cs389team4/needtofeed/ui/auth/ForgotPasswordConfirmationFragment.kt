@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.amplifyframework.core.Amplify
+import com.cs389team4.needtofeed.R
 import com.cs389team4.needtofeed.databinding.FragmentForgotPasswordConfirmationBinding
 import com.cs389team4.needtofeed.utils.Utils
 
@@ -34,12 +36,11 @@ class ForgotPasswordConfirmationFragment : Fragment() {
                 // Password reset successful
                 {
                     // Navigate back twice
-                    parentFragmentManager.popBackStack()
-                    parentFragmentManager.popBackStack()
+                    findNavController().popBackStack(R.id.loginFragment, false)
                 },
                 // Password reset unsuccessful
                 {
-                    Utils().showMessage(activity, "Password reset failed: ${it.message}")
+                    Utils.showMessage(activity, "Password reset failed: ${it.message}")
                 }
             )
         }

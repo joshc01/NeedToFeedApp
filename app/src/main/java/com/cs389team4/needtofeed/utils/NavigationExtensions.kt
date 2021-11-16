@@ -9,9 +9,10 @@
 package com.cs389team4.needtofeed.utils
 
 import android.content.Intent
+import android.os.Build
 import android.util.SparseArray
+import androidx.annotation.RequiresApi
 import androidx.core.util.forEach
-import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +21,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.cs389team4.needtofeed.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+@RequiresApi(Build.VERSION_CODES.S)
 fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,

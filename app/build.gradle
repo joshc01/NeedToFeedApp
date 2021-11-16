@@ -1,6 +1,6 @@
 plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin'
     id 'com.android.application'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 apply plugin: 'kotlin-android'
 apply plugin: "androidx.navigation.safeargs"
@@ -27,14 +27,19 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -45,23 +50,16 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
+    // AWS Amplify
     implementation 'com.amplifyframework:aws-api:1.28.3'
     implementation 'com.amplifyframework:aws-datastore:1.28.3'
     implementation 'com.amplifyframework:aws-auth-cognito:1.28.3'
     implementation 'com.amplifyframework:aws-storage-s3:1.28.3'
     implementation 'com.amplifyframework:aws-analytics-pinpoint:1.28.3'
 
-    implementation 'com.stripe:stripe-android:18.2.0'
-    implementation 'com.stripe:stripe-java:20.86.1'
-
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation "com.sparkjava:spark-core:2.9.3"
-    implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
-    implementation 'com.github.kittinunf.fuel:fuel-json:2.3.1'
-
-    implementation 'com.google.android.gms:play-services-maps:18.0.0'
     implementation 'com.google.android.gms:play-services-wallet:18.1.3'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     // Java Navigation
@@ -78,6 +76,15 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
+    // OneSignal notifications SDK
+    implementation 'com.onesignal:OneSignal:4.6.2'
+
+    // SendGrid email service API
+    implementation 'com.sendgrid:sendgrid-java:4.8.0'
+
+    // MapBox API
+    implementation 'com.mapbox.maps:android:10.1.0'
+
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
@@ -87,7 +94,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "androidx.core:core-ktx:1.7.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation 'com.android.support:multidex:2.0.1'
 }

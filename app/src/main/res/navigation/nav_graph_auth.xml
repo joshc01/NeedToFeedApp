@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_auth"
+    app:startDestination="@id/landingFragment">
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.cs389team4.needtofeed.ui.auth.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@animator/slide_in_left"
+            app:exitAnim="@animator/slide_out_right" />
+        <action
+            android:id="@+id/action_landingFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@animator/slide_in_left"
+            app:exitAnim="@animator/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.cs389team4.needtofeed.ui.auth.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <argument android:name="userEmail" app:argType="string" />
+        <action
+            android:id="@+id/action_registerFragment_to_registerConfirmationFragment"
+            app:destination="@id/registerConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerConfirmationFragment"
+        android:name="com.cs389team4.needtofeed.ui.auth.RegisterConfirmationFragment"
+        android:label="RegisterConfirmationFragment"
+        tools:layout="@layout/fragment_register_confirmation">
+        <argument android:name="userEmail" app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.cs389team4.needtofeed.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment"
+            app:enterAnim="@animator/slide_in_left"
+            app:exitAnim="@animator/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.cs389team4.needtofeed.ui.auth.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password">
+        <argument android:name="userEmail" app:argType="string" />
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_forgotPasswordConfirmationFragment"
+            app:destination="@id/forgotPasswordConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordConfirmationFragment"
+        android:name="com.cs389team4.needtofeed.ui.auth.ForgotPasswordConfirmationFragment"
+        android:label="ForgotPasswordConfirmationFragment"
+        tools:layout="@layout/fragment_forgot_password_confirmation">
+        <argument android:name="userEmail" app:argType="string" />
+    </fragment>
+</navigation>

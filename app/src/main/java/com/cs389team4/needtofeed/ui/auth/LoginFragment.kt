@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import com.amplifyframework.core.Amplify
 import com.cs389team4.needtofeed.MainActivity
 import com.cs389team4.needtofeed.R
@@ -31,17 +30,13 @@ class LoginFragment : Fragment() {
         val btnBack = binding.btnLoginBack
         btnBack.setOnClickListener {
             // Navigate back
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
 
         val btnForgotPassword = binding.btnForgotPassword
         btnForgotPassword.setOnClickListener {
             // Navigate to forgot password fragment
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0)
-                replace<ForgotPasswordFragment>(R.id.welcome_fragment_container).addToBackStack(null)
-            }
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
 
         val btnLogin = binding.btnLogin
@@ -58,11 +53,11 @@ class LoginFragment : Fragment() {
                         requireActivity().finish()
                         // Sign in unsuccessful
                     } else {
-                        Utils().showMessage(activity, "Sign in failed")
+                        Utils.showMessage(activity, "Sign in failed")
                     }
                 },
                 // Sign in error
-                { Utils().showMessage(activity, "Sign in error: ${it.message}") }
+                { Utils.showMessage(activity, "Sign in error: ${it.message}") }
             )
         }
     }

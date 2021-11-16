@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.RestaurantMenuFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/restaurant_menu_restaurant_image"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+    <TextView
+        android:id="@+id/restaurant_menu_restaurant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_image"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/restaurant_menu_restaurant_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_name"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Restaurant_Menu_Fragment"
         android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuListFragment"
-        />
-</LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_category"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:id="@+id/checkout_your_info_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="24dp"
+            android:text="@string/lbl_checkout_your_info"
+            android:textStyle="bold"/>
+
+
+
+        <TextView
+            android:id="@+id/checkout_delivery_instructions_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/lbl_checkout_delivery_instructions"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/checkout_your_info_title"/>
+
+
+
+        <TextView
+            android:id="@+id/checkout_your_order_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="@string/lbl_checkout_your_order"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/checkout_delivery_instructions_title"/>
+
+        <TextView
+            android:id="@+id/checkout_estimated_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:text="Estimated time"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/checkout_your_order_title"/>
+
+        <View
+            android:id="@+id/checkout_divider1"
+            android:background="#808080"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@id/checkout_estimated_time"/>
+
+        <TextView
+            android:id="@+id/checkout_restaurant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            app:layout_constraintTop_toBottomOf="@id/checkout_divider1"
+            android:textStyle="bold"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/checkout_list_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/checkout_restaurant_name" />
+
+        <View
+            android:id="@+id/checkout_divider2"
+            android:background="#808080"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_list_items"/>
+
+        <TextView
+            android:id="@+id/checkout_subtotal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkout_divider2"
+            android:text="@string/lbl_checkout_subtotal"/>
+        <TextView
+            android:id="@+id/checkout_subtotal_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_divider2"/>
+
+        <TextView
+            android:id="@+id/checkout_delivery_fee_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_subtotal_title"
+            android:text="@string/lbl_checkout_delivery_fee"/>
+        <TextView
+            android:id="@+id/checkout_delivery_fee_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_subtotal_value"/>
+
+        <TextView
+            android:id="@+id/checkout_tax_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_delivery_fee_title"
+            android:text="@string/lbl_checkout_tax"/>
+        <TextView
+            android:id="@+id/checkout_tax_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_delivery_fee_value"/>
+
+        <TextView
+            android:id="@+id/checkout_tip_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_tax_title"
+            android:text="@string/lbl_checkout_tip"/>
+        <TextView
+            android:id="@+id/checkout_tip_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_tax_value"/>
+
+        <TextView
+            android:id="@+id/checkout_total_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_tip_title"
+            android:text="@string/lbl_checkout_total"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/checkout_total_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_tip_value" />
+
+        <include
+            android:id="@+id/checkout_btn_place_order"
+            layout="@layout/button_google_pay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/google_pay_button_height"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_total_title"
+            android:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
