@@ -40,4 +40,6 @@
     <string name="restaurants_unavailable">Oh no!\nNo restaurants available near you</string>
     <string name="item_details_quantity">Quantity:</string>
     <string name="add_to_cart_string">Add to cart</string>
+    <string name="delivery_toggle_string">Delivery</string>
+    <string name="pickup_toggle_string">Pickup</string>
 </resources>
