@@ -67,7 +67,7 @@ class RegisterFragment : Fragment() {
                 },
                 // Registration error
                 {
-                    Utils().showMessage(activity, "Registration error: ${it.message}")
+                    Utils.showMessage(activity, "Registration error: ${it.message}")
                     Log.e ("RegisterFragment", "Registration failed", it)
                 }
             )

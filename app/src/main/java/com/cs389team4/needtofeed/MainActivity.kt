@@ -1,10 +1,10 @@
 package com.cs389team4.needtofeed
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
@@ -12,20 +12,22 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthSession
 import com.amplifyframework.auth.result.AuthSessionResult
 import com.amplifyframework.core.Amplify
 import com.cs389team4.needtofeed.databinding.ActivityMainBinding
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding
 import com.cs389team4.needtofeed.ui.auth.LandingActivity
-import com.cs389team4.needtofeed.utils.*
+import com.cs389team4.needtofeed.utils.Utils
+import com.cs389team4.needtofeed.utils.setupWithNavController
+import android.view.Menu
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.SearchView
+import com.amplifyframework.datastore.generated.model.Restaurant
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
-    private lateinit var searchBind: FragmentRestaurantBinding
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        searchBind = FragmentRestaurantBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         fetchIdentityId()
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         initBottomNavigation()
@@ -48,10 +51,7 @@ class MainActivity : AppCompatActivity() {
                 when (cognitoAuthSession.identityId.type) {
                     // User signed in
                     AuthSessionResult.Type.SUCCESS ->
-                        Log.i(
-                            "MainActivity",
-                            "User signed in with identityId: " + cognitoAuthSession.identityId.value
-                        )
+                        Log.i("MainActivity", "User signed in with identityId: " + cognitoAuthSession.identityId.value)
                     // User not signed in
                     AuthSessionResult.Type.FAILURE -> {
                         // Launch welcome screen
@@ -62,19 +62,25 @@ class MainActivity : AppCompatActivity() {
             },
             { error ->
                 // Display error fetching session
-                Utils().showMessage(applicationContext, error.toString())
+                Utils.showMessage(applicationContext, error.toString())
             }
         )
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.restaurant_search_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     // Initialize bottom navigation
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun initBottomNavigation() {
         val bottomNavigation = binding.navView
         val navGraphIds = listOf(
             R.navigation.nav_graph_home,
             R.navigation.nav_graph_orders,
-            R.navigation.nav_graph_profile
-        )
+            R.navigation.nav_graph_profile)
 
         val controller = bottomNavigation.setupWithNavController(
             navGraphIds = navGraphIds,
@@ -93,5 +99,24 @@ class MainActivity : AppCompatActivity() {
     // Display up navigation when applicable
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    private fun filter(list: List<Restaurant>, query: String): List<Restaurant>? {
+//        query = query.lowercase()
+
+        val filteredList: List<Restaurant> = ArrayList()
+        for (item: Restaurant in list) {
+
+        }
+
+        return null
     }
 }

@@ -68,7 +68,7 @@ class CheckoutActivity: AppCompatActivity() {
         if (available) {
             btnGooglePay.visibility = View.VISIBLE
         } else {
-            Utils().showMessage(this, "Unfortunately, Google Pay is not available on this device")
+            Utils.showMessage(this, "Unfortunately, Google Pay is not available on this device")
         }
     }
 
@@ -76,7 +76,7 @@ class CheckoutActivity: AppCompatActivity() {
         btnGooglePay.isClickable = false
 
         val orderSubtotal = 13.99
-        val deliveryFee = Utils().getDeliveryFee(orderSubtotal)
+        val deliveryFee = Utils.getDeliveryFee(orderSubtotal)
         val priceCents = (orderSubtotal * PaymentUtil.CENTS.toLong()).roundToLong() + (deliveryFee * PaymentUtil.CENTS.toLong())
 
         val paymentDataRequestJson = PaymentUtil.getPaymentDataRequest(priceCents.toLong())

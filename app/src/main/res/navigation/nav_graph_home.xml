@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigate_home_to_restaurantMenuFragment"
             app:destination="@id/restaurantMenuFragment" />
+        <action
+            android:id="@+id/action_navigate_home_to_restaurantMapFragment"
+            app:destination="@id/restaurantMapFragment" />
     </fragment>
     <fragment
         android:id="@+id/restaurantMenuFragment"
@@ -47,4 +50,13 @@
         android:name="com.cs389team4.needtofeed.ui.home.CheckoutActivity"
         android:label="CheckoutActivity"
         tools:layout="@layout/activity_checkout"/>
+    <fragment
+        android:id="@+id/restaurantMapFragment"
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantMapFragment"
+        android:label="RestaurantMapFragment"
+        tools:layout="@layout/fragment_restaurant_map">
+        <action
+            android:id="@+id/action_restaurantMapFragment_to_restaurantMenuFragment"
+            app:destination="@id/restaurantMenuFragment" />
+    </fragment>
 </navigation>

@@ -35,6 +35,7 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
 "sendgrid.env" 
 .idea/misc.xml
 .idea/gradle.xml
