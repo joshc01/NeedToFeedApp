@@ -1,16 +1,10 @@
 package com.cs389team4.needtofeed.ui.home;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
-
 import com.amplifyframework.datastore.generated.model.Restaurant;
-import com.cs389team4.needtofeed.R;
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 import com.cs389team4.needtofeed.models.RestaurantViewModel;
 import com.cs389team4.needtofeed.utils.ListFragment;
-import com.cs389team4.needtofeed.utils.Utils;
 import com.cs389team4.needtofeed.utils.ViewModel;
 
 import java.util.UUID;
