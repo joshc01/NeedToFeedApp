@@ -10,9 +10,9 @@
         android:id="@+id/search_restaurants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
         android:elevation="1dp"
-        android:background="@color/white"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_restaurants"
@@ -33,18 +33,19 @@
 
     <LinearLayout
         android:id="@+id/delivery_pickup_buttons"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/swipe_refresh_restaurants"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_restaurants">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/delivery_button"
-            android:layout_width="190dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button_transparent"
+            android:background="@drawable/rounded_button_gray"
             android:text="@string/delivery_toggle_string"
             android:textColor="#000000"
             tools:layout_editor_absoluteX="58dp"
@@ -52,8 +53,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/pickup_button"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_width="98dp"
+            android:layout_height="match_parent"
             android:background="@drawable/rounded_button_transparent"
             android:text="@string/pickup_toggle_string"
 

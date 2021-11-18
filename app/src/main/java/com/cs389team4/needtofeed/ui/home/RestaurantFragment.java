@@ -1,6 +1,8 @@
 package com.cs389team4.needtofeed.ui.home;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,8 +16,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 
 public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -36,20 +40,23 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         AppCompatButton btnDelivery = binding.deliveryButton;
         AppCompatButton btnPickup = binding.pickupButton;
 
-
         btnDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnDelivery.setBackgroundColor(Color.DKGRAY);
-                btnPickup.setBackgroundColor(Color.WHITE);
+                btnDelivery.setBackgroundResource(R.drawable.rounded_button_gray);
+                btnPickup.setBackgroundResource(R.drawable.rounded_button_transparent);
             }
         });
 
         btnPickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnPickup.setBackgroundColor(Color.DKGRAY);
-                btnDelivery.setBackgroundColor(Color.WHITE);
+                btnPickup.setBackgroundResource(R.drawable.rounded_button_gray);
+                btnDelivery.setBackgroundResource(R.drawable.rounded_button_transparent);
+
+                Navigation.findNavController(getView())
+                        .navigate(RestaurantFragmentDirections
+                                .actionNavigateHomeToRestaurantMapFragment());
             }
         });
 
