@@ -1,5 +1,7 @@
 package com.cs389team4.needtofeed.models;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.amplifyframework.datastore.generated.model.Item;
@@ -48,4 +50,5 @@ public class ItemViewModel extends ViewModel<Item> {
     public Restaurant getRestaurant() {
         return item.getRestaurant();
     }
+
 }

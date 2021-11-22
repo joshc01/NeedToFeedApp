@@ -18,16 +18,22 @@ import com.cs389team4.needtofeed.utils.setupWithNavController
 import android.view.Menu
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import com.amplifyframework.datastore.generated.model.Restaurant
+import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding
+import com.cs389team4.needtofeed.utils.RecyclerViewAdapter
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
+    private lateinit var searchBind: FragmentRestaurantBinding
+    private lateinit var recycView: RecyclerView
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        searchBind = FragmentRestaurantBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
@@ -68,11 +74,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.restaurant_search_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
     // Initialize bottom navigation
     @RequiresApi(Build.VERSION_CODES.S)
     private fun initBottomNavigation() {
@@ -99,24 +100,5 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     // Display up navigation when applicable
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    private fun filter(list: List<Restaurant>, query: String): List<Restaurant>? {
-//        query = query.lowercase()
-
-        val filteredList: List<Restaurant> = ArrayList()
-        for (item: Restaurant in list) {
-
-        }
-
-        return null
     }
 }

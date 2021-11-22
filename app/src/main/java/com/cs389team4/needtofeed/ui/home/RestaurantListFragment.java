@@ -60,4 +60,6 @@ public class RestaurantListFragment extends ListFragment<Restaurant> {
     public boolean onLongClick(Restaurant item) {
         return false;
     }
+
+
 }

@@ -1,11 +1,10 @@
 package com.cs389team4.needtofeed.utils
 
 import android.os.Bundle
-import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread
 import com.amplifyframework.core.Amplify
@@ -20,10 +19,9 @@ import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.SubscriptionToken
 import com.cs389team4.needtofeed.R
 import com.cs389team4.needtofeed.databinding.FragmentListBinding
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding
 import com.google.android.material.snackbar.Snackbar
 
-abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T>{
+abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
     private val itemAdapter: RecyclerViewAdapter<T> = RecyclerViewAdapter(listOf(), this)
     private var itemMap = linkedMapOf<String, T>()
     private var subscriptionTokens = mutableSetOf<SubscriptionToken>()
@@ -32,7 +30,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T>{
     private lateinit var restaurant: Restaurant
 
     private lateinit var binding: FragmentListBinding
-    private lateinit var searchBinding: FragmentRestaurantBinding
+
 
     companion object {
         private val LOG = Amplify.Logging.forNamespace("NeedToFeed:ListFragment")
@@ -54,6 +52,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T>{
         recyclerView.adapter = itemAdapter
 
 
+
         networkStatusBar = Snackbar.make(view, "DataStore is not in sync.", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") { start() }
     }
@@ -63,7 +62,6 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T>{
         query()
         observe()
         subscribe()
-        runSearch()
     }
 
     override fun onStop() {
@@ -164,7 +162,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T>{
 
     private fun loadContent() {
         runOnUiThread {
-            itemAdapter.values = itemMap.values.toList().map { getViewModel(it) }
+            itemAdapter.values = itemMap.values.toList().map { getViewModel(it) }/////////
             itemAdapter.notifyDataSetChanged()
 
             val emptyView = binding.emptyView
@@ -173,26 +171,12 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T>{
         }
     }
 
-    private fun runSearch() {
-        val inflater: LayoutInflater = LayoutInflater.from(context)
-        searchBinding = FragmentRestaurantBinding.inflate(inflater)
-        runOnUiThread {
-            searchBinding.searchRestaurants.setOnQueryTextListener(object :
-                SearchView.OnQueryTextListener,
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-                override fun onQueryTextChange(text: String): Boolean {
-                    //searchBinding.searchRestaurants.setQuery()
-                    itemAdapter.performFiltering(text)
-                    itemAdapter.notifyDataSetChanged()
-                    return false
-                }
 
-                override fun onQueryTextSubmit(p0: String?): Boolean {
-                    return false
-                }
-            })
-        }
-    }
+
+   // fun sendFilter(filter: String){
+    //   if (itemMap.entries.toString().lowercase().contains(filter))
+   //        Log.d("", "sendFilter: ")
+   // }
 
     private fun showNetworkStatusIndicator(active: Boolean) {
         runOnUiThread {

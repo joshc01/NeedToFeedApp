@@ -1,10 +1,9 @@
 package com.cs389team4.needtofeed.utils
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +11,12 @@ import com.amplifyframework.core.model.Model
 import com.bumptech.glide.Glide
 import com.cs389team4.needtofeed.R
 
+import android.widget.Filter;
+import android.widget.Filterable;
+
 class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
                                      private val delegate: AdapterDelegate<T>
-) : RecyclerView.Adapter<RecyclerViewAdapter<T>.ViewHolder>(){
+) : RecyclerView.Adapter<RecyclerViewAdapter<T>.ViewHolder>(), Filterable{
     private var filteredList: MutableList<ViewModel<T>> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,14 +43,16 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
             }
             setOnLongClickListener { v ->
                 delegate.onLongClick((v.tag as ViewModel<T>).model)
+
             }
         }
     }
 
     override fun getItemCount(): Int = values.size
 
-    fun onSearchQuery(filteredList: List<ViewModel<T>>) {
+    private fun onSearchQuery(filteredList: List<ViewModel<T>>) {
         this.values = filteredList
+        Log.d("", "onSearchQuery: The Filter Ran")
         notifyDataSetChanged()
     }
 
@@ -62,16 +66,21 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
                 if (restaurant.getTitle().lowercase().contains(userFilter)) filteredList.add(restaurant)
             }
         }
-        onSearchQuery(filteredList)
+         onSearchQuery(filteredList)
+         Log.d("", "performFiltering: ")
+
          return null
 }
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.restaurant_list_item_name)
         val category: TextView = view.findViewById(R.id.restaurant_list_item_category)
         val bannerImage: ImageView = view.findViewById(R.id.restaurant_list_item_banner)
         val location: TextView = view.findViewById(R.id.restaurant_list_item_location)
         val hours: TextView = view.findViewById(R.id.restaurant_list_item_hours)
+    }
+
+    override fun getFilter(): Filter {
+        TODO("Not yet implemented")
     }
 
 }
