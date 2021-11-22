@@ -16,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -24,8 +27,14 @@ import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 
 public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private FragmentRestaurantBinding binding = null;
+    private boolean deliveryVisibility = true;
+    private boolean pickupVisibility = false;
+
+    public void toggleDeliveryPickup (){
+        deliveryVisibility = !deliveryVisibility;
+        pickupVisibility = !pickupVisibility;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,15 +45,33 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-      
+
         AppCompatButton btnDelivery = binding.deliveryButton;
         AppCompatButton btnPickup = binding.pickupButton;
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        // Add restaurant list to the fragment container onCreate
+        FragmentTransaction ftOnCreate = fm.beginTransaction();
+        ftOnCreate.add(R.id.restaurant_list_container, RestaurantListFragment.class, null)
+                .commit();
 
         btnDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 btnDelivery.setBackgroundResource(R.drawable.rounded_button_gray);
                 btnPickup.setBackgroundResource(R.drawable.rounded_button_transparent);
+
+                if(deliveryVisibility){
+                // Do nothing: restaurant list is already showing
+                }
+                else {
+                    FragmentTransaction ftDelivery = fm.beginTransaction();
+                    ftDelivery.replace(R.id.restaurant_list_container, RestaurantListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commit();
+                    toggleDeliveryPickup();
+                }
             }
         });
 
@@ -54,15 +81,24 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
                 btnPickup.setBackgroundResource(R.drawable.rounded_button_gray);
                 btnDelivery.setBackgroundResource(R.drawable.rounded_button_transparent);
 
-                Navigation.findNavController(getView())
-                        .navigate(RestaurantFragmentDirections
-                                .actionNavigateHomeToRestaurantMapFragment());
+                if(pickupVisibility){
+                // Do nothing: map is already showing
+                }
+                else {
+                    FragmentTransaction ftPickup = fm.beginTransaction();
+                    ftPickup.replace(R.id.restaurant_list_container, RestaurantMapFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null) // name can be null
+                        .commit();
+                    toggleDeliveryPickup();
+                }
             }
         });
 
         swipeRefreshLayout = binding.swipeRefreshRestaurants;
         swipeRefreshLayout.setOnRefreshListener(this);
     }
+
 
     @Override
     public void onRefresh() {
