@@ -15,25 +15,17 @@ import com.cs389team4.needtofeed.databinding.ActivityMainBinding
 import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
-import android.view.Menu
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.RecyclerView
-import com.amplifyframework.datastore.generated.model.Restaurant
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding
-import com.cs389team4.needtofeed.utils.RecyclerViewAdapter
+
 
 class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
-    private lateinit var searchBind: FragmentRestaurantBinding
-    private lateinit var recycView: RecyclerView
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        searchBind = FragmentRestaurantBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (savedInstanceState == null) {

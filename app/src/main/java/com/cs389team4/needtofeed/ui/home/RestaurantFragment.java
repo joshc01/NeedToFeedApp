@@ -8,33 +8,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import com.amplifyframework.datastore.generated.model.Restaurant;
-import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
-import com.cs389team4.needtofeed.models.RestaurantViewModel;
-import com.cs389team4.needtofeed.utils.ListFragment;
-import com.cs389team4.needtofeed.utils.RecyclerViewAdapter;
 
 public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private SwipeRefreshLayout swipeRefreshLayout;
     private FragmentRestaurantBinding binding = null;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRestaurantBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -64,12 +54,14 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                Log.d("", "onQueryTextSubmit: " + query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d("Tag", "onQueryTextChange: " + newText);
+                Log.d("", "onQueryTextChange: " + newText);
                 return false;
             }
         });

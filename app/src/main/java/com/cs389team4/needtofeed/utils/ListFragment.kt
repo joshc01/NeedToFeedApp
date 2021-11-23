@@ -1,7 +1,6 @@
 package com.cs389team4.needtofeed.utils
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -162,7 +161,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
 
     private fun loadContent() {
         runOnUiThread {
-            itemAdapter.values = itemMap.values.toList().map { getViewModel(it) }/////////
+            itemAdapter.values = itemMap.values.toList().map { getViewModel(it) }
             itemAdapter.notifyDataSetChanged()
 
             val emptyView = binding.emptyView
@@ -170,13 +169,6 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
             emptyView.text = getString(R.string.restaurants_unavailable)
         }
     }
-
-
-
-   // fun sendFilter(filter: String){
-    //   if (itemMap.entries.toString().lowercase().contains(filter))
-   //        Log.d("", "sendFilter: ")
-   // }
 
     private fun showNetworkStatusIndicator(active: Boolean) {
         runOnUiThread {
@@ -191,7 +183,6 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
     fun setRestaurant(restaurant: Restaurant) {
         this.restaurant = restaurant
     }
-
 
 }
 

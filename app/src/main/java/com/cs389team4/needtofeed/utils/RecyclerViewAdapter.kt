@@ -11,18 +11,14 @@ import com.amplifyframework.core.model.Model
 import com.bumptech.glide.Glide
 import com.cs389team4.needtofeed.R
 
-import android.widget.Filter;
-import android.widget.Filterable;
-
 class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
                                      private val delegate: AdapterDelegate<T>
-) : RecyclerView.Adapter<RecyclerViewAdapter<T>.ViewHolder>(), Filterable{
+) : RecyclerView.Adapter<RecyclerViewAdapter<T>.ViewHolder>(){
     private var filteredList: MutableList<ViewModel<T>> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_content, parent, false)
-
         return ViewHolder(view)
     }
 
@@ -43,7 +39,6 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
             }
             setOnLongClickListener { v ->
                 delegate.onLongClick((v.tag as ViewModel<T>).model)
-
             }
         }
     }
@@ -52,10 +47,11 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
 
     private fun onSearchQuery(filteredList: List<ViewModel<T>>) {
         this.values = filteredList
-        Log.d("", "onSearchQuery: The Filter Ran")
+        Log.d("onSearchQuery", "Filter ran")
         notifyDataSetChanged()
     }
 
+    
      fun performFiltering(userFilter: String): Void? {
 
          if (userFilter.isEmpty()) {
@@ -67,20 +63,15 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
             }
         }
          onSearchQuery(filteredList)
-         Log.d("", "performFiltering: ")
-
          return null
 }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.restaurant_list_item_name)
         val category: TextView = view.findViewById(R.id.restaurant_list_item_category)
         val bannerImage: ImageView = view.findViewById(R.id.restaurant_list_item_banner)
         val location: TextView = view.findViewById(R.id.restaurant_list_item_location)
         val hours: TextView = view.findViewById(R.id.restaurant_list_item_hours)
-    }
-
-    override fun getFilter(): Filter {
-        TODO("Not yet implemented")
     }
 
 }
