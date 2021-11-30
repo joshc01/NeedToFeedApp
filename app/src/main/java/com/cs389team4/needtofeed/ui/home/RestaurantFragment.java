@@ -1,5 +1,6 @@
 package com.cs389team4.needtofeed.ui.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -47,6 +48,7 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
 
         AppCompatButton btnDelivery = binding.deliveryButton;
         AppCompatButton btnPickup = binding.pickupButton;
+        AppCompatButton btnViewCart = binding.restaurantMenuContinueCheckout;
 
         SearchView searchView = binding.searchRestaurants;
         FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -96,6 +98,8 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
             }
         });
 
+        //-------------------- Action to view your cart from restaurant list -----------------------
+        btnViewCart.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), OrderCartActivity.class)));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -114,6 +118,7 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
 
         swipeRefreshLayout = binding.swipeRefreshRestaurants;
         swipeRefreshLayout.setOnRefreshListener(this);
+        //------------------------------------------------------------------------------------------
     }
 
 

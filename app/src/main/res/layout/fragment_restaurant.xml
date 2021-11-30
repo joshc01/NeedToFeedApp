@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +17,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_restaurants"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -26,8 +26,8 @@
             android:id="@+id/restaurant_list_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
@@ -45,7 +45,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_button_gray"
-            android:text="@string/delivery_toggle_string"
+            android:text="delivery_toggle_string"
             android:textColor="#000000"
             tools:layout_editor_absoluteX="58dp"
             tools:layout_editor_absoluteY="156dp" />
@@ -55,7 +55,7 @@
             android:layout_width="98dp"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_button_transparent"
-            android:text="@string/pickup_toggle_string"
+            android:text="pickup_toggle_string"
 
             android:textColor="#000000"
             tools:layout_editor_absoluteX="58dp"
@@ -63,5 +63,14 @@
 
     </LinearLayout>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/restaurant_menu_continue_checkout"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button_purple"
+        android:text="ViewCart"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
