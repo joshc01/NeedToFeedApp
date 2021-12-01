@@ -1,10 +1,13 @@
 package com.cs389team4.needtofeed.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amplifyframework.datastore.generated.model.Item;
 import com.bumptech.glide.Glide;
 
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantItemDetailsBinding;
@@ -38,7 +42,6 @@ public class RestaurantItemDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ImageView imageViewItem = binding.itemDetailsImage;
-
         TextView textViewItemName = binding.itemDetailsName;
         TextView textViewItemPrice = binding.itemDetailsPrice;
 
@@ -74,4 +77,8 @@ public class RestaurantItemDetailsFragment extends Fragment {
             }
         });
     }
+
+
+
+
 }

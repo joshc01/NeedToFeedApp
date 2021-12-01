@@ -30,6 +30,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
 
     private lateinit var binding: FragmentListBinding
 
+
     companion object {
         private val LOG = Amplify.Logging.forNamespace("NeedToFeed:ListFragment")
     }
@@ -48,6 +49,8 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
 
         val recyclerView = binding.itemList
         recyclerView.adapter = itemAdapter
+
+
 
         networkStatusBar = Snackbar.make(view, "DataStore is not in sync.", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") { start() }
@@ -180,4 +183,6 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
     fun setRestaurant(restaurant: Restaurant) {
         this.restaurant = restaurant
     }
+
 }
+

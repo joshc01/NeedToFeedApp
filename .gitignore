@@ -37,3 +37,7 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 
 "sendgrid.env" 
+.idea/misc.xml
+.idea/gradle.xml
+.idea/compiler.xml
+.idea/vcs.xml
