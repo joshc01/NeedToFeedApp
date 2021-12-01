@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,7 @@ public class RestaurantMenuFragment extends Fragment {
         TextView textViewRestaurantName = binding.restaurantMenuRestaurantName;
         TextView textViewRestaurantCategory = binding.restaurantMenuRestaurantCategory;
         ImageView imageViewRestaurantImage = binding.restaurantMenuRestaurantImage;
+        AppCompatButton btnViewCart = binding.restaurantListContinueCheckout;
 
         RestaurantMenuFragmentArgs args = RestaurantMenuFragmentArgs.fromBundle(getArguments());
 
@@ -43,5 +45,7 @@ public class RestaurantMenuFragment extends Fragment {
 
         String restaurantImage = args.getRestaurantImage();
         Glide.with(view).load(restaurantImage).fitCenter().into(imageViewRestaurantImage);
+
+
     }
 }

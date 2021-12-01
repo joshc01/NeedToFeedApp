@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -32,4 +32,17 @@
         android:id="@+id/Restaurant_Menu_Fragment"
         android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuListFragment"
         app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_category"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/restaurant_list_continue_checkout"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rounded_button_purple"
+        android:text="ViewCart"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true" />
+
+
+
+</RelativeLayout>

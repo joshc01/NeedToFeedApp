@@ -15,12 +15,10 @@ import com.cs389team4.needtofeed.databinding.ActivityMainBinding
 import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
-import android.view.Menu
 import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.SearchView
-import com.amplifyframework.datastore.generated.model.Restaurant
 
-class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+
+class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
     companion object {
@@ -71,11 +69,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.restaurant_search_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
     // Initialize bottom navigation
     @RequiresApi(Build.VERSION_CODES.S)
     private fun initBottomNavigation() {
@@ -102,24 +95,5 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     // Display up navigation when applicable
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    private fun filter(list: List<Restaurant>, query: String): List<Restaurant>? {
-//        query = query.lowercase()
-
-        val filteredList: List<Restaurant> = ArrayList()
-        for (item: Restaurant in list) {
-
-        }
-
-        return null
     }
 }

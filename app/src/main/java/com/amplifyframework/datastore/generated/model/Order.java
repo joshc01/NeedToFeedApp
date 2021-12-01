@@ -30,10 +30,14 @@ public final class Order implements Model {
   public static final QueryField ORDER_TYPE = field("Order", "orderType");
   public static final QueryField ESTIMATED_TIME_COMPLETE = field("Order", "estimatedTimeComplete");
   public static final QueryField ORDER_TOTAL = field("Order", "orderTotal");
+  public static final QueryField ORDER_ITEMS = field("Order", "orderItems");
+  public static final QueryField ORDERED_BY = field("Order", "orderedBy");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String orderType;
   private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time estimatedTimeComplete;
   private final @ModelField(targetType="Float", isRequired = true) Double orderTotal;
+  private final @ModelField(targetType="AWSJSON", isRequired = true) String orderItems;
+  private final @ModelField(targetType="String", isRequired = true) String orderedBy;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -52,6 +56,14 @@ public final class Order implements Model {
       return orderTotal;
   }
   
+  public String getOrderItems() {
+      return orderItems;
+  }
+  
+  public String getOrderedBy() {
+      return orderedBy;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -60,11 +72,13 @@ public final class Order implements Model {
       return updatedAt;
   }
   
-  private Order(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal) {
+  private Order(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal, String orderItems, String orderedBy) {
     this.id = id;
     this.orderType = orderType;
     this.estimatedTimeComplete = estimatedTimeComplete;
     this.orderTotal = orderTotal;
+    this.orderItems = orderItems;
+    this.orderedBy = orderedBy;
   }
   
   @Override
@@ -79,6 +93,8 @@ public final class Order implements Model {
               ObjectsCompat.equals(getOrderType(), order.getOrderType()) &&
               ObjectsCompat.equals(getEstimatedTimeComplete(), order.getEstimatedTimeComplete()) &&
               ObjectsCompat.equals(getOrderTotal(), order.getOrderTotal()) &&
+              ObjectsCompat.equals(getOrderItems(), order.getOrderItems()) &&
+              ObjectsCompat.equals(getOrderedBy(), order.getOrderedBy()) &&
               ObjectsCompat.equals(getCreatedAt(), order.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), order.getUpdatedAt());
       }
@@ -91,6 +107,8 @@ public final class Order implements Model {
       .append(getOrderType())
       .append(getEstimatedTimeComplete())
       .append(getOrderTotal())
+      .append(getOrderItems())
+      .append(getOrderedBy())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -105,6 +123,8 @@ public final class Order implements Model {
       .append("orderType=" + String.valueOf(getOrderType()) + ", ")
       .append("estimatedTimeComplete=" + String.valueOf(getEstimatedTimeComplete()) + ", ")
       .append("orderTotal=" + String.valueOf(getOrderTotal()) + ", ")
+      .append("orderItems=" + String.valueOf(getOrderItems()) + ", ")
+      .append("orderedBy=" + String.valueOf(getOrderedBy()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -128,6 +148,8 @@ public final class Order implements Model {
       id,
       null,
       null,
+      null,
+      null,
       null
     );
   }
@@ -136,7 +158,9 @@ public final class Order implements Model {
     return new CopyOfBuilder(id,
       orderType,
       estimatedTimeComplete,
-      orderTotal);
+      orderTotal,
+      orderItems,
+      orderedBy);
   }
   public interface OrderTypeStep {
     EstimatedTimeCompleteStep orderType(String orderType);
@@ -149,7 +173,17 @@ public final class Order implements Model {
   
 
   public interface OrderTotalStep {
-    BuildStep orderTotal(Double orderTotal);
+    OrderItemsStep orderTotal(Double orderTotal);
+  }
+  
+
+  public interface OrderItemsStep {
+    OrderedByStep orderItems(String orderItems);
+  }
+  
+
+  public interface OrderedByStep {
+    BuildStep orderedBy(String orderedBy);
   }
   
 
@@ -159,11 +193,13 @@ public final class Order implements Model {
   }
   
 
-  public static class Builder implements OrderTypeStep, EstimatedTimeCompleteStep, OrderTotalStep, BuildStep {
+  public static class Builder implements OrderTypeStep, EstimatedTimeCompleteStep, OrderTotalStep, OrderItemsStep, OrderedByStep, BuildStep {
     private String id;
     private String orderType;
     private Temporal.Time estimatedTimeComplete;
     private Double orderTotal;
+    private String orderItems;
+    private String orderedBy;
     @Override
      public Order build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -172,7 +208,9 @@ public final class Order implements Model {
           id,
           orderType,
           estimatedTimeComplete,
-          orderTotal);
+          orderTotal,
+          orderItems,
+          orderedBy);
     }
     
     @Override
@@ -190,9 +228,23 @@ public final class Order implements Model {
     }
     
     @Override
-     public BuildStep orderTotal(Double orderTotal) {
+     public OrderItemsStep orderTotal(Double orderTotal) {
         Objects.requireNonNull(orderTotal);
         this.orderTotal = orderTotal;
+        return this;
+    }
+    
+    @Override
+     public OrderedByStep orderItems(String orderItems) {
+        Objects.requireNonNull(orderItems);
+        this.orderItems = orderItems;
+        return this;
+    }
+    
+    @Override
+     public BuildStep orderedBy(String orderedBy) {
+        Objects.requireNonNull(orderedBy);
+        this.orderedBy = orderedBy;
         return this;
     }
     
@@ -208,11 +260,13 @@ public final class Order implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal) {
+    private CopyOfBuilder(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal, String orderItems, String orderedBy) {
       super.id(id);
       super.orderType(orderType)
         .estimatedTimeComplete(estimatedTimeComplete)
-        .orderTotal(orderTotal);
+        .orderTotal(orderTotal)
+        .orderItems(orderItems)
+        .orderedBy(orderedBy);
     }
     
     @Override
@@ -228,6 +282,16 @@ public final class Order implements Model {
     @Override
      public CopyOfBuilder orderTotal(Double orderTotal) {
       return (CopyOfBuilder) super.orderTotal(orderTotal);
+    }
+    
+    @Override
+     public CopyOfBuilder orderItems(String orderItems) {
+      return (CopyOfBuilder) super.orderItems(orderItems);
+    }
+    
+    @Override
+     public CopyOfBuilder orderedBy(String orderedBy) {
+      return (CopyOfBuilder) super.orderedBy(orderedBy);
     }
   }
   

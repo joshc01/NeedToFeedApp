@@ -1,6 +1,7 @@
 package com.cs389team4.needtofeed.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -44,10 +45,12 @@ public class RestaurantMenuListFragment extends ListFragment<Item> {
     public void onClick(Item item) {
         Navigation.findNavController(getView()).navigate(RestaurantMenuFragmentDirections
                 .actionRestaurantMenuFragmentToRestaurantItemDetailsFragment(item.getTitle(), item.getPrice().floatValue(), item.getImage()));
+
     }
 
     @Override
     public boolean onLongClick(Item item) {
         return false;
     }
+
 }

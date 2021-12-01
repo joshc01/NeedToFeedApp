@@ -1,6 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">NeedToFeed</string>
-    <string name="mapbox_access_token" tools:ignore="Typos">pk.eyJ1IjoibWRhZGkxMTMwIiwiYSI6ImNrdXoyZzdnOTF3OXMycHA2Z2J1ZDNza2oifQ.a-WE-43vIaiG1sHJavZEUQ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Preference Titles -->
@@ -26,7 +25,7 @@
     <string name="hint_full_name">Full Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="terms_privacy_agreement" tools:ignore="TypographyDashes"><![CDATA[By registering, you agree to our <a href="https://www.termsfeed.com/live/192616dc-455a-44ca-9d2b-c2f9f299b2b5">Terms & Conditions</a> and <a href="https://www.termsfeed.com/live/244ef7f2-8a96-4e3f-9db6-5058825e1b6d">Privacy Policy</a>.]]></string>
+    <string name="terms_privacy_agreement"><![CDATA[By registering, you agree to our <a href="https://www.termsfeed.com/live/192616dc-455a-44ca-9d2b-c2f9f299b2b5">Terms & Conditions</a> and <a href="https://www.termsfeed.com/live/244ef7f2-8a96-4e3f-9db6-5058825e1b6d">Privacy Policy</a>.]]></string>
     <string name="lbl_forgot_password">Forgot Password? Click Here</string>
     <string name="title_register_confirm">Confirm Registration</string>
     <string name="register_confirm_prompt">Please enter the verification code sent to the email address you provided to complete your account registration</string>
@@ -41,8 +40,6 @@
     <string name="restaurants_unavailable">Oh no!\nNo restaurants available near you</string>
     <string name="item_details_quantity">Quantity:</string>
     <string name="add_to_cart_string">Add to cart</string>
-    <string name="delivery_toggle_string">Delivery</string>
-    <string name="pickup_toggle_string">Pickup</string>
     <string name="lbl_checkout_your_info">Your Information</string>
     <string name="lbl_checkout_delivery_instructions">Delivery Instructions</string>
     <string name="lbl_checkout_your_order">Your order</string>
@@ -52,6 +49,4 @@
     <string name="lbl_checkout_delivery_fee">Delivery Fee</string>
     <string name="lbl_checkout_subtotal">Subtotal</string>
     <string name="lbl_checkout_action">Check Out</string>
-
-    <string name="google_pay_button_content_description">Buy with Google Pay</string>
 </resources>
