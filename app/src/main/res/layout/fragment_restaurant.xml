@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/search_restaurants"
         android:id="@+id/swipe_refresh_restaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -69,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_button_purple"
-        android:text="ViewCart"
+        android:text="@string/btn_view_cart"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true" />
 

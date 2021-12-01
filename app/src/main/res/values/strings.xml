@@ -43,10 +43,12 @@
     <string name="lbl_checkout_your_info">Your Information</string>
     <string name="lbl_checkout_delivery_instructions">Delivery Instructions</string>
     <string name="lbl_checkout_your_order">Your order</string>
-    <string name="lbl_checkout_total">Total</string>
-    <string name="lbl_checkout_tip">Tip</string>
-    <string name="lbl_checkout_tax">Tax</string>
-    <string name="lbl_checkout_delivery_fee">Delivery Fee</string>
-    <string name="lbl_checkout_subtotal">Subtotal</string>
+    <string name="lbl_total">Total</string>
+    <string name="lbl_tip">Tip</string>
+    <string name="lbl_tax">Tax</string>
+    <string name="lbl_delivery_fee">Delivery Fee</string>
+    <string name="lbl_subtotal">Subtotal</string>
     <string name="lbl_checkout_action">Check Out</string>
+    <string name="btn_view_cart">View Cart</string>
+    <string name="btn_add_to_order">+ Add more items</string>
 </resources>

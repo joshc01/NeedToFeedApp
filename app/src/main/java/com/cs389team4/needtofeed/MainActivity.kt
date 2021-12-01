@@ -17,10 +17,10 @@ import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
 import androidx.annotation.RequiresApi
 
-
 class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
+
     companion object {
         @JvmStatic lateinit var restaurantId: String
     }
