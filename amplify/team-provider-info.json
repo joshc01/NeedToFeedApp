@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "needtofeedae53688e": {}
+        "needtofeedae53688e": {},
+        "true": {}
       }
     }
   }

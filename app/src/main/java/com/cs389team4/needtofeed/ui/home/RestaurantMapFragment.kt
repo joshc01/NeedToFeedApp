@@ -23,6 +23,7 @@ import com.mapbox.maps.*
 import com.mapbox.maps.extension.observable.eventdata.MapLoadedEventData
 import com.mapbox.maps.extension.style.expressions.dsl.generated.interpolate
 import com.mapbox.maps.plugin.LocationPuck2D
+import com.mapbox.maps.plugin.Plugin
 import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.delegates.listeners.OnMapLoadedListener
@@ -86,6 +87,7 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentRestaurantMapBinding.inflate(inflater, container, false)
 
         mapView = binding.restaurantsPickupMap

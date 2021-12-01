@@ -60,5 +60,15 @@ class LoginFragment : Fragment() {
                 { Utils.showMessage(activity, "Sign in error: ${it.message}") }
             )
         }
+
+        val btnGoogleLogin = binding.btnLoginGoogle
+        btnGoogleLogin.setOnClickListener {
+
+        }
+
+        val btnFacebookLogin = binding.btnLoginFacebook
+        btnFacebookLogin.setOnClickListener {
+
+        }
     }
 }

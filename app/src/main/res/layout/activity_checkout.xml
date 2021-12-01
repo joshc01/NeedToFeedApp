@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/checkout_divider2"
-            android:text="@string/lbl_checkout_subtotal"/>
+            android:text="@string/lbl_subtotal"/>
         <TextView
             android:id="@+id/checkout_subtotal_value"
             android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkout_subtotal_title"
-            android:text="@string/lbl_checkout_delivery_fee"/>
+            android:text="@string/lbl_delivery_fee"/>
         <TextView
             android:id="@+id/checkout_delivery_fee_value"
             android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkout_delivery_fee_title"
-            android:text="@string/lbl_checkout_tax"/>
+            android:text="@string/lbl_tax"/>
         <TextView
             android:id="@+id/checkout_tax_value"
             android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkout_tax_title"
-            android:text="@string/lbl_checkout_tip"/>
+            android:text="@string/lbl_tip"/>
         <TextView
             android:id="@+id/checkout_tip_value"
             android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/checkout_tip_title"
-            android:text="@string/lbl_checkout_total"
+            android:text="@string/lbl_total"
             android:textStyle="bold"/>
         <TextView
             android:id="@+id/checkout_total_value"

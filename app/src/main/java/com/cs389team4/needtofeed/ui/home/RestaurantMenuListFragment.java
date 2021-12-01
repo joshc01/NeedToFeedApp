@@ -18,13 +18,7 @@ public class RestaurantMenuListFragment extends ListFragment<Item> {
     @NonNull
     @Override
     public Item createModel() {
-        return Item.builder()
-                .title("a title")
-                .price(null)
-                .restaurant(null)
-                .restaurantId(null)
-                .image(null)
-                .build();
+        return Item.justId("");
     }
 
     @NonNull

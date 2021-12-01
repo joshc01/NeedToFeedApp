@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "restaurants",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authneedtofeedae53688e",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2021-12-01T05:53:58.994Z"
+}

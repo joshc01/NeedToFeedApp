@@ -1,10 +1,19 @@
 package com.cs389team4.needtofeed.ui.home;
 
+import static com.cs389team4.needtofeed.MainActivity.restaurantId;
+
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
+
 import com.amplifyframework.datastore.generated.model.Restaurant;
+import com.cs389team4.needtofeed.MainActivity;
+import com.cs389team4.needtofeed.R;
+import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 import com.cs389team4.needtofeed.models.RestaurantViewModel;
 import com.cs389team4.needtofeed.utils.ListFragment;
+import com.cs389team4.needtofeed.utils.Utils;
 import com.cs389team4.needtofeed.utils.ViewModel;
 
 import java.util.UUID;
@@ -45,6 +54,7 @@ public class RestaurantListFragment extends ListFragment<Restaurant> {
 
     @Override
     public void onClick(Restaurant item) {
+        restaurantId = item.getId();
         Navigation.findNavController(getView())
                 .navigate(RestaurantFragmentDirections
                         .actionNavigateHomeToRestaurantMenuFragment(
@@ -60,6 +70,4 @@ public class RestaurantListFragment extends ListFragment<Restaurant> {
     public boolean onLongClick(Restaurant item) {
         return false;
     }
-
-
 }

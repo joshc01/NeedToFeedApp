@@ -78,6 +78,17 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
             }
         });
 
+        binding.toggleOrderMode.setOnCheckedChangeListener((v, isChecked) -> {
+            if (binding.toggleOrderMode.isChecked()) {
+                FragmentTransaction ftPickup = fm.beginTransaction();
+                ftPickup.replace(R.id.nav_host_fragment, RestaurantMapFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null) // name can be null
+                        .commit();
+            }
+        });
+
+
         btnPickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
