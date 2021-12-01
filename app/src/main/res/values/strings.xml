@@ -49,4 +49,7 @@
     <string name="lbl_checkout_delivery_fee">Delivery Fee</string>
     <string name="lbl_checkout_subtotal">Subtotal</string>
     <string name="lbl_checkout_action">Check Out</string>
+
+    <string name="google_pay_button_content_description">Buy with Google Pay</string>
+    <string name="profile_name">Name</string>
 </resources>
