@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/navigate_profile"
-        android:name="com.cs389team4.needtofeed.ui.SettingsFragment"
+        android:name="com.cs389team4.needtofeed.ui.AccountFragment"
         android:label="@string/title_profile"/>
 
 </navigation>
