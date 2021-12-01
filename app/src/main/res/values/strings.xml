@@ -51,4 +51,5 @@
     <string name="lbl_checkout_action">Check Out</string>
     <string name="btn_view_cart">View Cart</string>
     <string name="btn_add_to_order">+ Add more items</string>
+    <string name="profile_name">Name</string>
 </resources>
