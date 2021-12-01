@@ -16,6 +16,7 @@ import com.amplifyframework.datastore.generated.model.Item
 import com.amplifyframework.datastore.generated.model.Restaurant
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.SubscriptionToken
+import com.cs389team4.needtofeed.MainActivity.Companion.restaurantId
 import com.cs389team4.needtofeed.R
 import com.cs389team4.needtofeed.databinding.FragmentListBinding
 import com.google.android.material.snackbar.Snackbar
@@ -73,7 +74,9 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
     private fun query() {
         LOG.info("Query")
         if (getModelClass() == Item::class.java) {
-            Amplify.DataStore.query(getModelClass(),
+            val restaurant = restaurantId
+
+            Amplify.DataStore.query(getModelClass(), Where.matches(Item.RESTAURANT_ID.eq(restaurant)),
                 { results ->
                     val itemsList = results.iterator().asSequence().toList()
                     val pairsList = itemsList.map { it.id to it }

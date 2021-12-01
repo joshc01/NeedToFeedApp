@@ -23,6 +23,9 @@ import com.amplifyframework.datastore.generated.model.Restaurant
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
+    companion object {
+        @JvmStatic lateinit var restaurantId: String
+    }
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {

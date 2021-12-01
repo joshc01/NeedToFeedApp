@@ -3,7 +3,6 @@ package com.cs389team4.needtofeed.models;
 import androidx.annotation.NonNull;
 
 import com.amplifyframework.datastore.generated.model.Item;
-import com.amplifyframework.datastore.generated.model.Restaurant;
 import com.cs389team4.needtofeed.utils.ViewModel;
 
 public class ItemViewModel extends ViewModel<Item> {
@@ -45,7 +44,7 @@ public class ItemViewModel extends ViewModel<Item> {
     }
 
     @NonNull
-    public Restaurant getRestaurant() {
-        return item.getRestaurant();
+    public String getRestaurant() {
+        return item.getRestaurantId();
     }
 }
