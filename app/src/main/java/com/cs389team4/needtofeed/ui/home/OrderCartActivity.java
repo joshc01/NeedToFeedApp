@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.ArraySet;
 import android.widget.Button;
 
@@ -16,7 +18,10 @@ import com.cs389team4.needtofeed.utils.Utils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.Arrays;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class OrderCartActivity extends AppCompatActivity {
 
@@ -30,6 +35,11 @@ public class OrderCartActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Set<String> orderContent = new ArraySet<>();
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+
 
         Amplify.API.query(
                 ModelQuery.list(Order.class, Order.IS_ACTIVE.eq(true)),
@@ -45,13 +55,14 @@ public class OrderCartActivity extends AppCompatActivity {
 
                     orderContent.addAll(orderDetailsJson.keySet());
 
-                    Utils.showMessage(getApplicationContext(), orderContent + "");
+
                 },
                 error -> Utils.showMessage(getApplicationContext(), "NOT SHOWN!")
         );
 
         String[] str = new String[]{"Foo", "Bar", "Test"};
         String[] arrOrderContent = orderContent.toArray(new String[0]);
+        Utils.showMessage(getApplicationContext(), Arrays.toString(arrOrderContent) + "");
 
         RecyclerView recyclerView = binding.orderCartItemList;
         OrderCartAdapter itemAdapter = new OrderCartAdapter(arrOrderContent);
