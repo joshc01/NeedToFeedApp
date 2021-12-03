@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cs389team4.needtofeed.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Arrays;
 
 public class OrderCartAdapter extends RecyclerView.Adapter<OrderCartAdapter.ViewHolder> {
 
@@ -20,6 +18,7 @@ public class OrderCartAdapter extends RecyclerView.Adapter<OrderCartAdapter.View
 
     public OrderCartAdapter(String[] data) {
         localData = data;
+        System.out.println(Arrays.toString(data));
     }
 
     @NonNull
@@ -40,6 +39,7 @@ public class OrderCartAdapter extends RecyclerView.Adapter<OrderCartAdapter.View
 
     @Override
     public int getItemCount() {
+        System.out.println("TEST_LENGTH:" + localData.length);
         return localData.length;
     }
 
@@ -51,9 +51,9 @@ public class OrderCartAdapter extends RecyclerView.Adapter<OrderCartAdapter.View
         public ViewHolder(View view) {
             super(view);
 
-            quantity = (TextView) view.findViewById(R.id.order_cart_list_quantity);
-            name = (TextView) view.findViewById(R.id.order_cart_list_name);
-            price = (TextView) view.findViewById(R.id.order_cart_list_price);
+            quantity = view.findViewById(R.id.order_cart_list_quantity);
+            name = view.findViewById(R.id.order_cart_list_name);
+            price = view.findViewById(R.id.order_cart_list_price);
         }
     }
 }
