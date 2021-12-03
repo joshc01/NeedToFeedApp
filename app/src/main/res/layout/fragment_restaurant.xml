@@ -78,6 +78,7 @@
         android:background="@drawable/rounded_button_purple"
         android:text="@string/btn_view_cart"
         android:textColor="@color/white"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"/>
 
 </RelativeLayout>

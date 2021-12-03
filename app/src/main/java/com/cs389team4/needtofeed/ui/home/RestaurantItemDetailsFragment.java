@@ -1,13 +1,10 @@
 package com.cs389team4.needtofeed.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,18 +19,19 @@ import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
-import com.amplifyframework.datastore.generated.model.Item;
 import com.amplifyframework.datastore.generated.model.Order;
 import com.bumptech.glide.Glide;
 
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantItemDetailsBinding;
 import com.cs389team4.needtofeed.utils.Utils;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Currency;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -116,18 +114,35 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 error -> Log.e("MyAmplifyApp", "Create failed", error)
                         );
                     } else {
-//                            Amplify.API.mutate(ModelMutation.update(todo),
-//                                    resp -> Log.i("MyAmplifyApp", "Todo with id: " + resp),
-//                                    error -> Log.e("MyAmplifyApp", "Create failed", error)
-//                            );
+                        Order existingOrder = response.getData().iterator().next();
+                        JsonObject orderContent = new JsonObject();
+                        orderContent.add("quantity", new Gson().toJsonTree(quantity));
+                        orderContent.add("price", new Gson().toJsonTree(itemPrice));
+
+                        JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
+                        orderDetailsJson.add(itemName, orderContent);
+
+                        Utils.showMessage(getContext(), orderDetailsJson.toString());
+
+                        Order orderUpdate = Order.builder()
+                                .orderType(existingOrder.getOrderType())
+                                .estimatedTimeComplete(existingOrder.getEstimatedTimeComplete())
+                                .orderTotal(existingOrder.getOrderTotal())
+                                .orderItems(orderDetailsJson.toString())
+                                .orderedBy(existingOrder.getOrderedBy())
+                                .isActive(existingOrder.getIsActive())
+                                .orderRestaurant(existingOrder.getOrderRestaurant())
+                                .orderRestaurantId(existingOrder.getOrderRestaurantId())
+                                .id(existingOrder.getId())
+                                .build();
+
+                            Amplify.API.mutate(ModelMutation.update(orderUpdate),
+                                    resp -> Log.i("MyAmplifyApp", "Todo with id: " + resp),
+                                    error -> Log.e("MyAmplifyApp", "Create failed", error)
+                            );
                     }
-                    Utils.showMessage(getContext(), "" + response.getData().getItems());
                 },
-                error -> Utils.showMessage(getContext(), "NOT SHOWN!")
+                error -> Log.e("Failure updating order: ", error.getMessage())
         ));
     }
-
-
-
-
 }
