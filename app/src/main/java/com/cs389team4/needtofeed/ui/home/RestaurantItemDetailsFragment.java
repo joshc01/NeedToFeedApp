@@ -28,9 +28,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.NumberFormat;
 import java.time.LocalTime;
 import java.util.Currency;
@@ -92,21 +89,23 @@ public class RestaurantItemDetailsFragment extends Fragment {
                 response -> {
                     // If no active order exists
                     if (response.getData().getItems().toString().equals("[]")) {
-                        JSONObject test = new JSONObject();
-                        try {
-                            test.put("test", "hi");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
+                        JsonObject orderContent = new JsonObject();
+                        orderContent.add("quantity", new Gson().toJsonTree(quantity));
+                        orderContent.add("price", new Gson().toJsonTree(itemPrice));
+
+                        JsonObject orderDetailsJson = new JsonObject();
+                        orderDetailsJson.add(itemName, orderContent);
+
                         Order todo = Order.builder()
-                                .orderType("r")
+                                .orderType("Delivery")
                                 .estimatedTimeComplete(new Temporal.Time(String.valueOf(LocalTime.now())))
                                 .orderTotal(0.99)
-                                .orderItems(test.toString())
-                                .orderedBy("r")
+                                .orderItems(orderDetailsJson.toString())
+                                .orderedBy("user_ordered")
                                 .isActive(true)
-                                .orderRestaurant("test")
-                                .orderRestaurantId("test")
+                                .orderRestaurant("restaurant_name")
+                                .orderRestaurantId("restaurant_id")
                                 .build();
 
                         Amplify.API.mutate(ModelMutation.create(todo),
