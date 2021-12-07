@@ -112,6 +112,10 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
             public boolean onQueryTextSubmit(String query) {
 
                 Log.d("", "onQueryTextSubmit: " + query);
+                //Start activity and pass query as extra
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("Test", query);
+                startActivity(intent);
                 return false;
             }
 

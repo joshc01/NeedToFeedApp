@@ -21,10 +21,10 @@
         android:layout_below="@+id/search_restaurants"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_below="@+id/toggle_order_mode"
         android:id="@+id/swipe_refresh_restaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toggle_order_mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
