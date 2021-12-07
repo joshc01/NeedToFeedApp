@@ -12,16 +12,17 @@ import com.cs389team4.needtofeed.utils.PaymentUtil
 import com.cs389team4.needtofeed.utils.Utils
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wallet.*
-import org.json.JSONArray
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
-import kotlin.math.roundToLong
+import kotlin.properties.Delegates
 
 class CheckoutActivity: AppCompatActivity() {
     private lateinit var paymentsClient: PaymentsClient
 
-    private lateinit var foodItemList: JSONArray
-    private lateinit var selectedFoodItem: JSONObject
+    private lateinit var orderDetails: JsonObject
+    private var total by Delegates.notNull<Double>()
 
     private lateinit var btnGooglePay: RelativeLayout
 
@@ -36,6 +37,13 @@ class CheckoutActivity: AppCompatActivity() {
 
         binding = ActivityCheckoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val bundle = intent.extras
+
+        val strOrderDetails = bundle!!.getString("order")
+        orderDetails = Gson().fromJson(strOrderDetails, JsonObject::class.java)
+
+        total = bundle.getDouble("priceTotal")
 
         // Initialize Google Pay API client
         paymentsClient = PaymentUtil.createPaymentsClient(this)
@@ -75,11 +83,9 @@ class CheckoutActivity: AppCompatActivity() {
     private fun requestPayment() {
         btnGooglePay.isClickable = false
 
-        val orderSubtotal = 13.99
-        val deliveryFee = Utils.getDeliveryFee(orderSubtotal)
-        val priceCents = (orderSubtotal * PaymentUtil.CENTS.toLong()).roundToLong() + (deliveryFee * PaymentUtil.CENTS.toLong())
+        val priceCents = (total * PaymentUtil.CENTS.toLong()).toLong()
 
-        val paymentDataRequestJson = PaymentUtil.getPaymentDataRequest(priceCents.toLong())
+        val paymentDataRequestJson = PaymentUtil.getPaymentDataRequest(priceCents)
         if (paymentDataRequestJson == null) {
             Log.e("RequestPayment", "Can't fetch payment data request")
             return
@@ -95,29 +101,56 @@ class CheckoutActivity: AppCompatActivity() {
         }
     }
 
-    // Handle resolved activity from Google Pay payment sheet
-    val paymentSheetActivityResult = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) { result ->
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        val data: Intent? = result.data
+        when (requestCode) {
+            LOAD_PAYMENT_DATA_REQUEST_CODE -> {
+                when (resultCode) {
+                    RESULT_OK ->
+                        data?.let { intent ->
+                            PaymentData.getFromIntent(intent)?.let(::handlePaymentSuccess)
+                        }
 
-        when (result.resultCode) {
-            RESULT_OK -> {
-                data?.let { intent ->
-                    PaymentData.getFromIntent(intent)?.let(::handlePaymentSuccess)
+                    RESULT_CANCELED -> {
+                        // User cancelled payment
+                    }
+
+                    AutoResolveHelper.RESULT_ERROR -> {
+                        AutoResolveHelper.getStatusFromIntent(data)?.let {
+                            handleError(it.statusCode)
+                        }
+                    }
                 }
-            }
-            RESULT_CANCELED -> {
-                // User cancelled payment attempt
-            }
-            AutoResolveHelper.RESULT_ERROR -> {
-                AutoResolveHelper.getStatusFromIntent(data)?.let {
-                    handleError(it.statusCode)
-                }
+                btnGooglePay.isClickable = true
             }
         }
-        btnGooglePay.isClickable = true
     }
+
+    // TODO: Replace deprecated onActivityResult with below function
+    // Handle resolved activity from Google Pay payment sheet
+//    val paymentSheetActivityResult = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()) { result ->
+//
+//        val data: Intent? = result.data
+//
+//        when (result.resultCode) {
+//            RESULT_OK -> {
+//                data?.let { intent ->
+//                    PaymentData.getFromIntent(intent)?.let(::handlePaymentSuccess)
+//                }
+//            }
+//            RESULT_CANCELED -> {
+//                // User cancelled payment attempt
+//            }
+//            AutoResolveHelper.RESULT_ERROR -> {
+//                AutoResolveHelper.getStatusFromIntent(data)?.let {
+//                    handleError(it.statusCode)
+//                }
+//            }
+//        }
+//        btnGooglePay.isClickable = true
+//    }
 
     private fun handlePaymentSuccess(paymentData: PaymentData) {
         val paymentInfo = paymentData.toJson() ?: return

@@ -92,7 +92,7 @@ public class RestaurantItemDetailsFragment extends Fragment {
 
                         JsonObject orderContent = new JsonObject();
                         orderContent.add("quantity", new Gson().toJsonTree(quantity));
-                        orderContent.add("price", new Gson().toJsonTree(itemPrice));
+                        orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
 
                         JsonObject orderDetailsJson = new JsonObject();
                         orderDetailsJson.add(itemName, orderContent);
@@ -116,7 +116,7 @@ public class RestaurantItemDetailsFragment extends Fragment {
                         Order existingOrder = response.getData().iterator().next();
                         JsonObject orderContent = new JsonObject();
                         orderContent.add("quantity", new Gson().toJsonTree(quantity));
-                        orderContent.add("price", new Gson().toJsonTree(itemPrice));
+                        orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
 
                         JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
                         orderDetailsJson.add(itemName, orderContent);
