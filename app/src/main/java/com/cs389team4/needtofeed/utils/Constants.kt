@@ -28,4 +28,6 @@ object Constants {
         "gateway" to PAYMENT_GATEWAY_TOKENIZATION_NAME,
         "gatewayMerchantId" to "exampleGatewayMerchantId"
     )
+
+    const val SALES_TAX_NY = 0.0875
 }

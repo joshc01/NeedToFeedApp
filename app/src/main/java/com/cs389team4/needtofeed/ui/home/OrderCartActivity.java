@@ -1,5 +1,7 @@
 package com.cs389team4.needtofeed.ui.home;
 
+import static com.cs389team4.needtofeed.utils.Constants.SALES_TAX_NY;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +17,8 @@ import com.cs389team4.needtofeed.utils.Utils;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.util.Set;
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -32,35 +35,64 @@ public class OrderCartActivity extends AppCompatActivity {
         binding = ActivityOrderCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        try {
-            Future<Set<String>> jsonKeysetAsync = getJsonAsync();
-            Set<String> queryResult = jsonKeysetAsync.get();
+        JsonObject queryResult = null;
+        double total = 0;
 
-            String[] arrOrderContent = queryResult.toArray(new String[0]);
+        try {
+            Future<JsonObject> jsonQueryOrderAsync = getJsonAsync();
+
+            queryResult = jsonQueryOrderAsync.get();
+            String[] arrOrderKeyset = queryResult.keySet().toArray(new String[0]);
+
             RecyclerView recyclerView = binding.orderCartItemList;
-            OrderCartAdapter itemAdapter = new OrderCartAdapter(arrOrderContent);
+
+            OrderCartAdapter itemAdapter = new OrderCartAdapter(arrOrderKeyset, queryResult);
             recyclerView.setAdapter(itemAdapter);
+
+            float subtotal = 0;
+            for (String key : arrOrderKeyset) {
+                float price = queryResult.getAsJsonObject(key).get("price").getAsFloat();
+                subtotal += price;
+            }
+
+            double deliveryFee = Utils.getDeliveryFee(subtotal);
+            double tax = subtotal * SALES_TAX_NY;
+            total = subtotal + deliveryFee + tax;
+
+            NumberFormat format = NumberFormat.getCurrencyInstance();
+            format.setCurrency(Currency.getInstance("USD"));
+
+            binding.orderCartSubtotalValue.setText(format.format(subtotal));
+            binding.orderCartDeliveryFeeValue.setText(format.format(deliveryFee));
+            binding.orderCartTaxValue.setText(format.format(tax));
+            binding.orderCartTotalValue.setText(format.format(total));
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-//        String[] str = new String[]{"Foo", "Bar", "Test"};
-//        String[] arrOrderContent = orderContent.toArray(new String[0]);
-//        Utils.showMessage(getApplicationContext(), Arrays.toString(arrOrderContent) + "");
-
-//        RecyclerView recyclerView = binding.orderCartItemList;
-//        OrderCartAdapter itemAdapter = new OrderCartAdapter(arrOrderContent);
-//        recyclerView.setAdapter(itemAdapter);
-
         Button btnCheckout = binding.continueCheckout;
-        btnCheckout.setOnClickListener(v ->
-                startActivity(new Intent(this, CheckoutActivity.class)));
+
+        JsonObject finalQueryResult = queryResult;
+        double finalTotal = total;
+
+        btnCheckout.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CheckoutActivity.class);
+            intent.putExtra("order", String.valueOf(finalQueryResult));
+            intent.putExtra("priceTotal", finalTotal);
+            intent.putExtra("subtotal", 0);
+            intent.putExtra("deliveryFee", 0);
+            intent.putExtra("tax", 0);
+            intent.putExtra("tip", 0);
+
+            startActivity(intent);
+        });
     }
 
-    public Future<Set<String>> getJsonAsync() throws InterruptedException {
-        CompletableFuture<Set<String>> asyncTask = new CompletableFuture<>();
+    public Future<JsonObject> getJsonAsync() throws InterruptedException {
+        CompletableFuture<JsonObject> asyncTask = new CompletableFuture<>();
 
         Executors.newCachedThreadPool().submit(() -> {
             Amplify.API.query(
@@ -75,7 +107,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
                         JsonObject orderDetailsJson = JsonParser.parseString(order[0].getOrderItems()).getAsJsonObject();
 
-                        asyncTask.complete(orderDetailsJson.keySet());
+                        asyncTask.complete(orderDetailsJson);
                     },
                     error -> Utils.showMessage(getApplicationContext(), "NOT SHOWN!")
             );
