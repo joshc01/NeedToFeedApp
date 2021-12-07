@@ -23,7 +23,8 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 /** This is an auto generated class representing the Item type in your schema. */
 @SuppressWarnings("all")
 @ModelConfig(pluralName = "Items", authRules = {
-  @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
+  @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ }),
+  @AuthRule(allow = AuthStrategy.PRIVATE, operations = { ModelOperation.READ })
 })
 @Index(name = "byRestaurant", fields = {"restaurantID"})
 public final class Item implements Model {
