@@ -25,7 +25,7 @@ public class Utils {
     }
 
     // Calculate delivery fee
-    public static double getDeliveryFee(double orderSubtotal) {
+    public static double getDeliveryFee(float orderSubtotal) {
         // Return 15 percent of order subtotal, at max of 5
         return Math.min(orderSubtotal * 0.15, 5.00);
     }

@@ -53,23 +53,20 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         ftOnCreate.add(R.id.restaurant_list_container, RestaurantListFragment.class, null)
                 .commit();
 
-        btnDelivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnDelivery.setBackgroundResource(R.drawable.rounded_button_gray);
-                btnPickup.setBackgroundResource(R.drawable.rounded_button_transparent);
+        btnDelivery.setOnClickListener(v -> {
+            btnDelivery.setBackgroundResource(R.drawable.rounded_button_gray);
+            btnPickup.setBackgroundResource(R.drawable.rounded_button_transparent);
 
-                if(deliveryVisibility){
-                // Do nothing: restaurant list is already showing
-                }
-                else {
-                    FragmentTransaction ftDelivery = fm.beginTransaction();
-                    ftDelivery.replace(R.id.restaurant_list_container, RestaurantListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .commit();
-                    toggleDeliveryPickup();
-                }
+            if(deliveryVisibility){
+            // Do nothing: restaurant list is already showing
+            }
+            else {
+                FragmentTransaction ftDelivery = fm.beginTransaction();
+                ftDelivery.replace(R.id.restaurant_list_container, RestaurantListFragment.class, null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
+                toggleDeliveryPickup();
             }
         });
 
@@ -84,23 +81,20 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         });
 
 
-        btnPickup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btnPickup.setBackgroundResource(R.drawable.rounded_button_gray);
-                btnDelivery.setBackgroundResource(R.drawable.rounded_button_transparent);
+        btnPickup.setOnClickListener(v -> {
+            btnPickup.setBackgroundResource(R.drawable.rounded_button_gray);
+            btnDelivery.setBackgroundResource(R.drawable.rounded_button_transparent);
 
-                if(pickupVisibility){
-                // Do nothing: map is already showing
-                }
-                else {
-                    FragmentTransaction ftPickup = fm.beginTransaction();
-                    ftPickup.replace(R.id.restaurant_list_container, RestaurantMapFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null) // name can be null
-                        .commit();
-                    toggleDeliveryPickup();
-                }
+            if(pickupVisibility){
+            // Do nothing: map is already showing
+            }
+            else {
+                FragmentTransaction ftPickup = fm.beginTransaction();
+                ftPickup.replace(R.id.restaurant_list_container, RestaurantMapFragment.class, null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null) // name can be null
+                    .commit();
+                toggleDeliveryPickup();
             }
         });
 

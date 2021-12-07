@@ -9,16 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cs389team4.needtofeed.R;
+import com.google.gson.JsonObject;
 
-import java.util.Arrays;
+import java.text.NumberFormat;
+import java.util.Currency;
 
 public class OrderCartAdapter extends RecyclerView.Adapter<OrderCartAdapter.ViewHolder> {
 
-    private String[] localData;
+    private final String[] keys;
+    private final JsonObject order;
 
-    public OrderCartAdapter(String[] data) {
-        localData = data;
-        System.out.println(Arrays.toString(data));
+    public OrderCartAdapter(String[] keys, JsonObject order) {
+        this.keys = keys;
+        this.order = order;
     }
 
     @NonNull
@@ -32,15 +35,20 @@ public class OrderCartAdapter extends RecyclerView.Adapter<OrderCartAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        String quantity = order.getAsJsonObject(keys[position]).get("quantity").toString();
+        float price = order.getAsJsonObject(keys[position]).get("price").getAsFloat();
 
-        holder.quantity.setText(localData[position]);
+        NumberFormat format = NumberFormat.getCurrencyInstance();
+        format.setCurrency(Currency.getInstance("USD"));
 
+        holder.quantity.setText(quantity);
+        holder.name.setText(keys[position]);
+        holder.price.setText(format.format(price));
     }
 
     @Override
     public int getItemCount() {
-        System.out.println("TEST_LENGTH:" + localData.length);
-        return localData.length;
+        return keys.length;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
