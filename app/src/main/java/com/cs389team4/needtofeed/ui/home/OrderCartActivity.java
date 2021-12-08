@@ -36,6 +36,10 @@ public class OrderCartActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         JsonObject queryResult = null;
+
+        float subtotal = 0;
+        double deliveryFee = 0;
+        double tax = 0;
         double total = 0;
 
         try {
@@ -49,14 +53,13 @@ public class OrderCartActivity extends AppCompatActivity {
             OrderCartAdapter itemAdapter = new OrderCartAdapter(arrOrderKeyset, queryResult);
             recyclerView.setAdapter(itemAdapter);
 
-            float subtotal = 0;
             for (String key : arrOrderKeyset) {
                 float price = queryResult.getAsJsonObject(key).get("price").getAsFloat();
                 subtotal += price;
             }
 
-            double deliveryFee = Utils.getDeliveryFee(subtotal);
-            double tax = subtotal * SALES_TAX_NY;
+            deliveryFee = Utils.getDeliveryFee(subtotal);
+            tax = subtotal * SALES_TAX_NY;
             total = subtotal + deliveryFee + tax;
 
             NumberFormat format = NumberFormat.getCurrencyInstance();
@@ -76,15 +79,19 @@ public class OrderCartActivity extends AppCompatActivity {
         Button btnCheckout = binding.continueCheckout;
 
         JsonObject finalQueryResult = queryResult;
-        double finalTotal = total;
+
+        final float finalSubtotal = subtotal;
+        final double finalTotal = total;
+        final double finalDeliveryFee = deliveryFee;
+        final double finalTax = tax;
 
         btnCheckout.setOnClickListener(v -> {
             Intent intent = new Intent(this, CheckoutActivity.class);
             intent.putExtra("order", String.valueOf(finalQueryResult));
             intent.putExtra("priceTotal", finalTotal);
-            intent.putExtra("subtotal", 0);
-            intent.putExtra("deliveryFee", 0);
-            intent.putExtra("tax", 0);
+            intent.putExtra("subtotal", finalSubtotal);
+            intent.putExtra("deliveryFee", finalDeliveryFee);
+            intent.putExtra("tax", finalTax);
             intent.putExtra("tip", 0);
 
             startActivity(intent);

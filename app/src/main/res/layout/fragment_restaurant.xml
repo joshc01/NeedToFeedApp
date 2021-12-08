@@ -31,6 +31,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/restaurant_list_container"
+            android:name="com.cs389team4.needtofeed.ui.home.RestaurantListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent" />
