@@ -51,5 +51,6 @@
     <string name="lbl_checkout_action">Check Out</string>
 
     <string name="google_pay_button_content_description">Buy with Google Pay</string>
-    <string name="profile_name">Name</string>
+    <string name="profile_name"> </string>
+    <string name="profile_name_description">name</string>
 </resources>
