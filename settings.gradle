@@ -9,7 +9,7 @@ dependencyResolutionManagement {
             }
             credentials {
                 username = 'mapbox'
-                password = getProperty('MAPBOX_DOWNLOADS_TOKEN') ?: ""
+                password = System.getenv('MAPBOX_DOWNLOADS_TOKEN') ?: ""
             }
         }
         jcenter() // Warning: this repository is going to shut down soon

@@ -42,8 +42,10 @@ class MainActivity : AppCompatActivity() {
             initBottomNavigation()
         }
 
+        // Verify user authenticated
         fetchIdentityId()
 
+        // Get user attributes for later use
         Amplify.Auth.fetchUserAttributes(
             { userAttrs = it },
             { Log.e(TAG, "Failed to fetch user attributes", it) }
@@ -86,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    // Get status of active order cart
     private fun checkOrderCartExists() {
         Amplify.API.query(ModelQuery.list(Order::class.java, Order.IS_ACTIVE.eq(true)),
             { response ->

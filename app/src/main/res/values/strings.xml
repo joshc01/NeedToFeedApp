@@ -62,4 +62,5 @@
     <string name="lbl_contact_option_body">Select this option and the driver will drop off your order, then notify you.</string>
     <string name="lbl_delivery_address_title">Delivery Address</string>
     <string name="lbl_courier_notes_title">Notes for your Courier</string>
+    <string name="mapbox_public_key">pk.eyJ1IjoibWRhZGkxMTMwIiwiYSI6ImNrdXoyZzdnOTF3OXMycHA2Z2J1ZDNza2oifQ.a-WE-43vIaiG1sHJavZEUQ</string>
 </resources>
