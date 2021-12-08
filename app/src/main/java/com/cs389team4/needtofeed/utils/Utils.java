@@ -16,7 +16,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 public class Utils {
 
     private Utils() {
-
+        // Empty private constructor to hide implicit public constructor
     }
 
     // Display toast message

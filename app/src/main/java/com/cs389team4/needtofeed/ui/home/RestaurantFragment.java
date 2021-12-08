@@ -16,6 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Order;
+import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 
@@ -33,6 +38,11 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentRestaurantBinding.inflate(inflater, container, false);
+
+        if (!MainActivity.getOrderCartExists()) {
+            binding.restaurantMenuContinueCheckout.setVisibility(View.GONE);
+        }
+
         return binding.getRoot();
     }
 

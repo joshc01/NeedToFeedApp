@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.cs389team4.needtofeed.MainActivity
 import com.cs389team4.needtofeed.databinding.ActivityCheckoutBinding
 import com.cs389team4.needtofeed.utils.PaymentUtil
 import com.cs389team4.needtofeed.utils.Utils
@@ -16,13 +17,20 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.NumberFormat
+import java.util.*
 import kotlin.properties.Delegates
 
 class CheckoutActivity: AppCompatActivity() {
     private lateinit var paymentsClient: PaymentsClient
 
     private lateinit var orderDetails: JsonObject
+
     private var total by Delegates.notNull<Double>()
+    private var subtotal by Delegates.notNull<Float>()
+    private var deliveryFee by Delegates.notNull<Double>()
+    private var tax by Delegates.notNull<Double>()
+    private var tip by Delegates.notNull<Double>()
 
     private lateinit var btnGooglePay: RelativeLayout
 
@@ -44,6 +52,23 @@ class CheckoutActivity: AppCompatActivity() {
         orderDetails = Gson().fromJson(strOrderDetails, JsonObject::class.java)
 
         total = bundle.getDouble("priceTotal")
+        subtotal = bundle.getFloat("subtotal")
+        deliveryFee = bundle.getDouble("deliveryFee")
+        tax = bundle.getDouble("tax")
+        tip = bundle.getDouble("tip")
+
+        total += tip
+
+        val recyclerView = binding.checkoutListItems
+
+        val arrItemKeys = orderDetails.keySet().toTypedArray()
+        val itemAdapter = OrderCartAdapter(arrItemKeys, orderDetails)
+
+        recyclerView.adapter = itemAdapter
+
+        val name = MainActivity.userAttrs[2].value
+
+        binding.checkoutUserName.text = name
 
         // Initialize Google Pay API client
         paymentsClient = PaymentUtil.createPaymentsClient(this)
@@ -54,6 +79,15 @@ class CheckoutActivity: AppCompatActivity() {
         btnGooglePay.setOnClickListener {
             requestPayment()
         }
+
+        val format = NumberFormat.getCurrencyInstance()
+        format.currency = Currency.getInstance("USD")
+
+        binding.checkoutSubtotalValue.text = format.format(subtotal)
+        binding.checkoutDeliveryFeeValue.text = format.format(deliveryFee)
+        binding.checkoutTaxValue.text = format.format(tax)
+        binding.checkoutTipValue.text = format.format(tip)
+        binding.checkoutTotalValue.text = format.format(total)
     }
 
     // Determine support for payment methods

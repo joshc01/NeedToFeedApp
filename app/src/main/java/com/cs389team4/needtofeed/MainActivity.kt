@@ -16,13 +16,20 @@ import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
 import androidx.annotation.RequiresApi
+import com.amplifyframework.api.ApiException
+import com.amplifyframework.api.graphql.model.ModelQuery
+import com.amplifyframework.auth.AuthUserAttribute
+import com.amplifyframework.datastore.generated.model.Order
 
 class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var binding: ActivityMainBinding
 
     companion object {
+        const val TAG: String = "MainActivity"
         @JvmStatic lateinit var restaurantId: String
+        @JvmStatic var orderCartExists: Boolean = false
+        @JvmStatic lateinit var userAttrs: MutableList<AuthUserAttribute>
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -36,6 +43,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         fetchIdentityId()
+
+        Amplify.Auth.fetchUserAttributes(
+            { userAttrs = it },
+            { Log.e(TAG, "Failed to fetch user attributes", it) }
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -51,8 +63,14 @@ class MainActivity : AppCompatActivity() {
                 val cognitoAuthSession = result as AWSCognitoAuthSession
                 when (cognitoAuthSession.identityId.type) {
                     // User signed in
-                    AuthSessionResult.Type.SUCCESS ->
-                        Log.i("MainActivity", "User signed in with identityId: " + cognitoAuthSession.identityId.value)
+                    AuthSessionResult.Type.SUCCESS -> {
+                        Log.i(TAG,
+                            "User signed in with identityId: " + cognitoAuthSession.identityId.value
+                        )
+
+                        checkOrderCartExists()
+
+                    }
                     // User not signed in
                     AuthSessionResult.Type.FAILURE -> {
                         // Launch welcome screen
@@ -68,6 +86,18 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun checkOrderCartExists() {
+        Amplify.API.query(ModelQuery.list(Order::class.java, Order.IS_ACTIVE.eq(true)),
+            { response ->
+                // If no active order exists
+                if (response.data.items.toString() != "[]") {
+                    orderCartExists = true
+                }
+            })
+        { error: ApiException ->
+            Log.e("Failure querying order: ", error.message!!)
+        }
+    }
 
     // Initialize bottom navigation
     @RequiresApi(Build.VERSION_CODES.S)

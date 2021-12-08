@@ -1,10 +1,13 @@
 package com.cs389team4.needtofeed.ui.home;
 
+import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Order;
 import com.bumptech.glide.Glide;
 
+import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantItemDetailsBinding;
 import com.cs389team4.needtofeed.utils.Utils;
 import com.google.gson.Gson;
@@ -35,6 +39,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class RestaurantItemDetailsFragment extends Fragment {
     private FragmentRestaurantItemDetailsBinding binding = null;
+    private final String TAG = "RestaurantItemDetailsFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -88,7 +93,7 @@ public class RestaurantItemDetailsFragment extends Fragment {
                 ModelQuery.list(Order.class, Order.IS_ACTIVE.eq(true)),
                 response -> {
                     // If no active order exists
-                    if (response.getData().getItems().toString().equals("[]")) {
+                    if (!MainActivity.getOrderCartExists()) {
 
                         JsonObject orderContent = new JsonObject();
                         orderContent.add("quantity", new Gson().toJsonTree(quantity));
@@ -109,9 +114,17 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 .build();
 
                         Amplify.API.mutate(ModelMutation.create(todo),
-                                resp -> Log.i("MyAmplifyApp", "Todo with id: " + resp),
-                                error -> Log.e("MyAmplifyApp", "Create failed", error)
+                                resp -> {
+                                    Log.i(TAG, "Todo with id: " + resp);
+                                    runOnUiThread(() -> {
+                                        Utils.showMessage(getContext(), "Item added to cart");
+                                        Navigation.findNavController(view).popBackStack();
+                                    });
+                                },
+                                error -> Log.e(TAG, "Create failed", error)
                         );
+
+                        MainActivity.setOrderCartExists(true);
                     } else {
                         Order existingOrder = response.getData().iterator().next();
                         JsonObject orderContent = new JsonObject();
@@ -120,8 +133,6 @@ public class RestaurantItemDetailsFragment extends Fragment {
 
                         JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
                         orderDetailsJson.add(itemName, orderContent);
-
-                        Utils.showMessage(getContext(), orderDetailsJson.toString());
 
                         Order orderUpdate = Order.builder()
                                 .orderType(existingOrder.getOrderType())
@@ -136,8 +147,14 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 .build();
 
                             Amplify.API.mutate(ModelMutation.update(orderUpdate),
-                                    resp -> Log.i("MyAmplifyApp", "Todo with id: " + resp),
-                                    error -> Log.e("MyAmplifyApp", "Create failed", error)
+                                    resp -> {
+                                        Log.i(TAG, "Todo with id: " + resp);
+                                        runOnUiThread(() -> {
+                                            Utils.showMessage(getContext(), "Item added to cart");
+                                            Navigation.findNavController(view).popBackStack();
+                                        });
+                                    },
+                                    error -> Log.e(TAG, "Create failed", error)
                             );
                     }
                 },
