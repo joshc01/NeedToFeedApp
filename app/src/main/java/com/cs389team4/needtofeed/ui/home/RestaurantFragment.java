@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -24,6 +27,7 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
     private FragmentRestaurantBinding binding = null;
     private boolean deliveryVisibility = true;
     private boolean pickupVisibility = false;
+    public static final String EXTRA_MESSAGE = "com.example.needtofeed.MESSAGE";
 
     public void toggleDeliveryPickup (){
         deliveryVisibility = !deliveryVisibility;
@@ -108,9 +112,10 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
                 Log.d("", "onQueryTextSubmit: " + query);
                 //Start activity and pass query as extra
                 Intent intent = new Intent(getContext(), SearchActivity.class);
-                intent.putExtra("Test", query);
+
+                intent.putExtra(EXTRA_MESSAGE, query);
                 startActivity(intent);
-                return false;
+                return true;
             }
 
             @Override
