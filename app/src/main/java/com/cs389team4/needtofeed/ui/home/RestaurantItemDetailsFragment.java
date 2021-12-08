@@ -1,14 +1,15 @@
 package com.cs389team4.needtofeed.ui.home;
 
-import android.content.Intent;
+import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,28 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amplifyframework.datastore.generated.model.Item;
+import com.amplifyframework.api.graphql.model.ModelMutation;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
+import com.amplifyframework.datastore.generated.model.Order;
 import com.bumptech.glide.Glide;
 
+import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantItemDetailsBinding;
+import com.cs389team4.needtofeed.utils.Utils;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.text.NumberFormat;
+import java.time.LocalTime;
 import java.util.Currency;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RestaurantItemDetailsFragment extends Fragment {
     private FragmentRestaurantItemDetailsBinding binding = null;
+    private final String TAG = "RestaurantItemDetailsFragment";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -76,9 +88,77 @@ public class RestaurantItemDetailsFragment extends Fragment {
                 textViewQuantity.setText(quantity.toString());
             }
         });
+
+        btnAddToCart.setOnClickListener(v -> Amplify.API.query(
+                ModelQuery.list(Order.class, Order.IS_ACTIVE.eq(true)),
+                response -> {
+                    // If no active order exists
+                    if (!MainActivity.getOrderCartExists()) {
+
+                        JsonObject orderContent = new JsonObject();
+                        orderContent.add("quantity", new Gson().toJsonTree(quantity));
+                        orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
+
+                        JsonObject orderDetailsJson = new JsonObject();
+                        orderDetailsJson.add(itemName, orderContent);
+
+                        Order todo = Order.builder()
+                                .orderType("Delivery")
+                                .estimatedTimeComplete(new Temporal.Time(String.valueOf(LocalTime.now())))
+                                .orderTotal(0.99)
+                                .orderItems(orderDetailsJson.toString())
+                                .orderedBy("user_ordered")
+                                .isActive(true)
+                                .orderRestaurant("restaurant_name")
+                                .orderRestaurantId("restaurant_id")
+                                .build();
+
+                        Amplify.API.mutate(ModelMutation.create(todo),
+                                resp -> {
+                                    Log.i(TAG, "Todo with id: " + resp);
+                                    runOnUiThread(() -> {
+                                        Utils.showMessage(getContext(), "Item added to cart");
+                                        Navigation.findNavController(view).popBackStack();
+                                    });
+                                },
+                                error -> Log.e(TAG, "Create failed", error)
+                        );
+
+                        MainActivity.setOrderCartExists(true);
+                    } else {
+                        Order existingOrder = response.getData().iterator().next();
+                        JsonObject orderContent = new JsonObject();
+                        orderContent.add("quantity", new Gson().toJsonTree(quantity));
+                        orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
+
+                        JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
+                        orderDetailsJson.add(itemName, orderContent);
+
+                        Order orderUpdate = Order.builder()
+                                .orderType(existingOrder.getOrderType())
+                                .estimatedTimeComplete(existingOrder.getEstimatedTimeComplete())
+                                .orderTotal(existingOrder.getOrderTotal())
+                                .orderItems(orderDetailsJson.toString())
+                                .orderedBy(existingOrder.getOrderedBy())
+                                .isActive(existingOrder.getIsActive())
+                                .orderRestaurant(existingOrder.getOrderRestaurant())
+                                .orderRestaurantId(existingOrder.getOrderRestaurantId())
+                                .id(existingOrder.getId())
+                                .build();
+
+                            Amplify.API.mutate(ModelMutation.update(orderUpdate),
+                                    resp -> {
+                                        Log.i(TAG, "Todo with id: " + resp);
+                                        runOnUiThread(() -> {
+                                            Utils.showMessage(getContext(), "Item added to cart");
+                                            Navigation.findNavController(view).popBackStack();
+                                        });
+                                    },
+                                    error -> Log.e(TAG, "Create failed", error)
+                            );
+                    }
+                },
+                error -> Log.e("Failure updating order: ", error.getMessage())
+        ));
     }
-
-
-
-
 }

@@ -43,14 +43,24 @@
     <string name="lbl_checkout_your_info">Your Information</string>
     <string name="lbl_checkout_delivery_instructions">Delivery Instructions</string>
     <string name="lbl_checkout_your_order">Your order</string>
-    <string name="lbl_checkout_total">Total</string>
-    <string name="lbl_checkout_tip">Tip</string>
-    <string name="lbl_checkout_tax">Tax</string>
-    <string name="lbl_checkout_delivery_fee">Delivery Fee</string>
-    <string name="lbl_checkout_subtotal">Subtotal</string>
+    <string name="lbl_total">Total</string>
+    <string name="lbl_tip">Tip</string>
+    <string name="lbl_tax">Tax</string>
+    <string name="lbl_delivery_fee">Delivery Fee</string>
+    <string name="lbl_subtotal">Subtotal</string>
     <string name="lbl_checkout_action">Check Out</string>
+    <string name="btn_view_cart">View Cart</string>
+    <string name="btn_add_to_order">+ Add more items</string>
+    <string name="profile_name">Name</string>
 
-    <string name="google_pay_button_content_description">Buy with Google Pay</string>
-    <string name="profile_name"> </string>
-    <string name="profile_name_description">name</string>
+    <string name="googlepay_button_content_description">Google Pay</string>
+    <string name="checkout_with_googlepay_button_content_description">Checkout With Google Pay</string>
+    <string name="order_cart_header_title">My Bag</string>
+    <string name="lbl_checkout_est_time">Estimated time</string>
+    <string name="lbl_contact_info_title">Contact Info</string>
+    <string name="lbl_contact_option_title">Contact-free Delivery</string>
+    <string name="lbl_contact_option_body">Select this option and the driver will drop off your order, then notify you.</string>
+    <string name="lbl_delivery_address_title">Delivery Address</string>
+    <string name="lbl_courier_notes_title">Notes for your Courier</string>
+    <string name="mapbox_public_key">pk.eyJ1IjoibWRhZGkxMTMwIiwiYSI6ImNrdXoyZzdnOTF3OXMycHA2Z2J1ZDNza2oifQ.a-WE-43vIaiG1sHJavZEUQ</string>
 </resources>

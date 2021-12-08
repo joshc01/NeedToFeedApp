@@ -1,13 +1,9 @@
 package com.cs389team4.needtofeed.ui.home;
 
-import android.os.Bundle;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
 import com.amplifyframework.datastore.generated.model.Item;
-import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.models.ItemViewModel;
 import com.cs389team4.needtofeed.utils.ListFragment;
 import com.cs389team4.needtofeed.utils.ViewModel;
@@ -18,13 +14,7 @@ public class RestaurantMenuListFragment extends ListFragment<Item> {
     @NonNull
     @Override
     public Item createModel() {
-        return Item.builder()
-                .title("a title")
-                .price(null)
-                .restaurant(null)
-                .restaurantId(null)
-                .image(null)
-                .build();
+        return Item.justId("");
     }
 
     @NonNull

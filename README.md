@@ -37,12 +37,14 @@ This app allows every day people to be a food deliverer for hire. The food being
   * [Meeting #3](https://docs.google.com/document/d/1yj85sSSWVuuXj_-uq7doz4UaEWi59epugUUpmCnpug8/edit?usp=sharing)
   * [Meeting #4](https://docs.google.com/document/d/1Y2JN-SIZWAFj2vDBEKkb0n-NHOHyc-y0-DzHHeW-XuM/edit?usp=sharing)
   * [Meeting #5](https://docs.google.com/document/d/1a-lo29esci0nwC5Q6HWTGf8SDW7hwEgrNWx-q0GVpoc/edit?usp=sharing)
-* Sprint Demo (video and apk (or equivalent)) and Retrospective
+* [Sprint Demo (video and apk (or equivalent)) and Retrospective](https://docs.google.com/document/d/1ThOQ87HxEWXH7I8ipw-TbAYuw9s82XBg82T6Wk6v3Rc/edit?usp=sharing)
 
 **Sprint 3** 
 
-* Sprint planning
+* [Sprint planning](https://docs.google.com/document/d/1PFaM36iB5LDLQM7U4FpNp728I9S-_8qKcu792fl-BKA/edit?usp=sharing)
 * Scrums
+  * [Meeting #6](https://docs.google.com/document/d/1Kg8HOVXcuTg0HOHztk0gS_ebQgV-khjxliTweSkayZo/edit?usp=sharing)
+  * [Meeting #7](https://docs.google.com/document/d/1WHKQwLmP4-cagnDb4rCF6bxGZ-26W3CrMRjp8JPfNlk/edit?usp=sharing)
 * Sprint demo - video and apk (or equivalent)
 * Spring retrospective
 

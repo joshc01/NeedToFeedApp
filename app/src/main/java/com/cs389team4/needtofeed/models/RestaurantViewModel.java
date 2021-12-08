@@ -51,8 +51,8 @@ public class RestaurantViewModel extends ViewModel<Restaurant> {
     }
 
     @NonNull
-    public Restaurant getRestaurant() {
-        return Restaurant.justId("");
+    public String getRestaurant() {
+        return "";
     }
 
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 import com.cs389team4.needtofeed.R
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantMapBinding
@@ -86,6 +87,7 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentRestaurantMapBinding.inflate(inflater, container, false)
 
         mapView = binding.restaurantsPickupMap

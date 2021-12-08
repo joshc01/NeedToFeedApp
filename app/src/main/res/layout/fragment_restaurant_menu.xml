@@ -16,22 +16,23 @@
         android:id="@+id/restaurant_menu_restaurant_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/restaurant_menu_restaurant_image"
         app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_image"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="16dp"
         android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/restaurant_menu_restaurant_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_name"/>
+        android:layout_below="@+id/restaurant_menu_restaurant_name"/>
 
     <androidx.fragment.app.FragmentContainerView
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="375dp"
         android:id="@+id/Restaurant_Menu_Fragment"
-        android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuListFragment"
-        app:layout_constraintTop_toBottomOf="@id/restaurant_menu_restaurant_category"/>
+        android:name="com.cs389team4.needtofeed.ui.home.RestaurantMenuListFragment"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/restaurant_list_continue_checkout"
@@ -39,10 +40,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_button_purple"
-        android:text="ViewCart"
+        android:text="@string/btn_view_cart"
         android:textColor="@color/white"
-        android:layout_alignParentBottom="true" />
-
-
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"/>
 
 </RelativeLayout>

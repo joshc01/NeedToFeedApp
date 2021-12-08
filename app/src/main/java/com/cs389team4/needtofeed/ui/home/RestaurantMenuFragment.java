@@ -1,6 +1,8 @@
 package com.cs389team4.needtofeed.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Order;
 import com.bumptech.glide.Glide;
 
+import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantMenuBinding;
 
 public class RestaurantMenuFragment extends Fragment {
@@ -23,6 +29,11 @@ public class RestaurantMenuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentRestaurantMenuBinding.inflate(inflater, container, false);
+
+        if (!MainActivity.getOrderCartExists()) {
+            binding.restaurantListContinueCheckout.setVisibility(View.GONE);
+        }
+
         return binding.getRoot();
     }
 
@@ -46,6 +57,8 @@ public class RestaurantMenuFragment extends Fragment {
         String restaurantImage = args.getRestaurantImage();
         Glide.with(view).load(restaurantImage).fitCenter().into(imageViewRestaurantImage);
 
-
+        btnViewCart.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), OrderCartActivity.class));
+        });
     }
 }
