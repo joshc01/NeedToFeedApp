@@ -15,7 +15,6 @@ import com.cs389team4.needtofeed.utils.RecyclerViewAdapter;
 import org.bouncycastle.util.test.Test;
 
 public class SearchActivity extends AppCompatActivity {
-    private RecyclerView thing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +23,6 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String test = intent.getStringExtra(RestaurantFragment.EXTRA_MESSAGE);
 
-        thing = findViewById(R.id.recycTest);
-
         Log.d("Test", "onCreate: " + test);
-        goTest(test);
     }
-
-    private void goTest (String info){
-        TextView view = findViewById(R.id.testText);
-        view.setText(info);
-    }
-
 }
