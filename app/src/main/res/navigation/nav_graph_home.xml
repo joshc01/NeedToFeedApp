@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/restaurantMapFragment"
         android:name="com.cs389team4.needtofeed.ui.home.RestaurantMapFragment"
-        android:label="RestaurantMapFragment"
+        android:label="Pickup Map"
         tools:layout="@layout/fragment_restaurant_map">
         <action
             android:id="@+id/action_restaurantMapFragment_to_restaurantMenuFragment"
