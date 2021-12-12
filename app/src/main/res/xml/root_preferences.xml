@@ -1,35 +1,38 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header">
+    <PreferenceCategory app:title="@string/account_settings_header">
 
         <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
+            app:key="name"
+            app:title="@string/name_setting"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
+        <EditTextPreference
+            app:key="phoneNumber"
+            app:title="@string/phone_number_setting"
             app:useSimpleSummaryProvider="true" />
 
+        <EditTextPreference
+            app:key="email"
+            android:title="@string/email_setting"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:key="address"
+            android:title="@string/addresses_setting"
+            app:useSimpleSummaryProvider="true"/>
+
+        <EditTextPreference
+            android:key="password"
+            android:title="Password"
+            app:useSimpleSummaryProvider="true"/>
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory android:title="@string/payment_settings_header"/>
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
 
-    </PreferenceCategory>
+
 
 </PreferenceScreen>

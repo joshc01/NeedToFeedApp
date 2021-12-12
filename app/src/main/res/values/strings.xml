@@ -75,4 +75,10 @@
     <string name="order_details_btn_schedule">Schedule</string>
     <string name="lbl_unavailable">Unavailable</string>
     <string name="checkout_estimated_time_default_value">35-45 minutes</string>
+    <string name="account_settings_header">Account Settings</string>
+    <string name="name_setting">Your Name</string>
+    <string name="phone_number_setting">Phone Number</string>
+    <string name="email_setting">Email</string>
+    <string name="addresses_setting">Addresses</string>
+    <string name="payment_settings_header">Payment Settings</string>
 </resources>
