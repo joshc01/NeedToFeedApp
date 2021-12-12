@@ -20,11 +20,45 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_restaurants"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/toggle_order_mode"
+        android:layout_alignBaseline="@+id/toggle_order_mode"
+        android:layout_marginStart="60dp"
+        android:text="@string/lbl_switch_to_pickup_prompt"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/restaurants_delivery_address_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/toggle_order_mode"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_restaurants_current_location"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/restaurants_lbl_selected_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/lbl_restaurants_location_address_placeholder"
+            android:textStyle="bold"/>
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_keyboard_arrow_down_24"/>
+    </LinearLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_below="@+id/restaurants_delivery_address_container"
         android:id="@+id/swipe_refresh_restaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toggle_order_mode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

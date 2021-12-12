@@ -79,8 +79,10 @@ public class RestaurantItemDetailsFragment extends Fragment {
         AtomicInteger quantity = new AtomicInteger(1);
 
         btnQuantityAdd.setOnClickListener(v -> {
-            quantity.getAndIncrement();
-            textViewQuantity.setText(quantity.toString());
+            if (quantity.get() < 99) {
+                quantity.getAndIncrement();
+                textViewQuantity.setText(quantity.toString());
+            }
         });
         btnQuantityRemove.setOnClickListener(v -> {
             if (quantity.get() > 1) {
@@ -128,10 +130,19 @@ public class RestaurantItemDetailsFragment extends Fragment {
                     } else {
                         Order existingOrder = response.getData().iterator().next();
                         JsonObject orderContent = new JsonObject();
-                        orderContent.add("quantity", new Gson().toJsonTree(quantity));
+
                         orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
+                        orderContent.add("quantity", new Gson().toJsonTree(quantity));
 
                         JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
+
+                        if (orderDetailsJson.keySet().contains(itemName)) {
+                            int orderItemQty = orderDetailsJson.getAsJsonObject(itemName).get("quantity").getAsInt();
+                            orderItemQty += quantity.get();
+                            orderContent.addProperty("quantity", orderItemQty);
+                            orderDetailsJson.remove(itemName);
+                        }
+
                         orderDetailsJson.add(itemName, orderContent);
 
                         Order orderUpdate = Order.builder()

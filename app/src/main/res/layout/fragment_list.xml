@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ListFragment"
-        tools:listitem="@layout/list_content" />
+        tools:listitem="@layout/list_content"/>
 
     <TextView
         android:id="@+id/empty_view"
