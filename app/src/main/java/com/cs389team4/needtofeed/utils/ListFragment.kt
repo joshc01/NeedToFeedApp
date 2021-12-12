@@ -13,7 +13,6 @@ import com.amplifyframework.datastore.DataStoreChannelEventName
 import com.amplifyframework.datastore.DataStoreItemChange
 import com.amplifyframework.datastore.events.NetworkStatusEvent
 import com.amplifyframework.datastore.generated.model.Item
-import com.amplifyframework.datastore.generated.model.Restaurant
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.SubscriptionToken
 import com.cs389team4.needtofeed.MainActivity.Companion.restaurantId
@@ -27,10 +26,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
     private var subscriptionTokens = mutableSetOf<SubscriptionToken>()
     private lateinit var networkStatusBar: Snackbar
 
-    private lateinit var restaurant: Restaurant
-
     private lateinit var binding: FragmentListBinding
-
 
     companion object {
         private val LOG = Amplify.Logging.forNamespace("NeedToFeed:ListFragment")
@@ -50,8 +46,6 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
 
         val recyclerView = binding.itemList
         recyclerView.adapter = itemAdapter
-
-
 
         networkStatusBar = Snackbar.make(view, "DataStore is not in sync.", Snackbar.LENGTH_INDEFINITE)
             .setAction("Retry") { start() }
@@ -169,7 +163,7 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
 
             val emptyView = binding.emptyView
             emptyView.visibility = if (itemMap.size == 0) View.VISIBLE else View.GONE
-            emptyView.text = getString(R.string.restaurants_unavailable)
+            emptyView.text = activity?.getString(R.string.restaurants_unavailable)
         }
     }
 
@@ -182,10 +176,4 @@ abstract class ListFragment<T : Model> : Fragment(), AdapterDelegate<T> {
             }
         }
     }
-
-    fun setRestaurant(restaurant: Restaurant) {
-        this.restaurant = restaurant
-    }
-
 }
-

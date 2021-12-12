@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.cs389team4.needtofeed.MainActivity
 import com.cs389team4.needtofeed.databinding.ActivityCheckoutBinding
@@ -66,9 +65,26 @@ class CheckoutActivity: AppCompatActivity() {
 
         recyclerView.adapter = itemAdapter
 
-        val name = MainActivity.userAttrs[2].value
+        val name = MainActivity.userAttrs[2].value ?: "Name"
 
         binding.checkoutUserName.text = name
+
+        val intent = Intent(this, CheckoutUpdateOrderDetailsActivity::class.java)
+
+        binding.checkoutYourInfoContactContainer.setOnClickListener {
+            intent.putExtra("fragment", "contact")
+            startActivity(intent)
+        }
+
+        binding.checkoutYourInfoDeliveryAddressContainer.setOnClickListener {
+            intent.putExtra("fragment", "address")
+            startActivity(intent)
+        }
+
+        binding.checkoutDeliveryInstructionsCourierNotesContainer.setOnClickListener {
+            intent.putExtra("fragment", "notes")
+            startActivity(intent)
+        }
 
         // Initialize Google Pay API client
         paymentsClient = PaymentUtil.createPaymentsClient(this)

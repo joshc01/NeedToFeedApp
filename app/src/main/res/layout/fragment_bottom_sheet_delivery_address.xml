@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_bottom_sheet_close"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_baseline_close_24"
+            android:background="@null"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_order_details"
+            android:textStyle="bold"
+            android:layout_marginStart="120dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet_delivery_time_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="parent">
+        <View
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_access_time_filled_24"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_deliver_now"
+            android:textStyle="bold"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray_light"
+            android:text="@string/order_details_btn_schedule"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+    <SearchView
+        android:id="@+id/bottom_sheet_search_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_delivery_time_container"
+        android:queryHint="Enter a new address"
+        android:autofillHints="postalAddress"/>
+    <TextView
+        android:id="@+id/bottom_sheet_lbl_nearby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_nearby"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/bottom_sheet_icon_current_location"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/ic_baseline_my_location_24" />
+        <TextView
+            android:id="@+id/bottom_sheet_lbl_current_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Location"
+            android:textStyle="bold"
+            android:layout_alignStart="@+id/bottom_sheet_icon_current_location"
+            android:layout_marginStart="32dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_unavailable"
+            android:layout_alignStart="@+id/bottom_sheet_lbl_current_location"
+            android:layout_below="@+id/bottom_sheet_lbl_current_location"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/bottom_sheet_lbl_recent_locations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_lbl_nearby"
+        android:text="@string/lbl_recent_locations"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

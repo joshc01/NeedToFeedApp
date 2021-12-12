@@ -48,5 +48,4 @@ public class RestaurantMenuListFragment extends ListFragment<Item> {
     public boolean onLongClick(Item item) {
         return false;
     }
-
 }
