@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "needtofeedae53688e",
+  "functionName": "needtofeedae53688eCustomMessage",
+  "resourceName": "needtofeedae53688eCustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/opt/homebrew/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "needtofeedae53688eCustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "http://localhost:3000/confirmation",
+  "EMAILSUBJECT": "Welcome to NeedToFeed",
+  "EMAILMESSAGE": "Hello, world!",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

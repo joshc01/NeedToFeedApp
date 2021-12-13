@@ -10,7 +10,13 @@ export type AmplifyDependentResourcesAttributes = {
             "UserPoolName": "string",
             "AppClientIDWeb": "string",
             "AppClientID": "string",
-            "CreatedSNSRole": "string"
+            "CreatedSNSRole": "string",
+            "GoogleWebClient": "string",
+            "GoogleAndroidClient": "string",
+            "FacebookWebClient": "string"
+        },
+        "userPoolGroups": {
+            "needtofeedUserpoolGroupGroupRole": "string"
         }
     },
     "storage": {
@@ -23,6 +29,20 @@ export type AmplifyDependentResourcesAttributes = {
         "restaurants": {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
+        }
+    },
+    "function": {
+        "needtofeedae53688eCustomMessage": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
+        },
+        "needtofeedae53688ePostConfirmation": {
+            "Name": "string",
+            "Arn": "string",
+            "LambdaExecutionRole": "string",
+            "Region": "string"
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.cs389team4.needtofeed.utils
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.cs389team4.needtofeed.R
 class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
                                      private val delegate: AdapterDelegate<T>
 ) : RecyclerView.Adapter<RecyclerViewAdapter<T>.ViewHolder>(){
-    private var filteredList: MutableList<ViewModel<T>> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -44,27 +42,6 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
     }
 
     override fun getItemCount(): Int = values.size
-
-    private fun onSearchQuery(filteredList: List<ViewModel<T>>) {
-        this.values = filteredList
-        Log.d("onSearchQuery", "Filter ran")
-        notifyDataSetChanged()
-    }
-
-    
-     fun performFiltering(userFilter: String): Void? {
-
-         if (userFilter.isEmpty()) {
-            onSearchQuery(values)
-        }
-        else {
-            for (restaurant in values) {
-                if (restaurant.getTitle().lowercase().contains(userFilter)) filteredList.add(restaurant)
-            }
-        }
-         onSearchQuery(filteredList)
-         return null
-}
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.restaurant_list_item_name)

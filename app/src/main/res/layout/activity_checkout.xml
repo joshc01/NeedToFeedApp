@@ -46,11 +46,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/checkout_user_name"/>
+
                 <View
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/ic_baseline_arrow_forward_ios_24"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/ic_baseline_arrow_forward_ios_24" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
