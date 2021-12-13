@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.AccountFragment">
+        tools:context=".ui.profile.AccountFragment">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_Card_View"
@@ -34,7 +34,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
-            android:name="com.cs389team4.needtofeed.ui.SettingsFragment"
+            android:name="com.cs389team4.needtofeed.ui.profile.SettingsFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

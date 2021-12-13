@@ -1,12 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_profile"
     app:startDestination="@id/navigate_profile">
 
     <fragment
         android:id="@+id/navigate_profile"
-        android:name="com.cs389team4.needtofeed.ui.AccountFragment"
-        android:label="@string/title_profile"/>
+        android:name="com.cs389team4.needtofeed.ui.profile.AccountFragment"
+        android:label="@string/title_profile">
+        <action
+            android:id="@+id/action_navigate_profile_to_editNameFragment"
+            app:destination="@id/editNameFragment" />
+        <action
+            android:id="@+id/action_navigate_profile_to_editEmailFragment"
+            app:destination="@id/editEmailFragment" />
+        <action
+            android:id="@+id/action_navigate_profile_to_editPasswordFragment"
+            app:destination="@id/editPasswordFragment" />
+        <action
+            android:id="@+id/action_navigate_profile_to_editAddressFragment"
+            app:destination="@id/editAddressFragment" />
+        <action
+            android:id="@+id/action_navigate_profile_to_editPhoneNumberFragment"
+            app:destination="@id/editPhoneNumberFragment" />
+        <action
+            android:id="@+id/action_navigate_profile_to_editPaymentFragment"
+            app:destination="@id/editPaymentFragment" />
+        <action
+            android:id="@+id/action_navigate_profile_to_helpContactFragment"
+            app:destination="@id/helpContactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNameFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.EditNameFragment"
+        android:label="Name"
+        tools:layout="@layout/fragment_edit_name" >
+        <action
+            android:id="@+id/action_editNameFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editEmailFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.EditEmailFragment"
+        android:label="Email"
+        tools:layout="@layout/fragment_edit_email" >
+        <action
+            android:id="@+id/action_editEmailFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPasswordFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.EditPasswordFragment"
+        android:label="Password"
+        tools:layout="@layout/fragment_edit_password" >
+        <action
+            android:id="@+id/action_editPasswordFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editAddressFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.EditAddressFragment"
+        android:label="Address"
+        tools:layout="@layout/fragment_edit_address" >
+        <action
+            android:id="@+id/action_editAddressFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPhoneNumberFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.EditPhoneNumberFragment"
+        android:label="Phone Number"
+        tools:layout="@layout/fragment_edit_phone_number" >
+        <action
+            android:id="@+id/action_editPhoneNumberFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPaymentFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.EditPaymentFragment"
+        android:label="Payment"
+        tools:layout="@layout/fragment_edit_payment" >
+        <action
+            android:id="@+id/action_editPaymentFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpContactFragment"
+        android:name="com.cs389team4.needtofeed.ui.profile.HelpContactFragment"
+        android:label="Help/Contact"
+        tools:layout="@layout/fragment_help_contact" >
+        <action
+            android:id="@+id/action_helpContactFragment_to_navigate_profile"
+            app:destination="@id/navigate_profile" />
+    </fragment>
 
 </navigation>

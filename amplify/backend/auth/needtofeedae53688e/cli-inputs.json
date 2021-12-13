@@ -14,7 +14,7 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "Verify your NeedToFeed Account",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -27,19 +27,27 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-      "email"
+      "address",
+      "phone_number",
+      "email",
+      "name"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "address",
+      "email",
+      "name",
+      "phone_number"
     ],
     "userpoolClientLambdaRole": "needtoae53688e_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "needtofeedae53688e",
     "serviceName": "Cognito",
-    "useDefault": "defaultSocial",
+    "useDefault": "manual",
     "sharedId": "ae53688e",
-    "userPoolGroupList": [],
+    "userPoolGroupList": [
+      "needtofeedUserpoolGroup"
+    ],
     "usernameAttributes": [
       "email"
     ],
@@ -47,12 +55,18 @@
     "hostedUI": true,
     "hostedUIDomainName": "needtofeedae53688e-ae53688e",
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "authProvidersUserPool": [
       "Facebook",
       "Google"
     ],
-    "triggers": {},
+    "triggers": {
+      "CustomMessage": [
+        "verification-link"
+      ],
+      "PostConfirmation": [
+        "add-to-group"
+      ]
+    },
     "authRoleArn": {
       "Fn::GetAtt": [
         "AuthRole",
@@ -67,10 +81,45 @@
     },
     "breakCircularDependency": true,
     "useEnabledMfas": false,
-    "dependsOn": [],
+    "dependsOn": [
+      {
+        "category": "function",
+        "resourceName": "needtofeedae53688eCustomMessage",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      },
+      {
+        "category": "function",
+        "resourceName": "needtofeedae53688ePostConfirmation",
+        "triggerProvider": "Cognito",
+        "attributes": [
+          "Arn",
+          "Name"
+        ]
+      }
+    ],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [
+      "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
+    ],
+    "thirdPartyAuth": true,
+    "authProviders": [
+      "graph.facebook.com",
+      "accounts.google.com"
+    ],
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "audiences": [
+      "611113469834-r7g7chl6cd7tdev1bpucocb84vbims7a.apps.googleusercontent.com",
+      "611113469834-anr0rjhku1pcroaqpdlhdch2bh432d9j.apps.googleusercontent.com"
+    ],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/signout/\"]}",
+    "verificationBucketName": "needtofeedae53688everificationbucket",
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"needtofeedae53688eCustomMessage\"\n  },\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"needtofeedae53688ePostConfirmation\"\n  }\n]"
   }
 }

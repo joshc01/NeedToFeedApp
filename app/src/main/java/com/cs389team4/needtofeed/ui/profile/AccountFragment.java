@@ -1,4 +1,4 @@
-package com.cs389team4.needtofeed.ui;
+package com.cs389team4.needtofeed.ui.profile;
 
 import android.os.Bundle;
 
@@ -17,7 +17,6 @@ import com.amplifyframework.auth.AuthUserAttribute;
 import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentAccountBinding;
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
 
 public class AccountFragment extends Fragment {
     private FragmentAccountBinding binding = null;
@@ -32,10 +31,5 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-//        AuthUserAttribute name = MainActivity.userAttrs.get(2);
-//        String name_string = name.getValue();
-//        AppCompatTextView name_tv = binding.profileNameTextView;
-//        name_tv.setText(name_string);
     }
 }
