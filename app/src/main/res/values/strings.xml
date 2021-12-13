@@ -51,7 +51,7 @@
     <string name="lbl_checkout_action">Check Out</string>
     <string name="btn_view_cart">View Cart</string>
     <string name="btn_add_to_order">+ Add more items</string>
-    <string name="profile_name">Name</string>
+    <string name="profile_name_description">Name</string>
 
     <string name="googlepay_button_content_description">Google Pay</string>
     <string name="checkout_with_googlepay_button_content_description">Checkout With Google Pay</string>
@@ -63,6 +63,20 @@
     <string name="lbl_delivery_address_title">Delivery Address</string>
     <string name="lbl_courier_notes_title">Notes for your Courier</string>
     <string name="mapbox_public_key">pk.eyJ1IjoibWRhZGkxMTMwIiwiYSI6ImNrdXoyZzdnOTF3OXMycHA2Z2J1ZDNza2oifQ.a-WE-43vIaiG1sHJavZEUQ</string>
+
+    <string name="personal_infor_btn_string">Personal Information</string>
+    <string name="settings_btn_string">Settings</string>
+    <string name="signout_btn_string">Sign out</string>
+    <string name="name_lbl_title_string">Name</string>
+    <string name="email_lbl_title_string">Email</string>
+    <string name="password_lbl_title_string">Password</string>
+    <string name="address_lbl_title_string">Address</string>
+    <string name="phone_number_lbl_title_string">Phone Number</string>
+    <string name="push_notifications_lbl_title_string">Push Notifications</string>
+    <string name="help_lbl_title_string">Help/Contact</string>
+    <string name="payment_lbl_title_string">Payment</string>
+    <string name="logout_lbl_title_string">Logout</string>
+
     <string name="lbl_switch_to_pickup_prompt">Switch to Pickup</string>
     <string name="lbl_phone_number">Phone Number</string>
     <string name="courier_notes_hint">Add special instructions for a smooth delivery</string>
@@ -81,4 +95,5 @@
     <string name="email_setting">Email</string>
     <string name="addresses_setting">Addresses</string>
     <string name="payment_settings_header">Payment Settings</string>
+
 </resources>

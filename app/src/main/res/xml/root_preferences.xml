@@ -27,6 +27,7 @@
             android:key="password"
             android:title="Password"
             app:useSimpleSummaryProvider="true"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/payment_settings_header"/>
