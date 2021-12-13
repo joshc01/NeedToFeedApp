@@ -31,7 +31,7 @@ public class OrderItemRecyclerViewAdapter extends RecyclerView.Adapter<OrderItem
 
     }
 
-    @Override
+    @Override//update to be able to be used by cardview
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
