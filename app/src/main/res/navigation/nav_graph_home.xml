@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigate_home_to_restaurantMapFragment"
             app:destination="@id/restaurantMapFragment" />
+        <action
+            android:id="@+id/action_navigate_home_to_activeOrderActivity"
+            app:destination="@id/activeOrderActivity" />
     </fragment>
     <fragment
         android:id="@+id/restaurantMenuFragment"
@@ -61,4 +64,9 @@
             android:id="@+id/action_restaurantMapFragment_to_restaurantMenuFragment"
             app:destination="@id/restaurantMenuFragment" />
     </fragment>
+    <activity
+        android:id="@+id/activeOrderActivity"
+        android:name="com.cs389team4.needtofeed.ui.ActiveOrderActivity"
+        android:label="ActiveOrderActivity"
+        tools:layout="@layout/activity_active_order"/>
 </navigation>

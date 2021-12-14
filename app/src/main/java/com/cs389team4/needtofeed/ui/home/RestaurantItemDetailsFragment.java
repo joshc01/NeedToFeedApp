@@ -96,7 +96,7 @@ public class RestaurantItemDetailsFragment extends Fragment {
         });
 
         btnAddToCart.setOnClickListener(v -> Amplify.API.query(
-                ModelQuery.list(Order.class, Order.IS_ACTIVE.eq(true)),
+                ModelQuery.list(Order.class, Order.IS_EDITABLE.eq(true)),
                 response -> {
                     // If no active order exists
                     if (!MainActivity.getOrderCartExists()) {
