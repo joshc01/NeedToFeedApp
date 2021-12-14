@@ -115,11 +115,11 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 .estimatedTimeComplete(new Temporal.Time(String.valueOf(LocalTime.now())))
                                 .orderTotal(0.99)
                                 .orderItems(orderDetailsJson.toString())
-                                .orderedBy("user_ordered")
-                                .isActive(true)
-                                .orderRestaurant(restaurantName)
+                                .isEditable(true)
+                                .isActive(false)
                                 .orderRestaurantId("restaurant_id")
                                 .orderDateTime(new Temporal.DateTime(dateTime))
+                                .orderRestaurant(restaurantName)
                                 .build();
 
                         Amplify.API.mutate(ModelMutation.create(todo),
@@ -157,11 +157,11 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 .estimatedTimeComplete(existingOrder.getEstimatedTimeComplete())
                                 .orderTotal(existingOrder.getOrderTotal())
                                 .orderItems(orderDetailsJson.toString())
-                                .orderedBy(existingOrder.getOrderedBy())
+                                .isEditable(existingOrder.getIsEditable())
                                 .isActive(existingOrder.getIsActive())
-                                .orderRestaurant(restaurantName)
                                 .orderRestaurantId(existingOrder.getOrderRestaurantId())
                                 .orderDateTime(existingOrder.getOrderDateTime())
+                                .orderRestaurant(restaurantName)
                                 .id(existingOrder.getId())
                                 .build();
 

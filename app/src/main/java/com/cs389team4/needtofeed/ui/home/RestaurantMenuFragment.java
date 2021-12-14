@@ -58,8 +58,7 @@ public class RestaurantMenuFragment extends Fragment {
         String restaurantImage = args.getRestaurantImage();
         Glide.with(view).load(restaurantImage).fitCenter().into(imageViewRestaurantImage);
 
-        btnViewCart.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), OrderCartActivity.class));
-        });
+        btnViewCart.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), OrderCartActivity.class)));
     }
 }

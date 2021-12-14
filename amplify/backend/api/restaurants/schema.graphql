@@ -4,11 +4,11 @@ type Order @model @auth(rules: [{allow: owner}]) {
   estimatedTimeComplete: AWSTime!
   orderTotal: Float!
   orderItems: AWSJSON!
-  orderedBy: String!
+  isEditable: Boolean!
   isActive: Boolean!
-  orderRestaurant: String!
   orderRestaurantId: String!
   orderDateTime: AWSDateTime!
+  orderRestaurant: String!
 }
 
 type Restaurant @model @auth(rules: [{allow: public}, {allow: private, operations: [read]}]) {

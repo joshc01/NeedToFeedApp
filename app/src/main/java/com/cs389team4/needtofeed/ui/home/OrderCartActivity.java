@@ -103,7 +103,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
         Executors.newCachedThreadPool().submit(() -> {
             Amplify.API.query(
-                    ModelQuery.list(Order.class, Order.IS_ACTIVE.eq(true)),
+                    ModelQuery.list(Order.class, Order.IS_EDITABLE.eq(true)),
                     response -> {
                         final Order[] order = new Order[1];
                         order[0] = response.getData().getItems().iterator().next();
