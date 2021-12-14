@@ -46,6 +46,12 @@ public class SettingsFragment extends Fragment {
         TextView email_tv = binding.userEmail;
         email_tv.setText(email_string);
 
+        //Grabs the user phone number from AWS attributes
+//        AuthUserAttribute phone = MainActivity.userAttrs.get(5);
+//        String phone_string = phone.getValue();
+//        TextView phone_tv = binding.userPhoneNumber;
+//        phone_tv.setText(phone_string);
+
         //Navigate to EditNameFragment on Click
         binding.nameLblContainer.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(R.id.editNameFragment);
@@ -73,12 +79,6 @@ public class SettingsFragment extends Fragment {
         //Navigate to EditPhoneNumberFragment on Click
         binding.phoneNumberLblContainer.setOnClickListener(v -> {
                     Navigation.findNavController(view).navigate(R.id.editPhoneNumberFragment);
-                }
-        );
-
-        //Navigate to EditPaymentFragment on Click
-        binding.paymentLblContainer.setOnClickListener(v -> {
-                    Navigation.findNavController(view).navigate(R.id.editPaymentFragment);
                 }
         );
 

@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import com.cs389team4.needtofeed.databinding.FragmentBottomSheetDeliveryAddressBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BottomSheetDeliveryAddressFragment : BottomSheetDialogFragment() {
+class DeliveryAddressBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentBottomSheetDeliveryAddressBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBottomSheetDeliveryAddressBinding.inflate(inflater, container, false)
 
         return binding.root

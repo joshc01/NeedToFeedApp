@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 
 import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantMenuBinding;
+import com.cs389team4.needtofeed.ui.ActiveOrderActivity;
 
 public class RestaurantMenuFragment extends Fragment {
     private FragmentRestaurantMenuBinding binding = null;
@@ -57,8 +58,7 @@ public class RestaurantMenuFragment extends Fragment {
         String restaurantImage = args.getRestaurantImage();
         Glide.with(view).load(restaurantImage).fitCenter().into(imageViewRestaurantImage);
 
-        btnViewCart.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), OrderCartActivity.class));
-        });
+        btnViewCart.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), OrderCartActivity.class)));
     }
 }

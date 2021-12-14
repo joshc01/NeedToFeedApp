@@ -103,7 +103,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
         Executors.newCachedThreadPool().submit(() -> {
             Amplify.API.query(
-                    ModelQuery.list(Order.class, Order.IS_ACTIVE.eq(true)),
+                    ModelQuery.list(Order.class, Order.IS_EDITABLE.eq(true)),
                     response -> {
                         final Order[] order = new Order[1];
                         order[0] = response.getData().getItems().iterator().next();
@@ -116,7 +116,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
                         asyncTask.complete(orderDetailsJson);
                     },
-                    error -> Utils.showMessage(getApplicationContext(), "NOT SHOWN!")
+                    error -> Utils.showMessage(getApplicationContext(), "Error loading order cart, please try again")
             );
             return null;
         });

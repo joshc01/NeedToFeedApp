@@ -40,7 +40,7 @@ public class RestaurantMenuListFragment extends ListFragment<Item> {
     @Override
     public void onClick(Item item) {
         Navigation.findNavController(getView()).navigate(RestaurantMenuFragmentDirections
-                .actionRestaurantMenuFragmentToRestaurantItemDetailsFragment(item.getTitle(), item.getPrice().floatValue(), item.getImage()));
+                .actionRestaurantMenuFragmentToRestaurantItemDetailsFragment(item.getTitle(), item.getPrice().floatValue(), item.getImage(), item.getRestaurant().getName()));
 
     }
 

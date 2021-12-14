@@ -11,6 +11,25 @@
       "StackId": "arn:aws:cloudformation:us-east-1:480230309549:stack/amplify-needtofeed-dev-31050/b08d9a60-3562-11ec-8fa0-0ef636b25e3d",
       "AmplifyAppId": "d3o38ixvcvayqc",
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-needtofeed-dev-31050-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "needtofeedae53688e": {
+          "facebookAppId": "4342634539124446",
+          "googleClientId": "611113469834-r7g7chl6cd7tdev1bpucocb84vbims7a.apps.googleusercontent.com",
+          "googleAndroid": "611113469834-anr0rjhku1pcroaqpdlhdch2bh432d9j.apps.googleusercontent.com"
+        },
+        "userPoolGroups": {}
+      },
+      "function": {
+        "needtofeedae53688eCustomMessage": {
+          "deploymentBucketName": "amplify-needtofeed-dev-31050-deployment",
+          "s3Key": "amplify-builds/needtofeedae53688eCustomMessage-4d2b2b527466584c7949-build.zip",
+          "REDIRECTURL": "localhost:3000/confirmation",
+          "EMAILSUBJECT": "Welcome to NeedToFeed",
+          "EMAILMESSAGE": "Hello, World!"
+        }
+      }
     }
   }
 }

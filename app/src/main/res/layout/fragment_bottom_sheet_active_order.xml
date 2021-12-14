@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/touch_outside"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:importantForAccessibility="no"
+            android:soundEffectsEnabled="false"
+            tools:ignore="UnusedAttribute"/>
+
+        <FrameLayout
+            android:id="@+id/design_bottom_sheet"
+            style="?attr/bottomSheetStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|top"
+            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_peekHeight="400dp"
+            app:behavior_hideable="false">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="25dp">
+
+                <LinearLayout
+                    android:id="@+id/active_order_bottom_sheet_status_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="30dp"
+                        android:text="35-45\nmin"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textAlignment="center" />
+
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="60dp"
+                        android:background="@color/gray_light" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Waiting for kitchen"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="-25dp"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/active_order_bottom_sheet_icon_location"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/ic_baseline_location_on_24"
+                    android:layout_below="@id/active_order_bottom_sheet_status_container"/>
+
+                <LinearLayout
+                    android:id="@+id/active_order_bottom_sheet_address_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/active_order_bottom_sheet_icon_location"
+                    android:layout_below="@+id/active_order_bottom_sheet_status_container">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ADDRESS"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2150 Main St"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New York, NY 10009"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/active_order_bottom_sheet_icon_dining"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/ic_baseline_local_dining_24"
+                    android:layout_below="@+id/active_order_bottom_sheet_icon_location"/>
+
+                <LinearLayout
+                    android:id="@+id/active_order_bottom_sheet_restaurant_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toEndOf="@+id/active_order_bottom_sheet_icon_dining"
+                    android:layout_below="@+id/active_order_bottom_sheet_address_container">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="RESTAURANT"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Joe's Pizza"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/active_order_bottom_sheet_icon_card"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/ic_baseline_credit_card_24"
+                    android:layout_below="@+id/active_order_bottom_sheet_icon_dining"/>
+
+                <LinearLayout
+                    android:id="@+id/active_order_bottom_sheet_payment_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_toEndOf="@+id/active_order_bottom_sheet_icon_card"
+                    android:layout_below="@+id/active_order_bottom_sheet_restaurant_container">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PAYMENT"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Visa 5690"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/active_order_bottom_sheet_icon_receipt"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/ic_baseline_receipt_long_24"
+                    android:layout_below="@+id/active_order_bottom_sheet_icon_card"/>
+
+                <LinearLayout
+                    android:id="@+id/active_order_bottom_sheet_order_id_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toEndOf="@+id/active_order_bottom_sheet_icon_receipt"
+                    android:layout_below="@+id/active_order_bottom_sheet_payment_container">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ORDER ID"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="acf7459-24"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</FrameLayout>

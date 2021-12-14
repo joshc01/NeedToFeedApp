@@ -99,8 +99,6 @@
     <string name="save_lbl_title_string">Save</string>
     <string name="current_password_lbl_string">Current Password</string>
     <string name="new_password_lbl_string">New Password</string>
-    <string name="ntf_phone_number">(914)867-5309</string>
-    <string name="contact_header">Get in touch!</string>
-    <string name="ntf_phonenumber">(914)867-5309</string>
+    <string name="img_splash_logo_content_desc">NeedToFeed Logo</string>
 
 </resources>
