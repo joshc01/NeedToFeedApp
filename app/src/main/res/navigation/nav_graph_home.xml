@@ -44,6 +44,8 @@
         <argument android:name="itemName" app:argType="string" />
         <argument android:name="itemPrice" app:argType="float" />
         <argument android:name="itemImage" app:argType="string" />
+
+        <argument android:name="restaurantName" app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/checkoutActivity"

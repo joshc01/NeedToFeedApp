@@ -99,5 +99,6 @@
     <string name="save_lbl_title_string">Save</string>
     <string name="current_password_lbl_string">Current Password</string>
     <string name="new_password_lbl_string">New Password</string>
+    <string name="img_splash_logo_content_desc">NeedToFeed Logo</string>
 
 </resources>

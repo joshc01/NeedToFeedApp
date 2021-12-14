@@ -34,6 +34,7 @@ public final class Order implements Model {
   public static final QueryField IS_ACTIVE = field("Order", "isActive");
   public static final QueryField ORDER_RESTAURANT = field("Order", "orderRestaurant");
   public static final QueryField ORDER_RESTAURANT_ID = field("Order", "orderRestaurantId");
+  public static final QueryField ORDER_DATE_TIME = field("Order", "orderDateTime");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String orderType;
   private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time estimatedTimeComplete;
@@ -43,6 +44,7 @@ public final class Order implements Model {
   private final @ModelField(targetType="Boolean", isRequired = true) Boolean isActive;
   private final @ModelField(targetType="String", isRequired = true) String orderRestaurant;
   private final @ModelField(targetType="String", isRequired = true) String orderRestaurantId;
+  private final @ModelField(targetType="AWSDateTime", isRequired = true) Temporal.DateTime orderDateTime;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -81,6 +83,10 @@ public final class Order implements Model {
       return orderRestaurantId;
   }
   
+  public Temporal.DateTime getOrderDateTime() {
+      return orderDateTime;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -89,7 +95,7 @@ public final class Order implements Model {
       return updatedAt;
   }
   
-  private Order(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal, String orderItems, String orderedBy, Boolean isActive, String orderRestaurant, String orderRestaurantId) {
+  private Order(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal, String orderItems, String orderedBy, Boolean isActive, String orderRestaurant, String orderRestaurantId, Temporal.DateTime orderDateTime) {
     this.id = id;
     this.orderType = orderType;
     this.estimatedTimeComplete = estimatedTimeComplete;
@@ -99,6 +105,7 @@ public final class Order implements Model {
     this.isActive = isActive;
     this.orderRestaurant = orderRestaurant;
     this.orderRestaurantId = orderRestaurantId;
+    this.orderDateTime = orderDateTime;
   }
   
   @Override
@@ -118,6 +125,7 @@ public final class Order implements Model {
               ObjectsCompat.equals(getIsActive(), order.getIsActive()) &&
               ObjectsCompat.equals(getOrderRestaurant(), order.getOrderRestaurant()) &&
               ObjectsCompat.equals(getOrderRestaurantId(), order.getOrderRestaurantId()) &&
+              ObjectsCompat.equals(getOrderDateTime(), order.getOrderDateTime()) &&
               ObjectsCompat.equals(getCreatedAt(), order.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), order.getUpdatedAt());
       }
@@ -135,6 +143,7 @@ public final class Order implements Model {
       .append(getIsActive())
       .append(getOrderRestaurant())
       .append(getOrderRestaurantId())
+      .append(getOrderDateTime())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -154,6 +163,7 @@ public final class Order implements Model {
       .append("isActive=" + String.valueOf(getIsActive()) + ", ")
       .append("orderRestaurant=" + String.valueOf(getOrderRestaurant()) + ", ")
       .append("orderRestaurantId=" + String.valueOf(getOrderRestaurantId()) + ", ")
+      .append("orderDateTime=" + String.valueOf(getOrderDateTime()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -182,6 +192,7 @@ public final class Order implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -195,7 +206,8 @@ public final class Order implements Model {
       orderedBy,
       isActive,
       orderRestaurant,
-      orderRestaurantId);
+      orderRestaurantId,
+      orderDateTime);
   }
   public interface OrderTypeStep {
     EstimatedTimeCompleteStep orderType(String orderType);
@@ -233,7 +245,12 @@ public final class Order implements Model {
   
 
   public interface OrderRestaurantIdStep {
-    BuildStep orderRestaurantId(String orderRestaurantId);
+    OrderDateTimeStep orderRestaurantId(String orderRestaurantId);
+  }
+  
+
+  public interface OrderDateTimeStep {
+    BuildStep orderDateTime(Temporal.DateTime orderDateTime);
   }
   
 
@@ -243,7 +260,7 @@ public final class Order implements Model {
   }
   
 
-  public static class Builder implements OrderTypeStep, EstimatedTimeCompleteStep, OrderTotalStep, OrderItemsStep, OrderedByStep, IsActiveStep, OrderRestaurantStep, OrderRestaurantIdStep, BuildStep {
+  public static class Builder implements OrderTypeStep, EstimatedTimeCompleteStep, OrderTotalStep, OrderItemsStep, OrderedByStep, IsActiveStep, OrderRestaurantStep, OrderRestaurantIdStep, OrderDateTimeStep, BuildStep {
     private String id;
     private String orderType;
     private Temporal.Time estimatedTimeComplete;
@@ -253,6 +270,7 @@ public final class Order implements Model {
     private Boolean isActive;
     private String orderRestaurant;
     private String orderRestaurantId;
+    private Temporal.DateTime orderDateTime;
     @Override
      public Order build() {
         String id = this.id != null ? this.id : UUID.randomUUID().toString();
@@ -266,7 +284,8 @@ public final class Order implements Model {
           orderedBy,
           isActive,
           orderRestaurant,
-          orderRestaurantId);
+          orderRestaurantId,
+          orderDateTime);
     }
     
     @Override
@@ -319,9 +338,16 @@ public final class Order implements Model {
     }
     
     @Override
-     public BuildStep orderRestaurantId(String orderRestaurantId) {
+     public OrderDateTimeStep orderRestaurantId(String orderRestaurantId) {
         Objects.requireNonNull(orderRestaurantId);
         this.orderRestaurantId = orderRestaurantId;
+        return this;
+    }
+    
+    @Override
+     public BuildStep orderDateTime(Temporal.DateTime orderDateTime) {
+        Objects.requireNonNull(orderDateTime);
+        this.orderDateTime = orderDateTime;
         return this;
     }
     
@@ -337,7 +363,7 @@ public final class Order implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal, String orderItems, String orderedBy, Boolean isActive, String orderRestaurant, String orderRestaurantId) {
+    private CopyOfBuilder(String id, String orderType, Temporal.Time estimatedTimeComplete, Double orderTotal, String orderItems, String orderedBy, Boolean isActive, String orderRestaurant, String orderRestaurantId, Temporal.DateTime orderDateTime) {
       super.id(id);
       super.orderType(orderType)
         .estimatedTimeComplete(estimatedTimeComplete)
@@ -346,7 +372,8 @@ public final class Order implements Model {
         .orderedBy(orderedBy)
         .isActive(isActive)
         .orderRestaurant(orderRestaurant)
-        .orderRestaurantId(orderRestaurantId);
+        .orderRestaurantId(orderRestaurantId)
+        .orderDateTime(orderDateTime);
     }
     
     @Override
@@ -387,6 +414,11 @@ public final class Order implements Model {
     @Override
      public CopyOfBuilder orderRestaurantId(String orderRestaurantId) {
       return (CopyOfBuilder) super.orderRestaurantId(orderRestaurantId);
+    }
+    
+    @Override
+     public CopyOfBuilder orderDateTime(Temporal.DateTime orderDateTime) {
+      return (CopyOfBuilder) super.orderDateTime(orderDateTime);
     }
   }
   

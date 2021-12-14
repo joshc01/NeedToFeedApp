@@ -116,7 +116,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
                         asyncTask.complete(orderDetailsJson);
                     },
-                    error -> Utils.showMessage(getApplicationContext(), "NOT SHOWN!")
+                    error -> Utils.showMessage(getApplicationContext(), "Error loading order cart, please try again")
             );
             return null;
         });

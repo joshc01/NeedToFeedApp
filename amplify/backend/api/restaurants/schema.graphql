@@ -8,6 +8,7 @@ type Order @model @auth(rules: [{allow: owner}]) {
   isActive: Boolean!
   orderRestaurant: String!
   orderRestaurantId: String!
+  orderDateTime: AWSDateTime!
 }
 
 type Restaurant @model @auth(rules: [{allow: public}, {allow: private, operations: [read]}]) {

@@ -33,8 +33,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Currency;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RestaurantItemDetailsFragment extends Fragment {
@@ -64,6 +66,8 @@ public class RestaurantItemDetailsFragment extends Fragment {
 
         String itemName = args.getItemName();
         textViewItemName.setText(itemName);
+
+        String restaurantName = args.getRestaurantName();
 
         NumberFormat format = NumberFormat.getCurrencyInstance();
         format.setCurrency(Currency.getInstance("USD"));
@@ -104,6 +108,8 @@ public class RestaurantItemDetailsFragment extends Fragment {
                         JsonObject orderDetailsJson = new JsonObject();
                         orderDetailsJson.add(itemName, orderContent);
 
+                        String dateTime = com.amazonaws.util.DateUtils.formatISO8601Date(new Date());
+
                         Order todo = Order.builder()
                                 .orderType("Delivery")
                                 .estimatedTimeComplete(new Temporal.Time(String.valueOf(LocalTime.now())))
@@ -111,8 +117,9 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 .orderItems(orderDetailsJson.toString())
                                 .orderedBy("user_ordered")
                                 .isActive(true)
-                                .orderRestaurant("restaurant_name")
+                                .orderRestaurant(restaurantName)
                                 .orderRestaurantId("restaurant_id")
+                                .orderDateTime(new Temporal.DateTime(dateTime))
                                 .build();
 
                         Amplify.API.mutate(ModelMutation.create(todo),
@@ -152,8 +159,9 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                 .orderItems(orderDetailsJson.toString())
                                 .orderedBy(existingOrder.getOrderedBy())
                                 .isActive(existingOrder.getIsActive())
-                                .orderRestaurant(existingOrder.getOrderRestaurant())
+                                .orderRestaurant(restaurantName)
                                 .orderRestaurantId(existingOrder.getOrderRestaurantId())
+                                .orderDateTime(existingOrder.getOrderDateTime())
                                 .id(existingOrder.getId())
                                 .build();
 
