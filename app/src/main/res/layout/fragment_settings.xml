@@ -192,43 +192,12 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/payment_lbl_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:clickable="true"
-        app:layout_constraintTop_toBottomOf="@id/phone_number_lbl_container"
-        app:cardBackgroundColor="@color/gray_light"
-        app:cardCornerRadius="16dp"
-        tools:layout_editor_absoluteX="32dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/payment_lbl_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/payment_lbl_title_string"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/ic_baseline_arrow_forward_ios_24" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/push_notifications_lbl_container"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="32dp"
         android:clickable="true"
-        app:layout_constraintTop_toBottomOf="@id/payment_lbl_container"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_lbl_container"
         app:cardBackgroundColor="@color/gray_light"
         app:cardCornerRadius="16dp"
         tools:layout_editor_absoluteX="32dp">
