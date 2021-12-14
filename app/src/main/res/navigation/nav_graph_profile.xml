@@ -25,9 +25,6 @@
             android:id="@+id/action_navigate_profile_to_editPhoneNumberFragment"
             app:destination="@id/editPhoneNumberFragment" />
         <action
-            android:id="@+id/action_navigate_profile_to_editPaymentFragment"
-            app:destination="@id/editPaymentFragment" />
-        <action
             android:id="@+id/action_navigate_profile_to_helpContactFragment"
             app:destination="@id/helpContactFragment" />
     </fragment>
@@ -74,15 +71,6 @@
         tools:layout="@layout/fragment_edit_phone_number" >
         <action
             android:id="@+id/action_editPhoneNumberFragment_to_navigate_profile"
-            app:destination="@id/navigate_profile" />
-    </fragment>
-    <fragment
-        android:id="@+id/editPaymentFragment"
-        android:name="com.cs389team4.needtofeed.ui.profile.EditPaymentFragment"
-        android:label="Payment"
-        tools:layout="@layout/fragment_edit_payment" >
-        <action
-            android:id="@+id/action_editPaymentFragment_to_navigate_profile"
             app:destination="@id/navigate_profile" />
     </fragment>
     <fragment
