@@ -10,20 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cs389team4.needtofeed.R;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.navigation.Navigation;
-
-import com.amplifyframework.auth.AuthUserAttribute;
-import com.amplifyframework.auth.AuthUserAttributeKey;
-import com.amplifyframework.core.Amplify;
-import com.cs389team4.needtofeed.MainActivity;
-import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentEditPasswordBinding;
 
 public class EditPasswordFragment extends Fragment {

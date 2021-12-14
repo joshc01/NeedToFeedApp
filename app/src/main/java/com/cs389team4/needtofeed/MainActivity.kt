@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         const val TAG: String = "MainActivity"
         @JvmStatic lateinit var restaurantId: String
         @JvmStatic var orderCartExists: Boolean = false
+        @JvmStatic var activeOrderExists: Boolean = false
         @JvmStatic lateinit var userAttrs: MutableList<AuthUserAttribute>
     }
 
@@ -70,7 +71,8 @@ class MainActivity : AppCompatActivity() {
                             "User signed in with identityId: " + cognitoAuthSession.identityId.value
                         )
 
-                        checkOrderCartExists()
+                        checkActiveOrderExists()
+                        if (!activeOrderExists) checkOrderCartExists()
 
                     }
                     // User not signed in
@@ -97,6 +99,19 @@ class MainActivity : AppCompatActivity() {
                     orderCartExists = true
                 }
             })
+        { error: ApiException ->
+            Log.e("Failure querying order: ", error.message!!)
+        }
+    }
+
+    private fun checkActiveOrderExists() {
+        Amplify.API.query(ModelQuery.list(Order::class.java, Order.IS_ACTIVE.eq(true)),
+            { response ->
+                if (response.data.items.toString() != "[]") {
+                    activeOrderExists = true
+                }
+            }
+            )
         { error: ApiException ->
             Log.e("Failure querying order: ", error.message!!)
         }
