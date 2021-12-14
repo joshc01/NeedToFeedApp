@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     // Get status of active order cart
     private fun checkOrderCartExists() {
-        Amplify.API.query(ModelQuery.list(Order::class.java, Order.IS_ACTIVE.eq(true)),
+        Amplify.API.query(ModelQuery.list(Order::class.java, Order.IS_EDITABLE.eq(true)),
             { response ->
                 // If no active order exists
                 if (response.data.items.toString() != "[]") {

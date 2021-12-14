@@ -54,17 +54,11 @@
     "usernameCaseSensitive": false,
     "hostedUI": true,
     "hostedUIDomainName": "needtofeedae53688e-ae53688e",
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"name\":\"name\",\"username\":\"sub\"}}]",
-    "authProvidersUserPool": [
-      "Facebook",
-      "Google"
-    ],
+    "hostedUIProviderMeta": "[]",
+    "authProvidersUserPool": [],
     "triggers": {
       "CustomMessage": [
         "verification-link"
-      ],
-      "PostConfirmation": [
-        "add-to-group"
       ]
     },
     "authRoleArn": {
@@ -90,36 +84,28 @@
           "Arn",
           "Name"
         ]
-      },
-      {
-        "category": "function",
-        "resourceName": "needtofeedae53688ePostConfirmation",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
       }
     ],
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": [
-      "{\n  \"policyName\": \"AddToGroupCognito\",\n  \"trigger\": \"PostConfirmation\",\n  \"effect\": \"Allow\",\n  \"actions\": [\n    \"cognito-idp:AdminAddUserToGroup\",\n    \"cognito-idp:GetGroup\",\n    \"cognito-idp:CreateGroup\"\n  ],\n  \"resource\": {\n    \"paramType\": \"!GetAtt\",\n    \"keys\": [\n      \"UserPool\",\n      \"Arn\"\n    ]\n  }\n}"
-    ],
+    "permissions": [],
     "thirdPartyAuth": true,
     "authProviders": [
       "graph.facebook.com",
       "accounts.google.com"
     ],
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "adminQueries": true,
     "audiences": [
       "611113469834-r7g7chl6cd7tdev1bpucocb84vbims7a.apps.googleusercontent.com",
       "611113469834-anr0rjhku1pcroaqpdlhdch2bh432d9j.apps.googleusercontent.com"
     ],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/signout/\"]}",
     "verificationBucketName": "needtofeedae53688everificationbucket",
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"needtofeedae53688eCustomMessage\"\n  },\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"needtofeedae53688ePostConfirmation\"\n  }\n]"
+    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"needtofeedae53688eCustomMessage\"\n  }\n]",
+    "facebookAppId": "4342634539124446",
+    "googleClientId": "611113469834-r7g7chl6cd7tdev1bpucocb84vbims7a.apps.googleusercontent.com",
+    "googleAndroid": "611113469834-anr0rjhku1pcroaqpdlhdch2bh432d9j.apps.googleusercontent.com",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/signin/\"],\"LogoutURLs\":[\"http://localhost:3000/signout/\"]}"
   }
 }

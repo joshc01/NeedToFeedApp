@@ -48,8 +48,7 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
 
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
+            // TODO: Consider calling ActivityCompat#requestPermissions
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 991);
             // here to request the missing permissions, and then overriding
 
@@ -101,8 +100,8 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         swipeRefreshLayout.setOnRefreshListener(this);
 
         binding.restaurantsDeliveryAddressContainer.setOnClickListener(v -> {
-            BottomSheetDeliveryAddressFragment bottomSheet = new BottomSheetDeliveryAddressFragment();
-            bottomSheet.show(requireActivity().getSupportFragmentManager(), bottomSheet.getTag());
+            DeliveryAddressBottomSheetFragment bottomSheet = new DeliveryAddressBottomSheetFragment();
+            bottomSheet.show(getChildFragmentManager(), bottomSheet.getTag());
         });
     }
 

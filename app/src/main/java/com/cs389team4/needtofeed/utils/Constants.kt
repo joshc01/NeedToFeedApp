@@ -29,5 +29,5 @@ object Constants {
         "gatewayMerchantId" to "exampleGatewayMerchantId"
     )
 
-    const val SALES_TAX_NY = 0.0875
+    const val SALES_TAX_NY = 0.08875
 }

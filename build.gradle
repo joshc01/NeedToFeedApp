@@ -13,7 +13,7 @@ buildscript {
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        classpath "com.android.tools.build:gradle:7.0.3"
+        classpath 'com.android.tools.build:gradle:7.0.4'
 
         classpath 'com.amplifyframework:amplify-tools-gradle-plugin:1.0.2'
 

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigate_home_to_restaurantMapFragment"
             app:destination="@id/restaurantMapFragment" />
+        <action
+            android:id="@+id/action_navigate_home_to_activeOrderActivity"
+            app:destination="@id/activeOrderActivity" />
     </fragment>
     <fragment
         android:id="@+id/restaurantMenuFragment"
@@ -44,6 +47,8 @@
         <argument android:name="itemName" app:argType="string" />
         <argument android:name="itemPrice" app:argType="float" />
         <argument android:name="itemImage" app:argType="string" />
+
+        <argument android:name="restaurantName" app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/checkoutActivity"
@@ -59,4 +64,9 @@
             android:id="@+id/action_restaurantMapFragment_to_restaurantMenuFragment"
             app:destination="@id/restaurantMenuFragment" />
     </fragment>
+    <activity
+        android:id="@+id/activeOrderActivity"
+        android:name="com.cs389team4.needtofeed.ui.ActiveOrderActivity"
+        android:label="ActiveOrderActivity"
+        tools:layout="@layout/activity_active_order"/>
 </navigation>
