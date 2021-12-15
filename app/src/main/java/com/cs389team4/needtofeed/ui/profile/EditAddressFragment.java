@@ -5,19 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.amplifyframework.auth.AuthUserAttribute;
-import com.amplifyframework.auth.AuthUserAttributeKey;
-import com.amplifyframework.core.Amplify;
-import com.cs389team4.needtofeed.MainActivity;
-import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentEditAddressBinding;
 
 public class EditAddressFragment extends Fragment {

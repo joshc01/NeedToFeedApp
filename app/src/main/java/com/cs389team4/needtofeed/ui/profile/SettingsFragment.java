@@ -6,14 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
-import androidx.preference.EditTextPreference;
-import androidx.preference.PreferenceFragmentCompat;
 
 import com.amplifyframework.auth.AuthUserAttribute;
 import com.cs389team4.needtofeed.MainActivity;

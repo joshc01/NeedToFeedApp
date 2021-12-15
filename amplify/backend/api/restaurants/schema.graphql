@@ -20,6 +20,7 @@ type Restaurant @model @auth(rules: [{allow: public}, {allow: private, operation
   location: String!
   timeOpen: AWSTime!
   timeClose: AWSTime!
+  phone: String!
 }
 
 type Item @model @key(name: "byRestaurant", fields: ["restaurantID"]) @auth(rules: [{allow: public}, {allow: private, operations: [read]}]) {

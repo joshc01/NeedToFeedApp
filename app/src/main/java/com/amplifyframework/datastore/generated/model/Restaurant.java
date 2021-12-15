@@ -34,6 +34,7 @@ public final class Restaurant implements Model {
   public static final QueryField LOCATION = field("Restaurant", "location");
   public static final QueryField TIME_OPEN = field("Restaurant", "timeOpen");
   public static final QueryField TIME_CLOSE = field("Restaurant", "timeClose");
+  public static final QueryField PHONE = field("Restaurant", "phone");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String name;
   private final @ModelField(targetType="Item") @HasMany(associatedWith = "restaurantID", type = Item.class) List<Item> items = null;
@@ -42,6 +43,7 @@ public final class Restaurant implements Model {
   private final @ModelField(targetType="String", isRequired = true) String location;
   private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time timeOpen;
   private final @ModelField(targetType="AWSTime", isRequired = true) Temporal.Time timeClose;
+  private final @ModelField(targetType="String", isRequired = true) String phone;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   public String getId() {
@@ -76,6 +78,10 @@ public final class Restaurant implements Model {
       return timeClose;
   }
   
+  public String getPhone() {
+      return phone;
+  }
+  
   public Temporal.DateTime getCreatedAt() {
       return createdAt;
   }
@@ -84,7 +90,7 @@ public final class Restaurant implements Model {
       return updatedAt;
   }
   
-  private Restaurant(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose) {
+  private Restaurant(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose, String phone) {
     this.id = id;
     this.name = name;
     this.category = category;
@@ -92,6 +98,7 @@ public final class Restaurant implements Model {
     this.location = location;
     this.timeOpen = timeOpen;
     this.timeClose = timeClose;
+    this.phone = phone;
   }
   
   @Override
@@ -109,6 +116,7 @@ public final class Restaurant implements Model {
               ObjectsCompat.equals(getLocation(), restaurant.getLocation()) &&
               ObjectsCompat.equals(getTimeOpen(), restaurant.getTimeOpen()) &&
               ObjectsCompat.equals(getTimeClose(), restaurant.getTimeClose()) &&
+              ObjectsCompat.equals(getPhone(), restaurant.getPhone()) &&
               ObjectsCompat.equals(getCreatedAt(), restaurant.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), restaurant.getUpdatedAt());
       }
@@ -124,6 +132,7 @@ public final class Restaurant implements Model {
       .append(getLocation())
       .append(getTimeOpen())
       .append(getTimeClose())
+      .append(getPhone())
       .append(getCreatedAt())
       .append(getUpdatedAt())
       .toString()
@@ -141,6 +150,7 @@ public final class Restaurant implements Model {
       .append("location=" + String.valueOf(getLocation()) + ", ")
       .append("timeOpen=" + String.valueOf(getTimeOpen()) + ", ")
       .append("timeClose=" + String.valueOf(getTimeClose()) + ", ")
+      .append("phone=" + String.valueOf(getPhone()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
       .append("}")
@@ -167,6 +177,7 @@ public final class Restaurant implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -178,7 +189,8 @@ public final class Restaurant implements Model {
       image,
       location,
       timeOpen,
-      timeClose);
+      timeClose,
+      phone);
   }
   public interface NameStep {
     CategoryStep name(String name);
@@ -201,7 +213,12 @@ public final class Restaurant implements Model {
   
 
   public interface TimeCloseStep {
-    BuildStep timeClose(Temporal.Time timeClose);
+    PhoneStep timeClose(Temporal.Time timeClose);
+  }
+  
+
+  public interface PhoneStep {
+    BuildStep phone(String phone);
   }
   
 
@@ -212,13 +229,14 @@ public final class Restaurant implements Model {
   }
   
 
-  public static class Builder implements NameStep, CategoryStep, LocationStep, TimeOpenStep, TimeCloseStep, BuildStep {
+  public static class Builder implements NameStep, CategoryStep, LocationStep, TimeOpenStep, TimeCloseStep, PhoneStep, BuildStep {
     private String id;
     private String name;
     private String category;
     private String location;
     private Temporal.Time timeOpen;
     private Temporal.Time timeClose;
+    private String phone;
     private String image;
     @Override
      public Restaurant build() {
@@ -231,7 +249,8 @@ public final class Restaurant implements Model {
           image,
           location,
           timeOpen,
-          timeClose);
+          timeClose,
+          phone);
     }
     
     @Override
@@ -263,9 +282,16 @@ public final class Restaurant implements Model {
     }
     
     @Override
-     public BuildStep timeClose(Temporal.Time timeClose) {
+     public PhoneStep timeClose(Temporal.Time timeClose) {
         Objects.requireNonNull(timeClose);
         this.timeClose = timeClose;
+        return this;
+    }
+    
+    @Override
+     public BuildStep phone(String phone) {
+        Objects.requireNonNull(phone);
+        this.phone = phone;
         return this;
     }
     
@@ -287,13 +313,14 @@ public final class Restaurant implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose) {
+    private CopyOfBuilder(String id, String name, String category, String image, String location, Temporal.Time timeOpen, Temporal.Time timeClose, String phone) {
       super.id(id);
       super.name(name)
         .category(category)
         .location(location)
         .timeOpen(timeOpen)
         .timeClose(timeClose)
+        .phone(phone)
         .image(image);
     }
     
@@ -320,6 +347,11 @@ public final class Restaurant implements Model {
     @Override
      public CopyOfBuilder timeClose(Temporal.Time timeClose) {
       return (CopyOfBuilder) super.timeClose(timeClose);
+    }
+    
+    @Override
+     public CopyOfBuilder phone(String phone) {
+      return (CopyOfBuilder) super.phone(phone);
     }
     
     @Override

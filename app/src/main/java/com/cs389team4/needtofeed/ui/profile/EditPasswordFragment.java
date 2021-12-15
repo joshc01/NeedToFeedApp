@@ -15,8 +15,6 @@ import android.util.Log;
 import androidx.navigation.Navigation;
 
 import com.amplifyframework.core.Amplify;
-import com.cs389team4.needtofeed.MainActivity;
-import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentEditPasswordBinding;
 
 public class EditPasswordFragment extends Fragment {
@@ -24,7 +22,7 @@ public class EditPasswordFragment extends Fragment {
     private FragmentEditPasswordBinding binding = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEditPasswordBinding.inflate(inflater, container, false);
         return binding.getRoot();

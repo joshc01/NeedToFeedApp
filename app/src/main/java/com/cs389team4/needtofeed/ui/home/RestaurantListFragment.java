@@ -22,6 +22,7 @@ public class RestaurantListFragment extends ListFragment<Restaurant> {
                 .location("a location")
                 .timeOpen(null)
                 .timeClose(null)
+                .phone("(123)-456-7890")
                 .image(null)
                 .build();
     }
