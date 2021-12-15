@@ -110,5 +110,6 @@
     <string name="ntf_icon_desc">NeedToFeed Icon</string>
     <string name="ntf_email">NeedToFeedApp@gmail.com</string>
     <string name="about_us">About Us</string>
+    <string name="btn_track_order">Track Order</string>
 
 </resources>
