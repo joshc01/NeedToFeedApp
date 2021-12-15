@@ -100,6 +100,15 @@
     <string name="current_password_lbl_string">Current Password</string>
     <string name="new_password_lbl_string">New Password</string>
     <string name="img_splash_logo_content_desc">NeedToFeed Logo</string>
-    <string name="btn_track_order">Track Order</string>
+    <string name="ntf_phonenumber">(914) 867-5309</string>
+    <string name="contact_header">Need Help? Get In Touch</string>
+    <string name="holy_text">According to all known laws of aviation, there is no way a bee should be able to fly.
+        Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees dont
+        care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow!
+        Lets shake it up a little. Barry! Breakfast is ready! Coming! Hang on a second. Hello? Barry? Adam? Can you believe this is happening?
+        I cant. Ill pick you up. Looking sharp. Use the stairs. Your father paid good money for those.</string>
+    <string name="ntf_icon_desc">NeedToFeed Icon</string>
+    <string name="ntf_email">NeedToFeedApp@gmail.com</string>
+    <string name="about_us">About Us</string>
 
 </resources>
