@@ -105,6 +105,7 @@ class CheckoutActivity: AppCompatActivity() {
 
             // Update order to mark as active and not editable
             MainActivity.orderCartExists = false
+            MainActivity.activeOrderExists = true
 
             Amplify.API.query(
                 ModelQuery.list(Order::class.java, Order.IS_EDITABLE.eq(true)),

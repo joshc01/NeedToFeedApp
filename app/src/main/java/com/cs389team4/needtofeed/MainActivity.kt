@@ -47,10 +47,7 @@ class MainActivity : AppCompatActivity() {
         fetchIdentityId()
 
         // Get user attributes for later use
-        Amplify.Auth.fetchUserAttributes(
-            { userAttrs = it },
-            { Log.e(TAG, "Failed to fetch user attributes", it) }
-        )
+        getAttributes()
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
@@ -108,6 +105,7 @@ class MainActivity : AppCompatActivity() {
         Amplify.API.query(ModelQuery.list(Order::class.java, Order.IS_ACTIVE.eq(true)),
             { response ->
                 if (response.data.items.toString() != "[]") {
+                    Utils.showMessage(this, response.toString())
                     activeOrderExists = true
                 }
             }
@@ -115,6 +113,13 @@ class MainActivity : AppCompatActivity() {
         { error: ApiException ->
             Log.e("Failure querying order: ", error.message!!)
         }
+    }
+
+    fun getAttributes() {
+        Amplify.Auth.fetchUserAttributes(
+            { userAttrs = it },
+            { Log.e(TAG, "Failed to fetch user attributes", it) }
+        )
     }
 
     // Initialize bottom navigation
