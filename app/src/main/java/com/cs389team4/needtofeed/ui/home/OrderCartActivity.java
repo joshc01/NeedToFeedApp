@@ -114,7 +114,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
                         binding.orderCartRestaurantName.setText(order[0].getOrderRestaurant());
                         binding.orderCartOrderType.setText(order[0].getOrderType());
-                        binding.orderCartEstimatedTime.setText(order[0].getEstimatedTimeComplete().toDate().toString());
+                        binding.orderCartEstimatedTime.setText(order[0].getEstimatedTimeComplete().toDate().toString().substring(12,16));
 
                         JsonObject orderDetailsJson = JsonParser.parseString(order[0].getOrderItems()).getAsJsonObject();
 
