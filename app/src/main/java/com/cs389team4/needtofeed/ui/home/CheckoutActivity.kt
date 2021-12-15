@@ -6,8 +6,14 @@ import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.amplifyframework.api.graphql.model.ModelMutation
+import com.amplifyframework.api.graphql.model.ModelQuery
+import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.Order
 import com.cs389team4.needtofeed.MainActivity
 import com.cs389team4.needtofeed.databinding.ActivityCheckoutBinding
+import com.cs389team4.needtofeed.notification.Notification
+import com.cs389team4.needtofeed.notification.OneSignalNotificationSender
 import com.cs389team4.needtofeed.utils.PaymentUtil
 import com.cs389team4.needtofeed.utils.Utils
 import com.google.android.gms.common.api.ApiException
@@ -93,7 +99,43 @@ class CheckoutActivity: AppCompatActivity() {
 
         btnGooglePay = binding.checkoutBtnPlaceOrder.root
         btnGooglePay.setOnClickListener {
-            requestPayment()
+            // requestPayment()
+
+            OneSignalNotificationSender.sendDeviceNotification(Notification.GENERAL)
+
+            // Update order to mark as active and not editable
+            MainActivity.orderCartExists = false
+
+            Amplify.API.query(
+                ModelQuery.list(Order::class.java, Order.IS_EDITABLE.eq(true)),
+                { response ->
+                    run {
+                        val order = response.data.items.iterator().next()
+
+                        val updatedOrder = Order.builder()
+                            .orderType(order.orderType)
+                            .estimatedTimeComplete(order.estimatedTimeComplete)
+                            .orderTotal(order.orderTotal)
+                            .orderItems(order.orderItems)
+                            .isEditable(false)
+                            .isActive(true)
+                            .orderRestaurantId(order.orderRestaurantId)
+                            .orderDateTime(order.orderDateTime)
+                            .orderRestaurant(order.orderRestaurant)
+                            .id(order.id)
+                            .build()
+
+                        Amplify.API.mutate(ModelMutation.update(updatedOrder),
+                            { Log.i("CheckoutActivity", "Order updated with id: ${it.data.id}") },
+                            { Log.e("CheckoutActivity", "Update failed", it) }
+                        )
+                    }
+                },
+                { Log.e("CheckoutActivity", "Query failure", it) }
+            )
+
+            // Close activity
+            finish()
         }
 
         val format = NumberFormat.getCurrencyInstance()

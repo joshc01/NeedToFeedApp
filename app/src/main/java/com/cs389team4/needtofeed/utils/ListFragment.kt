@@ -11,7 +11,7 @@ import com.amplifyframework.core.model.Model
 import com.amplifyframework.core.model.query.Where
 import com.amplifyframework.datastore.DataStoreChannelEventName
 import com.amplifyframework.datastore.DataStoreItemChange
-import com.amplifyframework.datastore.events.NetworkStatusEvent
+// import com.amplifyframework.datastore.events.NetworkStatusEvent
 import com.amplifyframework.datastore.generated.model.Item
 import com.amplifyframework.hub.HubChannel
 import com.amplifyframework.hub.SubscriptionToken
