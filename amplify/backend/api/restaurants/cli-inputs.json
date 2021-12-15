@@ -22,6 +22,6 @@
       }
     },
     "apiName": "restaurants",
-    "gqlSchemaPath": "/tmp/amplify-06f8915c-294a-4576-a099-7eb78a58ced4/amplify/backend/api/restaurants/schema.graphql"
+    "gqlSchemaPath": "/tmp/amplify-4590cf9b-5baf-47fd-b2a8-f28bfbab9488/amplify/backend/api/restaurants/schema.graphql"
   }
 }
