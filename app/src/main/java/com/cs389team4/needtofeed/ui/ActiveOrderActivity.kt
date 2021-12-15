@@ -7,6 +7,8 @@ import com.cs389team4.needtofeed.databinding.ActivityActiveOrderBinding
 class ActiveOrderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityActiveOrderBinding
 
+    private val bottomSheetFragment = ActiveOrderBottomSheetFragment();
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -14,8 +16,7 @@ class ActiveOrderActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val bottomSheetFragment = ActiveOrderBottomSheetFragment()
-        bottomSheetFragment.isCancelable = false
+        bottomSheetFragment.isCancelable = true
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 }

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 
 import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantMenuBinding;
+import com.cs389team4.needtofeed.ui.ActiveOrderActivity;
 
 public class RestaurantMenuFragment extends Fragment {
     private FragmentRestaurantMenuBinding binding = null;
@@ -30,6 +31,10 @@ public class RestaurantMenuFragment extends Fragment {
             binding.restaurantListContinueCheckout.setVisibility(View.GONE);
         }
 
+        if (!MainActivity.getActiveOrderExists()) {
+            binding.restaurantMenuTrackOrder.setVisibility(View.GONE);
+        }
+
         return binding.getRoot();
     }
 
@@ -40,7 +45,9 @@ public class RestaurantMenuFragment extends Fragment {
         TextView textViewRestaurantName = binding.restaurantMenuRestaurantName;
         TextView textViewRestaurantCategory = binding.restaurantMenuRestaurantCategory;
         ImageView imageViewRestaurantImage = binding.restaurantMenuRestaurantImage;
+
         AppCompatButton btnViewCart = binding.restaurantListContinueCheckout;
+        AppCompatButton btnTrackOrder = binding.restaurantMenuTrackOrder;
 
         RestaurantMenuFragmentArgs args = RestaurantMenuFragmentArgs.fromBundle(getArguments());
 
@@ -54,6 +61,24 @@ public class RestaurantMenuFragment extends Fragment {
         Glide.with(view).load(restaurantImage).fitCenter().into(imageViewRestaurantImage);
 
         btnViewCart.setOnClickListener(v ->
-                startActivity(new Intent(getActivity(), OrderCartActivity.class)));
+            startActivity(new Intent(getActivity(), OrderCartActivity.class))
+        );
+
+        btnTrackOrder.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), ActiveOrderActivity.class))
+        );
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!MainActivity.getOrderCartExists()) {
+            binding.restaurantListContinueCheckout.setVisibility(View.GONE);
+        }
+
+        if (MainActivity.getActiveOrderExists()) {
+            binding.restaurantMenuTrackOrder.setVisibility(View.VISIBLE);
+        }
     }
 }

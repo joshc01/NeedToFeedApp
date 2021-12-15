@@ -100,5 +100,6 @@
     <string name="current_password_lbl_string">Current Password</string>
     <string name="new_password_lbl_string">New Password</string>
     <string name="img_splash_logo_content_desc">NeedToFeed Logo</string>
+    <string name="btn_track_order">Track Order</string>
 
 </resources>

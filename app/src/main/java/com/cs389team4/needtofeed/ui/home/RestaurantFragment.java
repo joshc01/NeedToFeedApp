@@ -24,6 +24,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentRestaurantBinding;
+import com.cs389team4.needtofeed.ui.ActiveOrderActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -43,6 +44,10 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
 
         if (!MainActivity.getOrderCartExists()) {
             binding.restaurantMenuContinueCheckout.setVisibility(View.GONE);
+        }
+
+        if (!MainActivity.getActiveOrderExists()) {
+            binding.restaurantMenuTrackOrder.setVisibility(View.GONE);
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
@@ -85,6 +90,7 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         super.onViewCreated(view, savedInstanceState);
 
         AppCompatButton btnViewCart = binding.restaurantMenuContinueCheckout;
+        AppCompatButton btnTrackOrder = binding.restaurantMenuTrackOrder;
 
         binding.toggleOrderMode.setOnClickListener(v -> {
             if (binding.toggleOrderMode.isChecked()) {
@@ -94,7 +100,16 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
         });
 
         //-------------------- Action to view your cart from restaurant list -----------------------
-        btnViewCart.setOnClickListener(view1 -> startActivity(new Intent(getActivity(), OrderCartActivity.class)));
+        btnViewCart.setOnClickListener(v -> {
+            if (MainActivity.getOrderCartExists())
+                startActivity(new Intent(getActivity(), OrderCartActivity.class));
+            else if (MainActivity.getActiveOrderExists())
+                startActivity(new Intent(getActivity(), ActiveOrderActivity.class));
+        });
+
+        btnTrackOrder.setOnClickListener(v ->
+                startActivity(new Intent(getActivity(), ActiveOrderActivity.class))
+        );
 
         swipeRefreshLayout = binding.swipeRefreshRestaurants;
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -103,6 +118,19 @@ public class RestaurantFragment extends Fragment implements SwipeRefreshLayout.O
             DeliveryAddressBottomSheetFragment bottomSheet = new DeliveryAddressBottomSheetFragment();
             bottomSheet.show(getChildFragmentManager(), bottomSheet.getTag());
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!MainActivity.getOrderCartExists()) {
+            binding.restaurantMenuContinueCheckout.setVisibility(View.GONE);
+        }
+
+        if (MainActivity.getActiveOrderExists()) {
+            binding.restaurantMenuTrackOrder.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

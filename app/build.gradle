@@ -45,17 +45,18 @@ android {
 
 dependencies {
     def nav_version = "2.3.5"
+    def amplify_version = "1.31.0"
 
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     // AWS Amplify
-    implementation 'com.amplifyframework:aws-api:1.28.3'
-    implementation 'com.amplifyframework:aws-datastore:1.28.3'
-    implementation 'com.amplifyframework:aws-auth-cognito:1.28.3'
-    implementation 'com.amplifyframework:aws-storage-s3:1.28.3'
-    implementation 'com.amplifyframework:aws-analytics-pinpoint:1.28.3'
+    implementation "com.amplifyframework:aws-api:$amplify_version"
+    implementation "com.amplifyframework:aws-datastore:$amplify_version"
+    implementation "com.amplifyframework:aws-auth-cognito:$amplify_version"
+    implementation "com.amplifyframework:aws-storage-s3:$amplify_version"
+    implementation "com.amplifyframework:aws-analytics-pinpoint:$amplify_version"
 
     implementation 'com.google.android.gms:play-services-wallet:19.0.0'
     implementation 'com.google.android.gms:play-services-auth:20.0.0'
