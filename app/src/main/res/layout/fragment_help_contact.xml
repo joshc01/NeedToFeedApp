@@ -1,74 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.profile.HelpContactFragment" >
+
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ntf_icon"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:background="@mipmap/ic_launcher"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        android:contentDescription="@string/ntf_icon_desc" />
 
     <TextView
         android:id="@+id/contact_lbl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:text="@string/contact_header"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/ntf_icon" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/contact_card"
-        android:layout_width="409dp"
-        android:layout_height="100dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
         app:cardBackgroundColor="@color/gray_light"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contact_lbl">
 
-        <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/ntf_email_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:autoLink="email"
-                android:icon="@drawable/ic_baseline_home_24"
-                android:text="needtofeedapp@gmail.com"
-                android:textColorLink="@color/wallet_hint_foreground_holo_light"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:background="#0048B4">
 
             <TextView
                 android:id="@+id/ntf_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="64dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="30dp"
                 android:autoLink="phone"
                 android:text="@string/ntf_phonenumber"
-                android:textColorLink="@color/wallet_hint_foreground_holo_light"
-                android:textSize="24sp"
+                android:textColorLink="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/phone_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/phone_icon"
+                android:layout_width="30dp"
+                android:layout_height="34dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/common_full_open_on_phone"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="339dp" />
-        </RelativeLayout>
+                app:layout_constraintTop_toTopOf="@+id/ntf_phone_number" />
+
+            <TextView
+                android:id="@+id/ntf_email_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="24dp"
+                android:autoLink="email"
+                android:icon="@drawable/ic_baseline_home_24"
+                android:text="@string/ntf_email"
+                android:textColorLink="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:boxBackgroundMode="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/phone_icon"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <View
+                android:id="@+id/email_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/googleg_standard_color_18"
+                app:layout_constraintBottom_toBottomOf="@+id/ntf_email_lbl"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/about_us_header"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="110dp"
+                android:text="@string/about_us"
+                android:textAlignment="center"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/about_us_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="16dp"
+                android:lineSpacingMultiplier="1.15"
+                android:text="@string/holy_text"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_us_header" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
