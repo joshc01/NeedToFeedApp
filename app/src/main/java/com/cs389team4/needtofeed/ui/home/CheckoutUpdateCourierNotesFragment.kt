@@ -21,6 +21,8 @@ class CheckoutUpdateCourierNotesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        binding.checkoutEditCourierNotesSubmit.setOnClickListener {
+            activity?.finish()
+        }
     }
 }

@@ -19,4 +19,10 @@ class CheckoutUpdateContactInfoFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.checkoutEditContactInfoSubmit.setOnClickListener {
+            activity?.finish()
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.cs389team4.needtofeed.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.core.Amplify;
 import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentSettingsBinding;
+import com.cs389team4.needtofeed.ui.auth.LandingActivity;
 
 public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding binding = null;
@@ -83,6 +86,13 @@ public class SettingsFragment extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.helpContactFragment);
                 }
         );
+
+        binding.logoutLblContainer.setOnClickListener(v ->
+                        Amplify.Auth.signOut(() -> {
+                            startActivity(new Intent(getContext(), LandingActivity.class));
+                            requireActivity().finish();
+                        }, error -> {})
+                );
 
     }
 }
