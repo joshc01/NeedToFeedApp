@@ -22,7 +22,7 @@ class DeliveryAddressBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.btnBottomSheetClose.setOnClickListener {
-
+            this.dismiss();
         }
     }
 }

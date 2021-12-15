@@ -1,149 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/view_cart"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_cart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.OrderCartActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".ui.home.OrderCartActivity">
 
-    <TextView
-        android:id="@+id/my_bag_view"
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bag_card_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:text="@string/order_cart_header_title"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:background="@color/gray_light"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/order_cart_details_container"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_bag_view"
-        android:background="@color/gray_light"
-        android:padding="8dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/order_cart_details_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light"
+            android:padding="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/my_bag_view">
 
-    <TextView
-        android:id="@+id/order_cart_restaurant_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                android:id="@+id/my_bag_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_light"
+                android:padding="12dp"
+                android:text="@string/order_cart_header_title"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/order_cart_order_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_restaurant_name"/>
+            <TextView
+                android:id="@+id/order_cart_restaurant_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/my_bag_view" />
 
-    <TextView
-        android:id="@+id/order_cart_estimated_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_order_type"/>
+            <TextView
+                android:id="@+id/order_cart_order_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_restaurant_name" />
 
-    <TextView
-        android:id="@+id/order_cart_action_switch_order_type"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_estimated_time"/>
+            <TextView
+                android:id="@+id/order_cart_estimated_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_order_type" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/order_cart_btn_edit_order"
-        android:layout_width="140dp"
-        android:layout_height="40dp"
-        android:background="@drawable/rounded_button_transparent"
-        android:text="@string/btn_add_to_order"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_action_switch_order_type"
-        app:layout_constraintStart_toStartOf="parent"/>
+            <TextView
+                android:id="@+id/order_cart_action_switch_order_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_estimated_time" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/order_cart_btn_edit_order"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rounded_button_transparent"
+                android:text="@string/btn_add_to_order"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_action_switch_order_type" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/order_cart_item_list"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:maxHeight="300dp"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_details_container"
-        tools:listitem="@layout/order_cart_list_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/bag_card_layout"
+        tools:listitem="@layout/order_cart_list_item" />
 
-    <TextView
-        android:id="@+id/order_cart_subtotal_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_item_list"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/lbl_subtotal"/>
-    <TextView
-        android:id="@+id/order_cart_subtotal_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_item_list"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/order_cart_delivery_fee_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_subtotal_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/lbl_delivery_fee"/>
-    <TextView
-        android:id="@+id/order_cart_delivery_fee_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_subtotal_value"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/order_cart_tax_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_delivery_fee_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/lbl_tax"/>
-    <TextView
-        android:id="@+id/order_cart_tax_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_delivery_fee_value"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/order_cart_total_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_tax_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/lbl_total"/>
-    <TextView
-        android:id="@+id/order_cart_total_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_tax_value"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/order_cart_action_clear_bag"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/final_price_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/order_cart_total_title"/>
-
-    <TextView
-        android:id="@+id/order_cart_tip_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/continue_checkout"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/gray_light"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/lbl_tip"/>
+        app:layout_constraintTop_toBottomOf="@+id/order_cart_item_list">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/order_cart_subtotal_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/lbl_subtotal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/order_cart_subtotal_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/order_cart_subtotal_title" />
+
+            <TextView
+                android:id="@+id/order_cart_delivery_fee_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/lbl_delivery_fee"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_cart_subtotal_title" />
+
+            <TextView
+                android:id="@+id/order_cart_delivery_fee_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_subtotal_value" />
+
+            <TextView
+                android:id="@+id/order_cart_tax_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/lbl_tax"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_delivery_fee_title" />
+
+            <TextView
+                android:id="@+id/order_cart_tax_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_delivery_fee_value" />
+
+            <TextView
+                android:id="@+id/order_cart_tip_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/lbl_tip"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/order_cart_tax_title" />
+
+            <TextView
+                android:id="@+id/order_cart_tip_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/order_cart_tip_title" />
+
+            <TextView
+                android:id="@+id/order_cart_total_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/lbl_total"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/order_cart_tip_title" />
+
+            <TextView
+                android:id="@+id/order_cart_total_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/order_cart_total_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/continue_checkout"

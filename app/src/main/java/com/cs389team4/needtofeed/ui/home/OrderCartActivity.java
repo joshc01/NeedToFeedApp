@@ -41,6 +41,7 @@ public class OrderCartActivity extends AppCompatActivity {
         double deliveryFee = 0;
         double tax = 0;
         double total = 0;
+        double tip = 0;
 
         try {
             Future<JsonObject> jsonQueryOrderAsync = getJsonAsync();
@@ -60,7 +61,8 @@ public class OrderCartActivity extends AppCompatActivity {
 
             deliveryFee = Utils.getDeliveryFee(subtotal);
             tax = subtotal * SALES_TAX_NY;
-            total = subtotal + deliveryFee + tax;
+            tip = subtotal * .15;
+            total = subtotal + deliveryFee + tax + tip;
 
             NumberFormat format = NumberFormat.getCurrencyInstance();
             format.setCurrency(Currency.getInstance("USD"));
@@ -68,6 +70,7 @@ public class OrderCartActivity extends AppCompatActivity {
             binding.orderCartSubtotalValue.setText(format.format(subtotal));
             binding.orderCartDeliveryFeeValue.setText(format.format(deliveryFee));
             binding.orderCartTaxValue.setText(format.format(tax));
+            binding.orderCartTipValue.setText(format.format(tip));
             binding.orderCartTotalValue.setText(format.format(total));
 
         } catch (ExecutionException e) {
@@ -83,6 +86,7 @@ public class OrderCartActivity extends AppCompatActivity {
         final float finalSubtotal = subtotal;
         final double finalTotal = total;
         final double finalDeliveryFee = deliveryFee;
+        final double finalTip = tip;
         final double finalTax = tax;
 
         btnCheckout.setOnClickListener(v -> {
@@ -92,7 +96,7 @@ public class OrderCartActivity extends AppCompatActivity {
             intent.putExtra("subtotal", finalSubtotal);
             intent.putExtra("deliveryFee", finalDeliveryFee);
             intent.putExtra("tax", finalTax);
-            intent.putExtra("tip", 0);
+            intent.putExtra("tip", finalTip);
 
             startActivity(intent);
         });
@@ -110,7 +114,7 @@ public class OrderCartActivity extends AppCompatActivity {
 
                         binding.orderCartRestaurantName.setText(order[0].getOrderRestaurant());
                         binding.orderCartOrderType.setText(order[0].getOrderType());
-                        binding.orderCartEstimatedTime.setText(order[0].getEstimatedTimeComplete().toString());
+                        binding.orderCartEstimatedTime.setText(order[0].getEstimatedTimeComplete().toDate().toString());
 
                         JsonObject orderDetailsJson = JsonParser.parseString(order[0].getOrderItems()).getAsJsonObject();
 
