@@ -111,5 +111,12 @@
     <string name="ntf_email">NeedToFeedApp@gmail.com</string>
     <string name="about_us">About Us</string>
     <string name="btn_track_order">Track Order</string>
+    <string name="checkout_edit_lbl_name">Your name</string>
+    <string name="checkout_edit_action_add_phone">Add a new phone number</string>
+    <string name="checkout_edit_btn_update_info">Update Info</string>
+    <string name="hint_phone">Enter your phone number</string>
+    <string name="lbl_action_make_default">Make default</string>
+    <string name="text_phone_consent"><![CDATA[By providing your phone number, you consent to receive text messages from NeedToFeed related to your order.\nStandard message rates may apply. See our Terms & Conditions for more information.]]></string>
+    <string name="lbl_save">Save</string>
 
 </resources>
