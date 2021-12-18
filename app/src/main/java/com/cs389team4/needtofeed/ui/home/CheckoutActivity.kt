@@ -99,6 +99,7 @@ class CheckoutActivity: AppCompatActivity() {
 
         btnGooglePay = binding.checkoutBtnPlaceOrder.root
         btnGooglePay.setOnClickListener {
+
             // requestPayment()
 
             OneSignalNotificationSender.sendDeviceNotification(Notification.GENERAL)

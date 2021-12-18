@@ -43,7 +43,11 @@ class RegisterFragment : Fragment() {
         }
 
         val btnRegister = binding.btnRegister
+        val loadingDialog = Utils.createLoadingDialog(context)
         btnRegister.setOnClickListener {
+
+            loadingDialog.show()
+
             val name = binding.registerInputFullName.text.toString()
             val email = binding.registerInputEmail.text.toString()
             val password = binding.registerInputPassword.text.toString()
@@ -62,11 +66,14 @@ class RegisterFragment : Fragment() {
             Amplify.Auth.signUp(email, password, options,
                 // Registration successful
                 {
+                    loadingDialog.dismiss()
                     findNavController().navigate(RegisterFragmentDirections
                         .actionRegisterFragmentToRegisterConfirmationFragment(email))
                 },
                 // Registration error
                 {
+                    loadingDialog.dismiss()
+
                     Utils.showMessage(activity, "Registration error: ${it.message}")
                     Log.e ("RegisterFragment", "Registration failed", it)
                 }

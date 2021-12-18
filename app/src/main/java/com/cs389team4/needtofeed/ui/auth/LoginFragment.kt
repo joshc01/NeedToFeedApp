@@ -1,5 +1,6 @@
 package com.cs389team4.needtofeed.ui.auth
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -40,7 +41,12 @@ class LoginFragment : Fragment() {
         }
 
         val btnLogin = binding.btnLogin
+        val loadingDialog = Utils.createLoadingDialog(context)
+
         btnLogin.setOnClickListener {
+
+            loadingDialog.show()
+
             val email = binding.loginInputEmail.text.toString()
             val password = binding.loginInputPassword.text.toString()
 
@@ -49,15 +55,27 @@ class LoginFragment : Fragment() {
                 { result ->
                     // Sign in successful
                     if (result.isSignInComplete) {
-                        startActivity(Intent(activity, MainActivity::class.java))
+                        val intent = Intent(activity, MainActivity::class.java)
+                        requireActivity().runOnUiThread {
+                            startActivity(
+                                intent,
+                                ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
+                            )
+                        }
+
                         requireActivity().finish()
                         // Sign in unsuccessful
                     } else {
                         Utils.showMessage(activity, "Sign in failed")
                     }
+
+                    loadingDialog.dismiss()
                 },
                 // Sign in error
-                { Utils.showMessage(activity, "Sign in error: ${it.message}") }
+                {
+                    loadingDialog.dismiss()
+                    Utils.showMessage(activity, "Sign in error: ${it.message}")
+                }
             )
         }
 

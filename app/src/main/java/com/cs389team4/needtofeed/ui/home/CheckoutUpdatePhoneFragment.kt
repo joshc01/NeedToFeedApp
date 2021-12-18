@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.amplifyframework.auth.AuthUserAttribute
-import com.amplifyframework.auth.AuthUserAttributeKey
+import com.amplifyframework.api.graphql.model.ModelMutation
+import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.core.Amplify
+import com.amplifyframework.datastore.generated.model.User
+import com.cs389team4.needtofeed.MainActivity
 import com.cs389team4.needtofeed.databinding.FragmentCheckoutUpdatePhoneBinding
-import com.cs389team4.needtofeed.utils.Utils
-import com.google.gson.JsonObject
 
 class CheckoutUpdatePhoneFragment : Fragment() {
     private lateinit var binding: FragmentCheckoutUpdatePhoneBinding
@@ -32,30 +32,29 @@ class CheckoutUpdatePhoneFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //binding.checkoutEditPhoneAddInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
-
-        var userAttrs: JsonObject
-
-        Amplify.Auth.fetchUserAttributes(
-            {
-                val jsonStrPhone = it[4].value
-                Utils.showMessage(context, jsonStrPhone)
-
-                Log.i("CheckoutUpdatePhoneFragment", "User attributes = $it")
-            },
-            { Log.e("CheckoutUpdatePhoneFragment", "Failed to fetch user attributes", it) }
-        )
+        binding.checkoutEditPhoneAddInput.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         binding.btnCheckoutEditPhoneAdd.setOnClickListener {
             val strPhone = binding.checkoutEditPhoneAddInput.text.toString()
+            var existingNumbers: MutableList<String>
 
-            Amplify.Auth.updateUserAttribute(
-                AuthUserAttribute(AuthUserAttributeKey.phoneNumber(), strPhone),
+            Amplify.API.query(ModelQuery.get(User::class.java, MainActivity.userDataId),
                 {
-                    Log.i(TAG, "Updated user attribute = $it")
-                    requireActivity().supportFragmentManager.popBackStack()
+                    existingNumbers = it.data.phoneNumbers
+
+                    Log.i(TAG, "Query results = ${(it.data as User).id}")
                 },
-                { Log.e(TAG, "Failed to update user attribute.", it) }
+                { Log.e(TAG, "Query failed", it) })
+
+            val user = User.builder()
+                .id(MainActivity.userDataId)
+                .phoneNumbers(mutableListOf(strPhone))
+                //.addresses()
+                .build()
+
+            Amplify.API.mutate(ModelMutation.update(user),
+                { Log.i(TAG, "Todo with id: ${it.data.id}") },
+                { Log.e(TAG, "Create failed", it) }
             )
         }
     }

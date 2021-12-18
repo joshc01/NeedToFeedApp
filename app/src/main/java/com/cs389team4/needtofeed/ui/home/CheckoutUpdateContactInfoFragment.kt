@@ -21,6 +21,11 @@ class CheckoutUpdateContactInfoFragment : Fragment() {
     ): View {
         binding = FragmentCheckoutUpdateContactInfoBinding.inflate(inflater, container, false)
 
+        val recyclerView = binding.checkoutEditPhoneList
+
+        val itemAdapter = CheckoutUpdateContactInfoAdapter(MainActivity.phoneNumbers)
+        recyclerView.adapter = itemAdapter
+
         return binding.root
     }
 
@@ -37,7 +42,7 @@ class CheckoutUpdateContactInfoFragment : Fragment() {
         }
 
         binding.checkoutEditContactInfoSubmit.setOnClickListener {
-            activity?.finish()
+            requireActivity().finish()
         }
     }
 }

@@ -13,7 +13,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 
 import com.cs389team4.needtofeed.R
-import com.cs389team4.needtofeed.databinding.FragmentRestaurantMapBinding
+import com.cs389team4.needtofeed.databinding.FragmentPickupMapBinding
 import com.cs389team4.needtofeed.utils.LocationPermissionHelper
 import com.cs389team4.needtofeed.utils.Utils
 
@@ -36,7 +36,7 @@ import com.mapbox.maps.plugin.locationcomponent.location
 import java.lang.ref.WeakReference
 import kotlin.random.Random
 
-class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListener {
+class PickupMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListener {
 
     private lateinit var mapView: MapView
     private lateinit var mapboxMap: MapboxMap
@@ -75,9 +75,9 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
         }
     }
 
-    private lateinit var binding: FragmentRestaurantMapBinding
+    private lateinit var binding: FragmentPickupMapBinding
 
-    companion object {
+    private companion object {
         const val ANNOTATION_POINTS_LOADED = 4
     }
 
@@ -87,7 +87,7 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentRestaurantMapBinding.inflate(inflater, container, false)
+        binding = FragmentPickupMapBinding.inflate(inflater, container, false)
 
         mapView = binding.restaurantsPickupMap
         mapboxMap = mapView.getMapboxMap()
@@ -119,7 +119,7 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
 
         mapView.gestures.removeOnMoveListener(onMoveListener)
 
-        mapboxMap.removeOnMapLoadedListener(this@RestaurantMapFragment)
+        mapboxMap.removeOnMapLoadedListener(this@PickupMapFragment)
     }
 
     override fun onMapClick(point: Point): Boolean {
@@ -127,10 +127,10 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
     }
 
     override fun onMapLoaded(eventData: MapLoadedEventData) {
-        pointAnnotationManager = mapView.annotations.createPointAnnotationManager(mapView).apply {
+        pointAnnotationManager = mapView.annotations.createPointAnnotationManager().apply {
             Utils.bitmapFromDrawableRes(
                 context,
-                R.drawable.map_pin
+                R.drawable.map_pin_scale
             )?.let {
                 val pointOptionsList = mutableListOf<PointAnnotationOptions>()
                 for (i in 0 until ANNOTATION_POINTS_LOADED) {
@@ -154,7 +154,7 @@ class RestaurantMapFragment : Fragment(), OnMapLoadedListener, OnMapClickListene
         mapboxMap.loadStyleUri(Style.MAPBOX_STREETS) {
             initLocationComponent()
             setGesturesListener()
-            mapView.getMapboxMap().addOnMapLoadedListener(this@RestaurantMapFragment)
+            mapView.getMapboxMap().addOnMapLoadedListener(this@PickupMapFragment)
         }
     }
 

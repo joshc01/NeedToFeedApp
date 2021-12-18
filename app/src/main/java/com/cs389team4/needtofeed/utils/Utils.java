@@ -3,7 +3,9 @@ package com.cs389team4.needtofeed.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,7 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+
+import com.cs389team4.needtofeed.R;
 
 public class Utils {
 
@@ -28,6 +33,18 @@ public class Utils {
     public static double getDeliveryFee(float orderSubtotal) {
         // Return 15 percent of order subtotal, at max of 5
         return Math.min(orderSubtotal * 0.15, 5.00);
+    }
+
+    public static AlertDialog createLoadingDialog(Context context) {
+        AlertDialog.Builder dialogLoadingBuilder = new AlertDialog.Builder(context);
+        dialogLoadingBuilder.setCancelable(false);
+        dialogLoadingBuilder.setTitle("Loading..")
+                .setView(R.layout.loading_dialog_overlay);
+
+        AlertDialog dialog = dialogLoadingBuilder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        return dialog;
     }
 
     public static Bitmap bitmapFromDrawableRes(Context context, @DrawableRes int resourceId) {
