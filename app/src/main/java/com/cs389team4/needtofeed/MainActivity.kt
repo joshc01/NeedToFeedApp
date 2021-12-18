@@ -16,10 +16,15 @@ import com.cs389team4.needtofeed.ui.auth.LandingActivity
 import com.cs389team4.needtofeed.utils.Utils
 import com.cs389team4.needtofeed.utils.setupWithNavController
 import androidx.annotation.RequiresApi
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.amplifyframework.api.ApiException
+import com.amplifyframework.api.graphql.model.ModelPagination
 import com.amplifyframework.api.graphql.model.ModelQuery
 import com.amplifyframework.auth.AuthUserAttribute
 import com.amplifyframework.datastore.generated.model.Order
+import com.amplifyframework.datastore.generated.model.User
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 
 class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
@@ -28,14 +33,23 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val TAG: String = "MainActivity"
         @JvmStatic lateinit var restaurantId: String
+
         @JvmStatic var orderCartExists: Boolean = false
         @JvmStatic var activeOrderExists: Boolean = false
+
+        @JvmStatic lateinit var userDataId: String
+        @JvmStatic var phoneNumbers: MutableList<String>? = null
+        @JvmStatic var addresses: JsonObject? = null
+
         @JvmStatic lateinit var userAttrs: MutableList<AuthUserAttribute>
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        installSplashScreen()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -71,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                         checkActiveOrderExists()
                         if (!activeOrderExists) checkOrderCartExists()
 
+                        checkUserData()
                     }
                     // User not signed in
                     AuthSessionResult.Type.FAILURE -> {
@@ -115,7 +130,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getAttributes() {
+    private fun checkUserData() {
+        Amplify.API.query(ModelQuery.list(User::class.java, ModelPagination.limit(1)),
+            { response ->
+                run {
+                    val user = response.data.items.iterator().next()
+
+                    userDataId = user.id
+                    if (user.phoneNumbers != null) phoneNumbers = user.phoneNumbers
+                    if (user.addresses != null) addresses = JsonParser.parseString(user.addresses).asJsonObject
+                }
+            },
+
+            {  }
+        )
+    }
+
+    private fun getAttributes() {
         Amplify.Auth.fetchUserAttributes(
             { userAttrs = it },
             { Log.e(TAG, "Failed to fetch user attributes", it) }

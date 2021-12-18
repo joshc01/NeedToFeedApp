@@ -1,20 +1,26 @@
 package com.cs389team4.needtofeed.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
 import com.amplifyframework.auth.AuthUserAttribute;
+import com.amplifyframework.core.Amplify;
 import com.cs389team4.needtofeed.MainActivity;
 import com.cs389team4.needtofeed.R;
 import com.cs389team4.needtofeed.databinding.FragmentSettingsBinding;
+import com.cs389team4.needtofeed.ui.auth.LandingActivity;
+import com.cs389team4.needtofeed.utils.Utils;
 
 public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding binding = null;
@@ -42,11 +48,7 @@ public class SettingsFragment extends Fragment {
         TextView email_tv = binding.userEmail;
         email_tv.setText(email_string);
 
-        //Grabs the user phone number from AWS attributes
-//        AuthUserAttribute phone = MainActivity.userAttrs.get(5);
-//        String phone_string = phone.getValue();
-//        TextView phone_tv = binding.userPhoneNumber;
-//        phone_tv.setText(phone_string);
+        AlertDialog loadingDialog = Utils.createLoadingDialog(getContext());
 
         //Navigate to EditNameFragment on Click
         binding.nameLblContainer.setOnClickListener(v -> {
@@ -83,6 +85,24 @@ public class SettingsFragment extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.helpContactFragment);
                 }
         );
+
+        binding.logoutLblContainer.setOnClickListener(v -> {
+
+            loadingDialog.show();
+
+            Amplify.Auth.signOut(
+                    () -> {
+                        startActivity(new Intent(getContext(), LandingActivity.class));
+
+                        loadingDialog.dismiss();
+
+                        requireActivity().finish();
+                        },
+                    error -> {
+                        Log.e("SettingsFragment", "Error signing out", error);
+                        loadingDialog.dismiss();
+                    });
+        });
 
     }
 }

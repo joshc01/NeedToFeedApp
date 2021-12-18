@@ -62,7 +62,7 @@
     <string name="lbl_contact_option_body">Select this option and the driver will drop off your order, then notify you.</string>
     <string name="lbl_delivery_address_title">Delivery Address</string>
     <string name="lbl_courier_notes_title">Notes for your Courier</string>
-    <string name="mapbox_public_key">pk.eyJ1IjoibWRhZGkxMTMwIiwiYSI6ImNrdXoyZzdnOTF3OXMycHA2Z2J1ZDNza2oifQ.a-WE-43vIaiG1sHJavZEUQ</string>
+    <string name="mapbox_public_key">pk.eyJ1IjoibWRhZGkxMTMwIiwiYSI6ImNreGJhdm9vNTQ0MjEybnJubmt6OGxnYzMifQ.RQ8UMi1-Z2pwxAh6UDx4XQ</string>
 
     <string name="personal_infor_btn_string">Personal Information</string>
     <string name="settings_btn_string">Settings</string>
@@ -111,5 +111,74 @@
     <string name="ntf_email">NeedToFeedApp@gmail.com</string>
     <string name="about_us">About Us</string>
     <string name="btn_track_order">Track Order</string>
+    <string name="checkout_edit_lbl_name">Your name</string>
+    <string name="checkout_edit_action_add_phone">Add a new phone number</string>
+    <string name="checkout_edit_btn_update_info">Update Info</string>
+    <string name="hint_phone">Enter your phone number</string>
+    <string name="lbl_action_make_default">Make default</string>
+    <string name="text_phone_consent"><![CDATA[By providing your phone number, you consent to receive text messages from NeedToFeed related to your order.\nStandard message rates may apply. See our Terms & Conditions for more information.]]></string>
+    <string name="lbl_save">Save</string>
+    <string name="hint_street_address">Address *</string>
+    <string name="hint_address_apartment">Apt / Suite #</string>
+    <string name="hint_address_city">City *</string>
+    <string name="hint_address_zip_code">Postal code *</string>
+    <string name="hint_address_cross_street">Cross street</string>
+    <string name="hint_address_delivery_instructions">Delivery Instructions</string>
+    <string name="hint_address_label">Label *</string>
+    <string name="lbl_required_hint">* required</string>
+    <string name="lbl_action_add_address">Add a new address</string>
+    <string name="lbl_loading">Please wait...</string>
 
+    <string-array name="states_array">
+        <item>Alabama</item>
+        <item>Alaska</item>
+        <item>Arizona</item>
+        <item>Arkansas</item>
+        <item>California</item>
+        <item>Colorado</item>
+        <item>Connecticut</item>
+        <item>Delaware</item>
+        <item>Florida</item>
+        <item>Georgia</item>
+        <item>Hawaii</item>
+        <item>Idaho</item>
+        <item>Illinois</item>
+        <item>Indiana</item>
+        <item>Iowa</item>
+        <item>Kansas</item>
+        <item>Kentucky</item>
+        <item>Louisiana</item>
+        <item>Maine</item>
+        <item>Maryland</item>
+        <item>Massachusetts</item>
+        <item>Michigan</item>
+        <item>Minnesota</item>
+        <item>Mississippi</item>
+        <item>Missouri</item>
+        <item>Montana</item>
+        <item>Nebraska</item>
+        <item>Nevada</item>
+        <item>New Hampshire</item>
+        <item>New Jersey</item>
+        <item>New Mexico</item>
+        <item>New York</item>
+        <item>North Carolina</item>
+        <item>North Dakota</item>
+        <item>Ohio</item>
+        <item>Oklahoma</item>
+        <item>Oregon</item>
+        <item>Pennsylvania</item>
+        <item>Rhode Island</item>
+        <item>South Carolina</item>
+        <item>South Dakota</item>
+        <item>Tennessee</item>
+        <item>Texas</item>
+        <item>Utah</item>
+        <item>Vermont</item>
+        <item>Virginia</item>
+        <item>Washington</item>
+        <item>West Virginia</item>
+        <item>Wisconsin</item>
+        <item>Wyoming</item>
+    </string-array>
 </resources>

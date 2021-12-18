@@ -3,7 +3,7 @@ package com.cs389team4.needtofeed.utils
 import android.app.Activity
 import androidx.navigation.fragment.NavHostFragment.findNavController
 
-import com.cs389team4.needtofeed.ui.home.RestaurantMapFragment
+import com.cs389team4.needtofeed.ui.home.PickupMapFragment
 
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -30,7 +30,7 @@ class LocationPermissionHelper(val activity: WeakReference<Activity>) {
                     if (permissionGranted) {
                         onMapReady()
                     } else {
-                        findNavController(RestaurantMapFragment()).popBackStack()
+                        findNavController(PickupMapFragment()).popBackStack()
                     }
                 }
             })

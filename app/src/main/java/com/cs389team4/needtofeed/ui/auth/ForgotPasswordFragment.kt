@@ -31,19 +31,25 @@ class ForgotPasswordFragment : Fragment() {
         }
 
         val btnResetPassword = binding.btnResetPassword
+        val loadingDialog = Utils.createLoadingDialog(context)
         btnResetPassword.setOnClickListener {
+
+            loadingDialog.show()
+
             val email = binding.resetPasswordInputEmail.text.toString()
 
             // Send password reset email with Amplify Auth
             Amplify.Auth.resetPassword(email,
                 // Sending password reset email successful
                 {
+                    loadingDialog.dismiss()
                     // Navigate to password reset confirmation fragment
                     findNavController().navigate(ForgotPasswordFragmentDirections
                         .actionForgotPasswordFragmentToForgotPasswordConfirmationFragment(email))
                 },
                 // Sending password reset email unsuccessful
                 {
+                    loadingDialog.dismiss()
                     Utils.showMessage(activity, "Sending password reset email failed: ${it.message}")
                 }
             )

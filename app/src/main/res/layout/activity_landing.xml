@@ -29,7 +29,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"/>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/welcome_fragment_container_card"
         android:layout_width="match_parent"
         android:layout_height="500dp"
@@ -42,6 +42,6 @@
             app:navGraph="@navigation/nav_graph_auth"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
