@@ -136,12 +136,17 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                             Utils.showMessage(getContext(), "Item added to cart");
                                             Navigation.findNavController(view).popBackStack();
                                         });
+                                        dialogLoadCart.dismiss();
                                     },
-                                    error -> Log.e(TAG, "Create failed", error)
+                                    error -> {
+                                        dialogLoadCart.dismiss();
+                                        Log.e(TAG, "Create failed", error);
+                                    }
                             );
 
                             MainActivity.setOrderCartExists(true);
                         } else if (!existingOrder.getOrderRestaurant().equals(restaurantName)) {
+                            dialogLoadCart.dismiss();
 
                             AlertDialog.Builder dialogCartExistsBuilder = new AlertDialog.Builder(getContext());
                             dialogCartExistsBuilder.setTitle("Cart not empty")
@@ -203,12 +208,20 @@ public class RestaurantItemDetailsFragment extends Fragment {
                                             Utils.showMessage(getContext(), "Item added to cart");
                                             Navigation.findNavController(view).popBackStack();
                                         });
+
+                                        dialogLoadCart.dismiss();
                                     },
-                                    error -> Log.e(TAG, "Create failed", error)
+                                    error -> {
+                                        dialogLoadCart.dismiss();
+                                        Log.e(TAG, "Create failed", error);
+                                    }
                             );
                         }
                     },
-                    error -> Log.e("Failure updating order: ", error.getMessage())
+                    error -> {
+                        dialogLoadCart.dismiss();
+                        Log.e("Failure updating order: ", error.getMessage());
+                    }
             );
         });
     }
