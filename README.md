@@ -53,6 +53,8 @@ This app allows every day people to be a food deliverer for hire. The food being
 
 **Poster**
 
+<img width="400" hieght="1000" alt="Screen Shot 2021-12-20 at 3 07 58 AM" src="https://user-images.githubusercontent.com/56610578/146822404-9244d8c6-dcfd-4a53-be28-60997699b951.png">
+
 **Process description**
 
 **Communications**
