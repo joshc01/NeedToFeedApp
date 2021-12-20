@@ -20,7 +20,7 @@ This app allows every day people to be a food deliverer for hire. The food being
 
 **[Architecture & Design](https://docs.google.com/document/d/1fU9g1XKIAkZ-jqyQeuH9UI0rQuGLT99j6csM69s62YI/edit?usp=sharing)**
 
-                                                                 **Content**
+**Content**
 
 **Sprint 1**
 
