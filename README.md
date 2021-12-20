@@ -1,4 +1,5 @@
 # cs389f2021team4
+<img width="1000" hieght="400" alt="Screen Shot 2021-12-20 at 3 07 58 AM" src="https://user-images.githubusercontent.com/56610578/146733898-499ba483-4fab-42bd-a40b-cb7f5b653625.png">
 
 <img width="1004" alt="09406D52-6BCB-4DC5-B4F4-E7A1AA662192" src="https://user-images.githubusercontent.com/56610578/137247893-6b83ab34-b91b-40ed-a22d-10a98d452561.png">
 
