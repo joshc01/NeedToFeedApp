@@ -1,6 +1,5 @@
 package com.cs389team4.needtofeed.ui.auth
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -55,13 +54,7 @@ class LoginFragment : Fragment() {
                 { result ->
                     // Sign in successful
                     if (result.isSignInComplete) {
-                        val intent = Intent(activity, MainActivity::class.java)
-                        requireActivity().runOnUiThread {
-                            startActivity(
-                                intent,
-                                ActivityOptions.makeSceneTransitionAnimation(activity).toBundle()
-                            )
-                        }
+                        startActivity(Intent(activity, MainActivity::class.java))
 
                         requireActivity().finish()
                         // Sign in unsuccessful

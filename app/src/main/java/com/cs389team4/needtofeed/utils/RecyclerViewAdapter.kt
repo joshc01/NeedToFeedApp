@@ -50,5 +50,4 @@ class RecyclerViewAdapter<T : Model>(var values: List<ViewModel<T>>,
         val location: TextView = view.findViewById(R.id.restaurant_list_item_location)
         val hours: TextView = view.findViewById(R.id.restaurant_list_item_hours)
     }
-
 }
