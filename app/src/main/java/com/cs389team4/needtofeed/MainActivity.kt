@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkUserData() {
         Amplify.API.query(ModelQuery.list(User::class.java, ModelPagination.limit(1)),
             { response ->
-                if (response.hasData()) {
+                if (response.data.hasNextResult()) {
                     val user = response.data.items.iterator().next()
 
                     userDataId = user.id

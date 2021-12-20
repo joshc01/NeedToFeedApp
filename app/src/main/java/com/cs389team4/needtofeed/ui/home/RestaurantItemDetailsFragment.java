@@ -104,7 +104,6 @@ public class RestaurantItemDetailsFragment extends Fragment {
             Amplify.API.query(
                     ModelQuery.list(Order.class, Order.IS_EDITABLE.eq(true)),
                     response -> {
-                        Order existingOrder = response.getData().iterator().next();
                         // If no active order exists
                         if (!MainActivity.getOrderCartExists()) {
 
@@ -145,77 +144,81 @@ public class RestaurantItemDetailsFragment extends Fragment {
                             );
 
                             MainActivity.setOrderCartExists(true);
-                        } else if (!existingOrder.getOrderRestaurant().equals(restaurantName)) {
-                            dialogLoadCart.dismiss();
-
-                            AlertDialog.Builder dialogCartExistsBuilder = new AlertDialog.Builder(getContext());
-                            dialogCartExistsBuilder.setTitle("Cart not empty")
-                                    .setMessage("Your cart contains items from another restaurant. Empty your cart to start a new order.")
-                                    .setNeutralButton("Cancel", null)
-                                    .setNegativeButton("Empty cart", (dialog, which) -> {
-
-                                        AlertDialog loadingDialog = Utils.createLoadingDialog(getContext());
-                                        loadingDialog.show();
-
-                                        Amplify.API.mutate(ModelMutation.delete(existingOrder),
-                                                resp -> {
-                                                    Log.i(TAG, "Order deleted successfully: " + resp);
-                                                    runOnUiThread(() -> Navigation.findNavController(view).popBackStack());
-                                                    loadingDialog.dismiss();
-                                                },
-                                                error -> {
-                                                    Log.e(TAG, "Delete failed", error);
-                                                    loadingDialog.dismiss();
-                                                }
-                                        );
-                                    });
-
-                            requireActivity().runOnUiThread(dialogCartExistsBuilder::show);
                         } else {
-                            JsonObject orderContent = new JsonObject();
+                            Order existingOrder = response.getData().iterator().next();
 
-                            orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
-                            orderContent.add("quantity", new Gson().toJsonTree(quantity));
+                            if (!existingOrder.getOrderRestaurant().equals(restaurantName)) {
+                                dialogLoadCart.dismiss();
 
-                            JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
+                                AlertDialog.Builder dialogCartExistsBuilder = new AlertDialog.Builder(getContext());
+                                dialogCartExistsBuilder.setTitle("Cart not empty")
+                                        .setMessage("Your cart contains items from another restaurant. Empty your cart to start a new order.")
+                                        .setNeutralButton("Cancel", null)
+                                        .setNegativeButton("Empty cart", (dialog, which) -> {
 
-                            if (orderDetailsJson.keySet().contains(itemName)) {
-                                int orderItemQty = orderDetailsJson.getAsJsonObject(itemName).get("quantity").getAsInt();
-                                orderItemQty += quantity.get();
-                                orderContent.addProperty("quantity", orderItemQty);
-                                orderDetailsJson.remove(itemName);
-                            }
+                                            AlertDialog loadingDialog = Utils.createLoadingDialog(getContext());
+                                            loadingDialog.show();
 
-                            orderDetailsJson.add(itemName, orderContent);
-
-                            Order orderUpdate = Order.builder()
-                                    .orderType(existingOrder.getOrderType())
-                                    .estimatedTimeComplete(existingOrder.getEstimatedTimeComplete())
-                                    .orderTotal(existingOrder.getOrderTotal())
-                                    .orderItems(orderDetailsJson.toString())
-                                    .isEditable(existingOrder.getIsEditable())
-                                    .isActive(existingOrder.getIsActive())
-                                    .orderRestaurantId(existingOrder.getOrderRestaurantId())
-                                    .orderDateTime(existingOrder.getOrderDateTime())
-                                    .orderRestaurant(restaurantName)
-                                    .id(existingOrder.getId())
-                                    .build();
-
-                            Amplify.API.mutate(ModelMutation.update(orderUpdate),
-                                    resp -> {
-                                        Log.i(TAG, "Todo with id: " + resp);
-                                        runOnUiThread(() -> {
-                                            Utils.showMessage(getContext(), "Item added to cart");
-                                            Navigation.findNavController(view).popBackStack();
+                                            Amplify.API.mutate(ModelMutation.delete(existingOrder),
+                                                    resp -> {
+                                                        Log.i(TAG, "Order deleted successfully: " + resp);
+                                                        runOnUiThread(() -> Navigation.findNavController(view).popBackStack());
+                                                        loadingDialog.dismiss();
+                                                    },
+                                                    error -> {
+                                                        Log.e(TAG, "Delete failed", error);
+                                                        loadingDialog.dismiss();
+                                                    }
+                                            );
                                         });
 
-                                        dialogLoadCart.dismiss();
-                                    },
-                                    error -> {
-                                        dialogLoadCart.dismiss();
-                                        Log.e(TAG, "Create failed", error);
-                                    }
-                            );
+                                requireActivity().runOnUiThread(dialogCartExistsBuilder::show);
+                            } else {
+                                JsonObject orderContent = new JsonObject();
+
+                                orderContent.add("price", new Gson().toJsonTree(args.getItemPrice()));
+                                orderContent.add("quantity", new Gson().toJsonTree(quantity));
+
+                                JsonObject orderDetailsJson = JsonParser.parseString(existingOrder.getOrderItems()).getAsJsonObject();
+
+                                if (orderDetailsJson.keySet().contains(itemName)) {
+                                    int orderItemQty = orderDetailsJson.getAsJsonObject(itemName).get("quantity").getAsInt();
+                                    orderItemQty += quantity.get();
+                                    orderContent.addProperty("quantity", orderItemQty);
+                                    orderDetailsJson.remove(itemName);
+                                }
+
+                                orderDetailsJson.add(itemName, orderContent);
+
+                                Order orderUpdate = Order.builder()
+                                        .orderType(existingOrder.getOrderType())
+                                        .estimatedTimeComplete(existingOrder.getEstimatedTimeComplete())
+                                        .orderTotal(existingOrder.getOrderTotal())
+                                        .orderItems(orderDetailsJson.toString())
+                                        .isEditable(existingOrder.getIsEditable())
+                                        .isActive(existingOrder.getIsActive())
+                                        .orderRestaurantId(existingOrder.getOrderRestaurantId())
+                                        .orderDateTime(existingOrder.getOrderDateTime())
+                                        .orderRestaurant(restaurantName)
+                                        .id(existingOrder.getId())
+                                        .build();
+
+                                Amplify.API.mutate(ModelMutation.update(orderUpdate),
+                                        resp -> {
+                                            Log.i(TAG, "Todo with id: " + resp);
+                                            runOnUiThread(() -> {
+                                                Utils.showMessage(getContext(), "Item added to cart");
+                                                Navigation.findNavController(view).popBackStack();
+                                            });
+
+                                            dialogLoadCart.dismiss();
+                                        },
+                                        error -> {
+                                            dialogLoadCart.dismiss();
+                                            Log.e(TAG, "Create failed", error);
+                                        }
+                                );
+                            }
                         }
                     },
                     error -> {
