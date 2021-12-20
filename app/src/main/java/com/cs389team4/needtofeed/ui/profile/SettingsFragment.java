@@ -37,16 +37,20 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Grabs the user name from AWS attributes
-        AuthUserAttribute name = MainActivity.userAttrs.get(2);
-        String name_string = name.getValue();
-        TextView name_tv = binding.userName;
-        name_tv.setText(name_string);
+        if (MainActivity.userAttrs.get(2) != null) {
+            AuthUserAttribute name = MainActivity.userAttrs.get(2);
+            String name_string = name.getValue();
+            TextView name_tv = binding.userName;
+            name_tv.setText(name_string);
+        }
 
         //Grabs the user email from AWS attributes
-        AuthUserAttribute email = MainActivity.userAttrs.get(3);
-        String email_string = email.getValue();
-        TextView email_tv = binding.userEmail;
-        email_tv.setText(email_string);
+        if (MainActivity.userAttrs.get(3) != null) {
+            AuthUserAttribute email = MainActivity.userAttrs.get(3);
+            String email_string = email.getValue();
+            TextView email_tv = binding.userEmail;
+            email_tv.setText(email_string);
+        }
 
         AlertDialog loadingDialog = Utils.createLoadingDialog(getContext());
 
